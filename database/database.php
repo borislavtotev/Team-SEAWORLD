@@ -18,7 +18,11 @@ class DataBase
             $tableData = $this->getTableContents( $tableName );
         }
 
-        $id = count( $tableData ) + 1;
+        $id = 1;
+        if (!empty( $tableData )) {
+            $id = $tableData[ count( $tableData ) - 1 ]->id + 1;
+        }
+
         foreach($input as $inputValue) {
             $inputValue->id = $id++;
             $tableData[] = $inputValue;
