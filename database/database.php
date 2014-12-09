@@ -30,7 +30,7 @@ class DataBase
     public function getTableContents( $tableName )
     {
         $filePath = $this->dataPath . $tableName;
-        if (!file_exists( $filePath )) return false;
+        if (!file_exists( $filePath )) return [];
 
         $fileContents = file_get_contents( $filePath );
         return json_decode( $fileContents );

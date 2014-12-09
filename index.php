@@ -2,16 +2,12 @@
 include( 'database/database.php' );
 $database = new DataBase();
 
-$user = [ 'firstName' => 'Smotanqk', 'lastName' => 'Prost' ];
-$usersArray = [
-    [ 'firstName' => 'Gosho', 'lastName' => 'Goshev' ],
-    [ 'firstName' => 'Kak', 'lastName' => 'Si' ]
-];
-$userAsObject = (object)[ 'firstName' => 'Pinokio', 'lastName' => 'Pinokiev' ];
-
-$database->addToTable( 'users', $user );
-$database->addToTable( 'users', $usersArray );
-$database->addToTable( 'users', $userAsObject );
+if (isset( $_POST[ 'firstName' ], $_POST[ 'lastName' ] )) {
+    if (!empty( $_POST[ 'firstName' ] ) && !empty( $_POST[ 'lastName' ] )) {
+        $user = [ 'firstName' => $_POST[ 'firstName' ], 'lastName' => $_POST[ 'lastName' ] ];
+        $database->addToTable( 'users', $user );
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,6 +19,22 @@ $database->addToTable( 'users', $userAsObject );
     </style>
 </head>
 <body>
+<form method="post">
+    <fieldset>
+        <legend>Add user</legend>
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstName" id="firstName">
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="lastName" id="lastName">
+        <input type="submit">
+    </fieldset>
+    <fieldset>
+        <legend>Remove user</legend>
+        <label for="id">ID:</label>
+        <input type="text" name="id" id="id">
+        <input type="submit" value="Delete">
+    </fieldset>
+</form>
 <table>
     <thead>
     <tr>
@@ -35,8 +47,8 @@ $database->addToTable( 'users', $userAsObject );
         <?php foreach ($database->getTableContents( 'users' ) as $user): ?>
         <tr>
             <td><?=$user->id?></td>
-            <td><?=$user->firstName?></td>
-            <td><?=$user->lastName?></td>
+            <td><?=htmlspecialchars( $user->firstName )?></td>
+            <td><?=htmlspecialchars( $user->lastName )?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
