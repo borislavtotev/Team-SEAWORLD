@@ -36,6 +36,20 @@ class DataBase
         return json_decode( $fileContents );
     }
 
+    public function removeItemById( $tableName, $id )
+    {
+        $tableData = $this->getTableContents( $tableName );
+        $filtered = [];
+        foreach ($tableData as $entry) {
+            if ($entry->id != $id) {
+                $filtered[] = $entry;
+            }
+        }
+
+        $filePath = $this->dataPath . $tableName;
+        file_put_contents( $filePath, json_encode( $filtered ), FILE_USE_INCLUDE_PATH );
+    }
+
     private function isAssociative( $array )
     {
         return array_keys( $array ) !== range( 0, count( $array ) - 1 );

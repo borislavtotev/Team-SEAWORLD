@@ -8,6 +8,11 @@ if (isset( $_POST[ 'firstName' ], $_POST[ 'lastName' ] )) {
         $database->addToTable( 'users', $user );
     }
 }
+
+if (isset( $_POST[ 'id' ] ) && is_numeric( $_POST[ 'id' ] )) {
+    $database->removeItemById( 'users', $_POST[ 'id' ] );
+}
+
 ?>
 <!DOCTYPE html>
 <html>
