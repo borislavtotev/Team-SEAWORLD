@@ -7,7 +7,7 @@
     </div>
 </footer>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="js/lib/bootstrap.min.js"></script>
 </body>
