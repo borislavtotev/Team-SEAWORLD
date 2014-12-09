@@ -11,6 +11,7 @@
  * ================================
  * Returns array with the entries in the table with name equal to the first parameter
  * The entries are objects
+ * In case no entries are available and/or table with this name exists, empty array is returned
  * function getTableContents( tableName );
  * ================================
  * Removes element from the table with id equal to the second parameter
