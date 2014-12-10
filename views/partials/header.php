@@ -7,5 +7,6 @@
     <title>Programators</title>
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
