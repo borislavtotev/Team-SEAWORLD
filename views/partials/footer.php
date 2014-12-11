@@ -1,6 +1,6 @@
 <div id="fb-root"></div>
 <footer class="container">
-    <div class="well">
+    <div class="well animated fadeInUpBig">
         <div class="row">
             <div class="col-md-6">
                 <p>Copyright &copy; 2014 Programators</p>

@@ -16,7 +16,7 @@ $pictures = [
 <div class="container">
     <header class="row">
         <div class="col-md-12">
-            <div class="jumbotron">
+            <div class="jumbotron animated fadeInDownBig">
                 <h1 class="text-center">Programators!</h1>
                 <h2 class="text-center">Изпрограмирайте се най - шашаво!</h2>
             </div>
@@ -24,7 +24,7 @@ $pictures = [
     </header>
     <main class="row">
         <div class="col-md-6">
-            <section class="panel panel-danger">
+            <section class="panel panel-danger animated rotateInDownLeft">
                 <header class="panel-heading">
                     <h3 class="panel-title">Top rated albums</h3>
                 </header>
@@ -45,7 +45,7 @@ $pictures = [
             </section>
         </div>
         <div class="col-md-6">
-            <section class="panel panel-info">
+            <section class="panel panel-info animated rotateInDownRight">
                 <header class="panel-heading">
                     <h3 class="panel-title">Top rated pictures</h3>
                 </header>
