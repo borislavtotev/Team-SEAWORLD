@@ -14,8 +14,8 @@ $currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_N
             </button>
             <a class="navbar-brand" href="/index.php">Index</a>
         </div>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
-            <ul class="nav navbar-nav">
+        <div class="navbar-collapse collapse navbar-responsive-collapse" id="white-menus">
+            <ul class="nav navbar-nav" id="navigation-up-left">
                 <?php if ($currentPage == 'albums.php'): ?>
                 <li class="active">
                 <?php else: ?>
