@@ -35,7 +35,7 @@ $pictures = [
                             <h4 class="list-group-item-heading">
                                 <?= htmlspecialchars( $album->name ) ?>
                             </h4>
-                            <p class="list-group-item-text">
+                            <p class="list-group-item-text text-warning">
                                 Made by <?= htmlspecialchars( $album->owner ) ?>
                             </p>
                         </a>
@@ -56,7 +56,7 @@ $pictures = [
                             <h4 class="list-group-item-heading">
                                 <?= htmlspecialchars( $picture->title ) ?>
                             </h4>
-                            <p class="list-group-item-text">
+                            <p class="list-group-item-text text-warning">
                                 Uploaded by <?= htmlspecialchars( $picture->owner ) ?>
                             </p>
                         </a>

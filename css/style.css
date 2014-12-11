@@ -21,6 +21,24 @@ body {
     box-shadow: 0 0 40px blue;
 }
 
+.list-group-item {
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.list-group-item:hover {
+    box-shadow: 0 0 20px blue;
+}
+
+.list-group-item:first-child {
+    margin-top: 0;
+}
+
+.panel {
+    background-color: black;
+}
+
+
 h4.greetings {
     margin-right: 10px;
     margin-top: 18px;
