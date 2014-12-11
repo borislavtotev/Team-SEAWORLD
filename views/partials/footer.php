@@ -36,5 +36,17 @@
 <!-- Modals handlers -->
 <script src="js/modal.js"></script>
 <script src="js/files-uploader.js"></script>
+
+<!-- Logout button -->
+<script>
+    $(function() {
+        var logoutBtn = $( '#logoutBtn' );
+        if (logoutBtn.length) {
+            logoutBtn.on( 'click', function() {
+                window.location.replace(this.dataset.href);
+            });
+        }
+    });
+</script>
 </body>
 </html>
