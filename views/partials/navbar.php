@@ -29,10 +29,98 @@ if (session_status() == PHP_SESSION_NONE) {
                     </span>
                     <a href="logout.php">Logout</a>
                 <?php else: ?>
-                    <a href="login.php">Login</a>
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#loginModal">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#registerModal">
+                        Register
+                    </button>
                 <?php endif; ?>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Login modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Login</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="login.php" method="post">
+                    <div class="form-group">
+                        <label for="inputUserName" class="col-lg-2 control-label">Username</label>
+                        <div class="col-lg-10">
+                            <input type="text" name="username" class="form-control" id="inputUserName" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                        <div class="col-lg-10">
+                            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="rememberMe" type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Register</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="register.php" method="post">
+                    <div class="form-group">
+                        <label for="inputUserName" class="col-lg-2 control-label">Username</label>
+                        <div class="col-lg-10">
+                            <input type="text" name="username" class="form-control" id="inputUserName" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                        <div class="col-lg-10">
+                            <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                        <div class="col-lg-10">
+                            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
