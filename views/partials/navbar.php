@@ -50,10 +50,10 @@ $currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_N
                 </li>
             <?php else: ?>
                 <li>
-                    <button type="button" class="btn btn-danger btn-lg" data-modal-type="login" data-toggle="modal" data-target="#loginRegisterModal">
+                    <button type="button" class="btn btn-danger btn-md" data-modal-type="login" data-toggle="modal" data-target="#loginRegisterModal">
                         Login
                     </button>
-                    <button type="button" class="btn btn-danger btn-lg" data-modal-type="register" data-toggle="modal" data-target="#loginRegisterModal">
+                    <button type="button" class="btn btn-danger btn-md" data-modal-type="register" data-toggle="modal" data-target="#loginRegisterModal">
                         Register
                     </button>
                 </li>
