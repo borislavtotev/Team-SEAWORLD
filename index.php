@@ -19,7 +19,7 @@ $pictures = [
             <div class="jumbotron animated fadeInDownBig">
                 <h1 class="text-center">Programators!</h1>
                 <h2 class="text-center">Изпрограмирайте се най - шашаво!</h2>
-                <img src="img/sample-baner.jpg" alt="" id="baner"/>
+                <img src="img/sample-baner.jpg" alt="" id="baner" class="img-responsive" alt="Responsive image"/>
             </div>
         </div>
     </header>
