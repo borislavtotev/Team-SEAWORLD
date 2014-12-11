@@ -1,20 +1,22 @@
 <div id="fb-root"></div>
 <footer class="container">
-    <div class="row well">
-        <div class="col-md-6">
-            <p>Copyright &copy; 2014 Programators</p>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                <!--Google+ plug-in container-->
-                <div class="col-md-12">
-                    <div class="g-plusone" data-annotation="inline" data-width="300"></div>
-                </div>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Copyright &copy; 2014 Programators</p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <!--Google+ plug-in container-->
+                    <div class="col-md-12">
+                        <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+                    </div>
 
-                <!--Facebook plug-in container-->
-                <div class="col-md-12">
-                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/"
-                         data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <!--Facebook plug-in container-->
+                    <div class="col-md-12">
+                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/"
+                             data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                    </div>
                 </div>
             </div>
         </div>
