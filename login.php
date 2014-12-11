@@ -1,5 +1,6 @@
 <?php
 include_once( 'system/models/user.php' );
+include_once( 'system/db-connect.php' );
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -9,20 +10,24 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
     !empty( $_POST[ 'username' ] ) && !empty( $_POST[ 'password' ] )) {
     mb_internal_encoding('UTF-8');
 
-    // $userModel = new User();
-
     $username = trim( $_POST[ 'username' ] );
-    $password = md5( trim( $_POST[ 'password' ] ) ); // Encrypt password with md5 hash algorithm
+    //$password = md5( trim( $_POST[ 'password' ] ) ); // Encrypt password with md5 hash algorithm
+    $password = trim( $_POST[ 'password' ] ); //Tested without md5 :)
+	
     $rememberMe = false;
     if (isset( $_POST[ 'rememberMe' ] )) {
         $rememberMe = $_POST[ 'rememberMe' ];
     }
 
-    // Ask the User model to validate login data
-    // $userId = $userModel->validateLogin( $username, $password );
-    $userId = 'meaningless'; // Simulate valid user
-
-	if ($userId) {
+	//Create always new user - just for testing. Should be moved in register.php
+	//$testUser = new User($mysqli);
+	//$testUser->createNewUser($username, $password);
+	
+    $user = new User($mysqli);
+    $correctUser = $user->checkUser($username, $password);
+    
+	if ($correctUser) {
+		$userId = $user->getUserId($username, $password);
 	    $_SESSION[ 'is_logged' ] = true;
 	    $_SESSION[ 'username' ] = $username;
         $_SESSION[ 'userid' ] = $userId; // We also need user id since it's the key for all user data
@@ -38,7 +43,7 @@ if (isset( $_POST[ 'redirectTo' ] )) {
 }
 
 if (isset( $loginError )) {
-    $redirectLocation .= "?error=$loginError";
+   $redirectLocation .= "?error=$loginError";
 }
 
 header("Location: $redirectLocation"); // Logged in, or logged not... we redirect!

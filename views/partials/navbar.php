@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_NO_EMPTY )[ 0 ];
+$currentPage = $_SERVER[ 'REQUEST_URI' ];
 ?>
 <div class="container">
     <div class="navbar navbar-default">

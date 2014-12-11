@@ -1,5 +1,5 @@
 <?php
-$currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_NO_EMPTY )[ 0 ];
+$currentPage = $_SERVER[ 'REQUEST_URI' ];
 ?>
 <div class="modal fade" id="loginRegisterModal" tabindex="-1" role="dialog" aria-labelledby="Login Register" aria-hidden="true">
     <div class="modal-dialog">
