@@ -1,3 +1,10 @@
+body {
+    background-image: url('../img/wallhaven-34478.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 h4.greetings {
     margin-right: 10px;
     margin-top: 18px;
