@@ -137,21 +137,23 @@ class Album
         $albumPicturesCnt = $this->parseInput( $newAlbum->picturesCount );
         $albumRating = $this->parseInput( $newAlbum->rating );
 
-        $query = "UPDATE albums SET ";
+        $changedFields = [];
         // We are going to update valid fields only!
         if (!empty( $albumName )) {
-            $query .= "name='$albumName'";
+            $changedFields[] = "name='$albumName'";
         }
         if (!empty( $albumUserId )) {
-            $query .= "userid='$albumUserId'";
+            $changedFields[] = "userid='$albumUserId'";
         }
         if (!empty( $albumPicturesCnt ) && is_numeric( $albumPicturesCnt )) {
-            $query .= "pictures-count='$albumPicturesCnt'";
+            $changedFields[] = "pictures-count='$albumPicturesCnt'";
         }
         if (!empty( $albumRating ) && is_numeric( $albumRating )) {
-            $query .= "rating='$albumRating'";
+            $changedFields[] = "rating='$albumRating'";
         }
-        $query .= " WHERE id='$id'";
+
+        $changesAsString = implode( ', ', $changedFields );
+        $query = "UPDATE albums SET $changesAsString WHERE id='$id'";
 
         mysqli_query( $this->mysqli, $query ) or die( mysqli_error( $this->mysqli ) );
     }
