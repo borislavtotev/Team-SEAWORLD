@@ -22,21 +22,26 @@ if (session_status() == PHP_SESSION_NONE) {
                 <input type="text" class="form-control col-lg-8" placeholder="Search">
             </form>
             <ul class="nav navbar-nav navbar-right">
+            <?php if (isset( $_SESSION[ 'username' ], $_SESSION[ 'userid' ], $_SESSION[ 'is_logged' ] ) &&
+                $_SESSION[ 'is_logged' ] === true): ?>
                 <li>
-                <?php if (isset( $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
-                    <span>
+                    <h4 class="greetings">
                         Welcome, <?= htmlspecialchars( $_SESSION[ 'username' ] ) ?>!
-                    </span>
-                    <a href="logout.php">Logout</a>
-                <?php else: ?>
+                    </h4>
+                </li>
+                <li>
+                    <a class="btn btn-danger btn-lg" href="logout.php">Logout</a>
+                </li>
+            <?php else: ?>
+                <li>
                     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#loginModal">
                         Login
                     </button>
                     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#registerModal">
                         Register
                     </button>
-                <?php endif; ?>
                 </li>
+            <?php endif; ?>
             </ul>
         </div>
     </div>
