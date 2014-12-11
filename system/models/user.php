@@ -7,18 +7,10 @@ class User
 	private $username;
 	private $password;
 
-    public function __construct( $mysqli )
+    public function __construct( $mysqli, $username, $password )
     {
         $this->mysqli = $mysqli;
-
-        /*
-         * We can check here if such table exists
-         * If not... we must create it
-         */
-    }
-
-    public function createNewUser ( $username, $password )
-    {
+			
         if (!$this->checkInputs($username, $password)) {
             die ( 'Name and userID cannot be empty!' );
         } 
@@ -28,13 +20,14 @@ class User
         return mysqli_query( $this->mysqli, $query ) or die( mysqli_error( $this->mysqli ) );
     }
 
-    public function checkUser( $username, $password )
+    public static function checkUser($mysqli, $username, $password )
     {
-        if (!$this->checkInputs($username, $password)) {
+        if (empty( User::parseInput($username) ) || empty( User::parseInput($username) ) ) {
             die ( 'Name and userID cannot be empty!' );
-		}		
-		$query = "SELECT * FROM user WHERE username='$this->username' AND password='$this->password'";
-        $checkMatch = mysqli_query($this->mysqli,$query) or die( mysqli_error( $this->mysqli ));
+		}	
+			
+		$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+        $checkMatch = mysqli_query($mysqli,$query) or die( mysqli_error( $mysqli ));
 		echo var_dump($checkMatch);
         if ($checkMatch->num_rows == 1) {
         	return true;
@@ -43,7 +36,7 @@ class User
 		}
     }
 	
-	public function getUserId ( $username, $password )
+	public function getUserId ()
 	{
 		$query = "SELECT userid FROM user WHERE username='$this->username' AND password='$this->password'";
         $checkMatch = mysqli_query($this->mysqli,$query) or die( mysqli_error( $this->mysqli ));

@@ -20,14 +20,14 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
     }
 
 	//Create always new user - just for testing. Should be moved in register.php
-	//$testUser = new User($mysqli);
-	//$testUser->createNewUser($username, $password);
+	//$testUser = new User($mysqli, $username, $password);
 	
-    $user = new User($mysqli);
-    $correctUser = $user->checkUser($username, $password);
+    //$user = new User($username, $password);
+    $correctUser = User::checkUser($mysqli,$username, $password);
     
 	if ($correctUser) {
-		$userId = $user->getUserId($username, $password);
+		$user = new User($mysqli, $username, $password);	
+		$userId = $user->getUserId();
 	    $_SESSION[ 'is_logged' ] = true;
 	    $_SESSION[ 'username' ] = $username;
         $_SESSION[ 'userid' ] = $userId; // We also need user id since it's the key for all user data
