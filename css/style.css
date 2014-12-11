@@ -4,6 +4,9 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
+#baner{
+    align-content: center;
+}
 
 .jumbotron {
     box-shadow: 0 0 30px green;
