@@ -14,7 +14,7 @@
 
                     <!--Facebook plug-in container-->
                     <div class="col-md-12">
-                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/"
+                        <div class="fb-like" data-href="<?php $_SERVER[ 'REQUEST_URI' ];?>"
                              data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                     </div>
                 </div>
@@ -48,5 +48,6 @@
         }
     });
 </script>
+<?php echo $_SERVER[ 'REQUEST_URI' ];?>
 </body>
 </html>
