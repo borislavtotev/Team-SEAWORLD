@@ -46,7 +46,7 @@ $currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_N
                     </h4>
                 </li>
                 <li>
-                    <a class="btn btn-danger btn-lg" href="logout.php">Logout</a>
+                    <a class="btn btn-danger btn-lg" href="logout.php?redirectTo=<?=$currentPage?>">Logout</a>
                 </li>
             <?php else: ?>
                 <li>

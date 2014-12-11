@@ -18,9 +18,16 @@ if (isset( $_GET[ 'id' ] )) {
  * Also if the id matches the id of the logged user,
  * we must provide a way for him to update his profile!
  *
+ *
  */
-$user = (object)[
+$userName = 'unknown'; // For now :D
 
+if (isset( $_SESSION[ 'username' ] )) {
+    $userName = $_SESSION[ 'username' ];
+}
+
+$user = (object)[
+    'username' => $userName
 ];
 include_once( 'views/partials/header.php' ); ?>
 <main class="container">
@@ -32,7 +39,7 @@ include_once( 'views/partials/header.php' ); ?>
                         <img src="" alt="avatar">
                     </div>
                     <div class="col-md-6">
-                        <h1>User name</h1>
+                        <h1><?=htmlspecialchars( $user->username )?></h1>
                     </div>
                 </div>
             </header>

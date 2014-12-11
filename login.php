@@ -32,6 +32,11 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
 }
 
 $redirectLocation = 'index.php';
+
+if (isset( $_POST[ 'redirectTo' ] )) {
+    $redirectLocation = $_POST[ 'redirectTo' ];
+}
+
 if (isset( $loginError )) {
     $redirectLocation .= "?error=$loginError";
 }
