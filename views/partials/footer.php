@@ -33,5 +33,6 @@
 
 <!-- Modals handlers -->
 <script src="js/modal.js"></script>
+<script src="js/files-uploader.js"></script>
 </body>
 </html>

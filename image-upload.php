@@ -1,9 +1,5 @@
-<?php
-if (!isset( $_SESSION[ 'userid' ] )) {
-    // Not logged in? Get the fuck outta here!
-    //header( 'Location: index.php' );
-}
+<?php include 'views/modals/file-upload.php'; ?>
 
-/*
- * TODO: Implement it
- */
+<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload">
+    Upload files
+</button>
