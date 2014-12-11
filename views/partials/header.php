@@ -10,3 +10,8 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+<?php
+include_once( 'views/partials/navbar.php' );
+include_once( 'views/partials/login-modal.html' );
+include_once( 'views/partials/register-modal.html' );
+?>
