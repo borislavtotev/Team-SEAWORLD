@@ -23,13 +23,14 @@ if (session_status() == PHP_SESSION_NONE) {
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <?php if (isset( $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
+                <?php if (isset( $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
                     <span>
                         Welcome, <?= htmlspecialchars( $_SESSION[ 'username' ] ) ?>!
                     </span>
-                    <?php else: ?>
+                    <a href="logout.php">Logout</a>
+                <?php else: ?>
                     <a href="login.php">Login</a>
-                    <?php endif; ?>
+                <?php endif; ?>
                 </li>
             </ul>
         </div>
