@@ -24,7 +24,6 @@ TO-DO LIST:
 
 
 REQUIREMENTS:
-Photo Album
 *Required functionalities:*
 * View all albums / categories (optionally with paging). Browse album photos.
 * Creating new album in a category.

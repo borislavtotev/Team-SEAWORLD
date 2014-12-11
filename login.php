@@ -24,7 +24,6 @@ if (isset($_POST['login'])) {
 	    $_SESSION['is_logged'] = true;
 	    $_SESSION['username'] = $username;
 	    header("Location: index.php");
-	    exit();
     } else {
         $loginError = 'Грешен потребител или парола!';
     }

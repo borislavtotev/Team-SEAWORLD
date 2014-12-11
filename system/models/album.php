@@ -1,4 +1,24 @@
 <?php
+/**
+ * Album model.
+ *
+ * The constructor accepts mysqli connection!
+ *
+ * ============ Public API =============
+ * Accepts album name as first parameter and user id as second parameter
+ * If `name` param is empty, returns all albums from the db
+ * Upon error stops the script and prints error message
+ * ---function createNewAlbum( $name, $userId )
+ *
+ * Accepts album name as first parameter
+ * Returns array with matching results, or empty array if there is no albums with this name
+ * ---function getAlbumsByName( $name )
+ *
+ * Accepts user id as first parameter
+ * Returns array of album entries as objects or empty array in case no matches
+ * ---function getAlbumsByUserId( $userId )
+ */
+
 class Album
 {
     private $mysqli;
@@ -37,7 +57,34 @@ class Album
         }
 
         $result = $this->mysqli->query( $query );
+
+        return $this->getAlbumsFromMysqliResult( $result );
+    }
+
+    public function getAlbumsByUserId( $userId )
+    {
+        if (empty( $userId )) {
+            die( 'no userId provided. aborting...' );
+        }
+
+        $escapedUserId = $this->parseInput( $userId );
+        $query = "SELECT * FROM albums WHERE userid = '$escapedUserId'";
+
+        $result = $this->mysqli->query( $query );
+
+        return $this->getAlbumsFromMysqliResult( $result );
+    }
+
+    private function parseInput( $input )
+    {
+        $regex = '/[^a-zA-Z0-9_]/';
+        return preg_replace( $regex, '', $input );
+    }
+
+    private function getAlbumsFromMysqliResult( $result )
+    {
         $albums = [];
+
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $album = (object)[
@@ -53,11 +100,5 @@ class Album
         }
 
         return $albums;
-    }
-
-    private function parseInput( $input )
-    {
-        $regex = '/[^a-zA-Z0-9]/';
-        return preg_replace( $regex, '', $input );
     }
 }
