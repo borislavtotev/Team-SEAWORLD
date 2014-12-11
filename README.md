@@ -7,20 +7,20 @@ no fixes further will be provided!!!! - d0ntth1nc
 =============
 TO-DO LIST:
 
-1.add log in/ log out
-2.user account & properties:
-    -username
-    -pass
-3.user & comments:
-    -user can write some info about him (short bio)
-    -user can add comments/delete his comments if he wants
-4.user & photos:
-    -user can add/remove his pictures
-    -user can change profile picture
-5.main page:
-    -Show the most highly ranked albums/photos in a special section
-6.info about the webpage (in a new section)
-7.contact with admins page
+1. add log in/ log out
+2. user account & properties:
+ * username
+ * pass
+3. user & comments:
+ * user can write some info about him (short bio)
+ * user can add comments/delete his comments if he wants
+4. user & photos:
+ * user can add/remove his pictures
+ * user can change profile picture
+5. main page:
+ * Show the most highly ranked albums/photos in a special section
+6. info about the webpage (in a new section)
+7. contact with admins page
 
 
 REQUIREMENTS:
