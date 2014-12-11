@@ -15,7 +15,7 @@ $currentPage = $_SERVER[ 'REQUEST_URI' ];
             <a class="navbar-brand" href="/index.php">Index</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" id="navigation-up-left">
                 <?php if ($currentPage == 'albums.php'): ?>
                 <li class="active">
                 <?php else: ?>
