@@ -18,6 +18,10 @@ h1, h2{
     margin: 0 auto;
     max-width: 200px;
 }
+.list-group-item:first-child, .list-group-item:last-child{
+
+    border: 1px solid #555;
+}
 .container{
     color: #fff;
 }
