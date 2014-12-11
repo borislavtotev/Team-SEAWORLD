@@ -1,12 +1,6 @@
 <?php include_once( 'views/partials/header.php' ); ?>
-<?php include_once( 'views/partials/navbar.html' ); ?>
+<?php include_once('views/partials/navbar.php'); ?>
 <div class="container">
-<?php
-session_start();
-if (isset($_SESSION['is_logged']) && $_SESSION['is_logged'] === true) {
-	echo "<p>Welcome ".$_SESSION['username']."</p>"; //Say Wellcome only to logged users
-}
-?>
     <header class="row">
         <div class="col-md-12">
             <div class="jumbotron">
@@ -19,5 +13,4 @@ if (isset($_SESSION['is_logged']) && $_SESSION['is_logged'] === true) {
 
     </main>
 </div>
-
 <?php include_once( 'views/partials/footer.php' ); ?>

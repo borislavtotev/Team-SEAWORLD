@@ -1,3 +1,8 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <div class="container">
     <div class="navbar navbar-default">
         <div class="navbar-header">
@@ -6,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Index</a>
+            <a class="navbar-brand" href="/index.php">Index</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
@@ -17,7 +22,15 @@
                 <input type="text" class="form-control col-lg-8" placeholder="Search">
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.php">Login/Logout</a></li>
+                <li>
+                    <?php if (isset( $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
+                    <span>
+                        Welcome, <?= htmlspecialchars( $_SESSION[ 'username' ] ) ?>!
+                    </span>
+                    <?php else: ?>
+                    <a href="login.php">Login</a>
+                    <?php endif; ?>
+                </li>
             </ul>
         </div>
     </div>
