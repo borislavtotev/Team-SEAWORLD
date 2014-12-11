@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$currentPage = $_SERVER[ 'REQUEST_URI' ];
+
 ?>
 <div class="container">
     <div class="navbar navbar-default">
@@ -16,14 +16,14 @@ $currentPage = $_SERVER[ 'REQUEST_URI' ];
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" id="navigation-up-left">
-                <?php if ($currentPage == 'albums.php'): ?>
+                <?php if ($_SERVER[ 'REQUEST_URI' ] == 'albums.php'): ?>
                 <li class="active">
                 <?php else: ?>
                 <li>
                 <?php endif; ?>
                     <a href="/albums.php">Albums</a>
                 </li>
-                <?php if ($currentPage == 'users.php'): ?>
+                <?php if ($_SERVER[ 'REQUEST_URI' ] == 'users.php'): ?>
                 <li class="active">
                 <?php else: ?>
                 <li>
@@ -46,7 +46,7 @@ $currentPage = $_SERVER[ 'REQUEST_URI' ];
                     </h4>
                 </li>
                 <li>
-                    <button id="logoutBtn" class="btn btn-danger btn-md" data-href="logout.php?redirectTo=<?=$currentPage?>">Logout</button>
+                    <button id="logoutBtn" class="btn btn-danger btn-md" data-href="logout.php?redirectTo=<?=$_SERVER[ 'REQUEST_URI' ]?>">Logout</button>
                 </li>
             <?php else: ?>
                 <li>
