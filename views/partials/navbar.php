@@ -2,6 +2,8 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+$currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_NO_EMPTY )[ 0 ];
 ?>
 <div class="container">
     <div class="navbar navbar-default">
@@ -15,8 +17,12 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Articles</a></li>
-                <li><a href="#">Gallery</a></li>
+                <li class="active">
+                    <a href="/articles">Articles</a>
+                </li>
+                <li>
+                    <a href="#">Gallery</a>
+                </li>
             </ul>
             <form class="navbar-form navbar-left">
                 <input type="text" class="form-control col-lg-8" placeholder="Search">

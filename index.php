@@ -12,12 +12,6 @@ $pictures = [
     (object)[ 'title' => 'Porn pic', 'owner' => 'Unknown' ],
     (object)[ 'title' => 'Second pic', 'owner' => 'Known' ]
 ];
-
-// This should be printed in better place! It's just sample!
-if (isset( $_GET[ 'error' ] )) {
-    echo $_GET[ 'error' ];
-}
-
 ?>
 <div class="container">
     <header class="row">

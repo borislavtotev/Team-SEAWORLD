@@ -30,5 +30,16 @@
 
 <!--Bootstrap-->
 <script src="js/lib/bootstrap.min.js"></script>
+
+<!-- Auto show error modal window -->
+<script type="text/javascript">
+    $( window ).load(function(){
+        var errorModal = $( '#errorModal' );
+        if (errorModal.length) {
+            errorModal.modal( 'show' );
+        }
+        //$( '#errorModal' ).modal( 'show' );
+    });
+</script>
 </body>
 </html>
