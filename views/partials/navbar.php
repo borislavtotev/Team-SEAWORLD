@@ -39,7 +39,10 @@ $currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_N
                 $_SESSION[ 'is_logged' ] === true): ?>
                 <li>
                     <h4 class="greetings">
-                        Welcome, <?= htmlspecialchars( $_SESSION[ 'username' ] ) ?>!
+                        Welcome,
+                        <a href="/profile.php">
+                            <?= htmlspecialchars( $_SESSION[ 'username' ] ) ?>
+                        </a>!
                     </h4>
                 </li>
                 <li>
