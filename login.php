@@ -41,4 +41,4 @@ if (isset( $loginError )) {
     $redirectLocation .= "?error=$loginError";
 }
 
-header("Location: $redirectLocation"); // Logged in, or logged not... we redirect to index page!
+header("Location: $redirectLocation"); // Logged in, or logged not... we redirect!

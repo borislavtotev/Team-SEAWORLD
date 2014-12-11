@@ -12,6 +12,6 @@
 <body>
 <?php
 include_once( 'views/partials/navbar.php' );
-include_once( 'views/partials/login-register-modal.php' );
-include_once( 'views/partials/error-modal.php' );
+include_once( 'views/modals/login-register.php' );
+include_once( 'views/modals/error.php' );
 ?>
