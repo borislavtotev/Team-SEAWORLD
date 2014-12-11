@@ -7,4 +7,3 @@ if (!isset( $_SESSION[ 'userid' ] )) {
 /*
  * TODO: Implement it
  */
-var_dump (preg_split('/\//', $_SERVER['REQUEST_URI'], NULL, PREG_SPLIT_NO_EMPTY)[0]);

@@ -2,7 +2,6 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
 $currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_NO_EMPTY )[ 0 ];
 ?>
 <div class="container">
@@ -17,11 +16,19 @@ $currentPage = preg_split( '/\//', $_SERVER[ 'REQUEST_URI' ], NULL, PREG_SPLIT_N
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
+                <?php if ($currentPage == 'albums.php'): ?>
                 <li class="active">
-                    <a href="/articles">Articles</a>
-                </li>
+                <?php else: ?>
                 <li>
-                    <a href="#">Gallery</a>
+                <?php endif; ?>
+                    <a href="/albums.php">Albums</a>
+                </li>
+                <?php if ($currentPage == 'users.php'): ?>
+                <li class="active">
+                <?php else: ?>
+                <li>
+                <?php endif; ?>
+                    <a href="/users.php">Users</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left">

@@ -2,7 +2,7 @@
 <footer class="container">
     <div class="row well">
         <div class="col-md-6">
-            <p>Copyright 2014 Programators</p>
+            <p>Copyright &copy; 2014 Programators</p>
         </div>
         <div class="col-md-6">
             <div class="row">
@@ -33,12 +33,11 @@
 
 <!-- Auto show error modal window -->
 <script type="text/javascript">
-    $( window ).load(function(){
+    $(function(){
         var errorModal = $( '#errorModal' );
         if (errorModal.length) {
             errorModal.modal( 'show' );
         }
-        //$( '#errorModal' ).modal( 'show' );
     });
 </script>
 </body>
