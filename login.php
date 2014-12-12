@@ -26,7 +26,7 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
     $correctUser = User::checkUser($mysqli,$username, $password);
     
 	if ($correctUser) {
-		$user = new User($mysqli, $username, $password);	
+		$user = new User($mysqli, $username, $password);
 		$userId = $user->getUserId();
 	    $_SESSION[ 'is_logged' ] = true;
 	    $_SESSION[ 'username' ] = $username;

@@ -1,6 +1,4 @@
 <?php
-include_once( 'system/db-connect.php' );
-
 class User
 {
     private $mysqli;

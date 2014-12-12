@@ -20,7 +20,7 @@ h1, h2{
 }
 .list-group-item:first-child, .list-group-item:last-child{
 
-    border: 1px solid #555;
+   /* border: 1px solid #555; */
 }
 .container{
     color: #fff;
@@ -44,6 +44,7 @@ h1, h2{
 }
 
 .list-group-item {
+    border: 0;
     margin-top: 10px;
     background-color: rgba(0, 0, 0, 0);
 }
