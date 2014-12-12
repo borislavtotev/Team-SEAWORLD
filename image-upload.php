@@ -3,3 +3,4 @@
 <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload">
     Upload files
 </button>
+<?=  $_SERVER[ 'REQUEST_URI' ]?>
