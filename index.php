@@ -17,8 +17,10 @@ $pictures = [
     <header class="row">
         <div class="col-md-12">
             <div class="jumbotron animated fadeInDownBig">
-                <h1 class="text-center">Programators!</h1>
-                <h2 class="text-center">Изпрограмирайте се най - шашаво!</h2>
+                <hgroup>
+                    <h1 class="text-center">Programators!</h1>
+                    <h2 class="text-center">Изпрограмирайте се най - шашаво!</h2>
+                </hgroup>
                 <img src="img/hd_computer_guy_meme_by_zapgod16-d4t2jh3.png" alt="" id="baner" class="img-responsive" alt="Responsive image"/>
             </div>
         </div>

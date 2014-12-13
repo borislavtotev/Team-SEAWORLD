@@ -16,6 +16,18 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" id="navigation-up-left">
+                <!-- Feed link -->
+                <?php if (isset( $_SESSION[ 'username' ], $_SESSION[ 'userid' ], $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
+                    <?php if ($_SERVER[ 'REQUEST_URI' ] == 'news.php'): ?>
+                        <li class="active">
+                    <?php else: ?>
+                        <li>
+                    <?php endif; ?>
+                    <a href="/news.php">Albums</a>
+                    </li>
+                <?php endif; ?>
+
+                <!-- Albums link -->
                 <?php if ($_SERVER[ 'REQUEST_URI' ] == 'albums.php'): ?>
                 <li class="active">
                 <?php else: ?>
@@ -23,6 +35,8 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php endif; ?>
                     <a href="/albums.php">Albums</a>
                 </li>
+
+                <!-- Users link -->
                 <?php if ($_SERVER[ 'REQUEST_URI' ] == 'users.php'): ?>
                 <li class="active">
                 <?php else: ?>
@@ -35,8 +49,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <input type="text" class="form-control col-lg-8" placeholder="Search">
             </form>
             <ul class="nav navbar-nav navbar-right">
-            <?php if (isset( $_SESSION[ 'username' ], $_SESSION[ 'userid' ], $_SESSION[ 'is_logged' ] ) &&
-                $_SESSION[ 'is_logged' ] === true): ?>
+            <?php if (isset( $_SESSION[ 'username' ], $_SESSION[ 'userid' ], $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
                 <li>
                     <h4 class="greetings">
                         Welcome,
