@@ -148,6 +148,11 @@ class Album
         return $this->picturesCount;
     }
 
+    public function getPictures()
+    {
+        // TODO: implement it!
+    }
+
     public function getRating()
     {
         return $this->rating;
@@ -168,18 +173,20 @@ class Album
         $this->rating = $rating;
     }
 
-    public function addPics( $mysqliConnection, $pics )
+    public function addPic( $mysqliConnection, $picName, $picResource )
     {
-        foreach ($pics as $pic) {
-            $this->imagesHandler->addImage( $pic, $this->id );
-            $this->picturesCount++;
-        }
+        include_once 'system/models/picture.php';
+
+        $pic = new Picture( $picName, $this->id, $picResource );
+        $this->imagesHandler->addImage( $pic );
+        $this->picturesCount++;
+
         $this->update( $mysqliConnection, 'pictures-count', $this->picturesCount );
     }
 
     public function removePic( $id )
     {
-        $this->imagesHandler->removeImage( $this->id, $id );
+        $this->imagesHandler->removeImage( $id, $this->id );
         $this->$picturesCount--;
     }
 
