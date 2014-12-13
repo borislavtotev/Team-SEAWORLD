@@ -156,17 +156,10 @@ class Album
     /*
      * Setters
      */
-
     public function setName( $mysqliConnection, $name )
     {
         $this->update( $mysqliConnection, 'name', $name );
         $this->name = $name;
-    }
-
-    public function setPicturesCount( $mysqliConnection, $count )
-    {
-        $this->update( $mysqliConnection, 'pictures-count', $count );
-        $this->picturesCount = $count;
     }
 
     public function setRating( $mysqliConnection, $rating )
