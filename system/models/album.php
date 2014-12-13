@@ -12,6 +12,7 @@ class Album
     private $dateCreated;
     private $picturesCount;
     private $rating;
+    private $imagesHandler;
 
     public function __construct( $id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0 )
     {
@@ -21,6 +22,9 @@ class Album
         $this->dateCreated = $dateCreated;
         $this->picturesCount = $picturesCount;
         $this->rating = $rating;
+
+        include 'system/images-handler.php';
+        $this->imagesHandler = new ImagesHandler();
     }
 
     /*
@@ -169,6 +173,21 @@ class Album
     {
         $this->update( $mysqliConnection, 'rating', $rating );
         $this->rating = $rating;
+    }
+
+    public function addPics( $mysqliConnection, $pics )
+    {
+        foreach ($pics as $pic) {
+            $this->imagesHandler->addImage( $pic, $this->id );
+            $this->picturesCount++;
+        }
+        $this->update( $mysqliConnection, 'pictures-count', $this->picturesCount );
+    }
+
+    public function removePic( $id )
+    {
+        $this->imagesHandler->removeImage( $this->id, $id );
+        $this->$picturesCount--;
     }
 
     /*
