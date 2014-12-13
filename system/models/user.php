@@ -18,20 +18,25 @@ class User
         $escapedUserName = User::parseInput( $userName );
         $password = md5( $password );
 
-        /*
-         * TODO: Check if user with this name already exists!
-         */
-        $query = "INSERT INTO user(username, password) VALUES('$escapedUserName', '$password')";
-        mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
+
+        $selectByUserNameQuery = "SELECT * FROM user WHERE username='$escapedUserName'";
+        $result = $mysqli->query( $selectByUserNameQuery );
+        if ( $result->num_rows > 0 ) {
+            die( 'User with that username already exists!' );
+        }
+
+        $insertUserQuery = "INSERT INTO user(username, password) VALUES('$escapedUserName', '$password')";
+        mysqli_query( $mysqli, $insertUserQuery ) or die( mysqli_error( $mysqli ) );
 
         /*
          * Get the user id from the database and create instance...
          */
-        $query = "SELECT userid FROM user WHERE username='$escapedUserName' AND password='$password'";
-        $result = $mysqli->query( $query ) or die( mysqli_error( $mysqli ) );
-        $id = $result->fetch_assoc();
-
+        $getUserIdQuery = "SELECT userid FROM user WHERE username='$escapedUserName' AND password='$password'";
         $password = null; // Delete that info from the memory!!
+
+        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
+        $id = $result->fetch_assoc()[ 'userid' ];
+
         return new User( $id, $userName );
     }
 
@@ -42,16 +47,16 @@ class User
 
         if (empty( $parsedUsrName ) || empty( $parsedPass ) ) {
             die ( 'Name and pass cannot be empty!' );
-		}	
-			
+        }
+
 		$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
         $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
 
         if ($checkMatch->num_rows == 1) {
-        	return true;
-		} else {
-			return false;
-		}
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
@@ -76,7 +81,7 @@ class User
     /*
      * Setters
      */
-    public function setPassword( $mysqli, $password )
+    public function changePassword( $mysqli, $password )
     {
         $password = md5( $password );
         $query = "UPDATE user SET password='$password' WHERE userid='$this->userId'";
