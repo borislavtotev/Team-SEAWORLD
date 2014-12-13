@@ -26,9 +26,9 @@ class Album
     /*
      * Public Static methods
      */
-    public static function createUser( $mysqliConnection, $albumName, $ownerId )
+    public static function createAlbum( $mysqliConnection, $albumName, $ownerId, $picturesCount )
     {
-        if (empty( $name ) || empty( $userId )) {
+        if (empty( $albumName ) || empty( $ownerId )) {
             die ( 'Name and userID cannot be empty!' );
         }
 
@@ -38,7 +38,7 @@ class Album
 
         $escapedName = Album::parseInput( $albumName );
         $escapedOwnerId = Album::parseInput( $ownerId );
-        $insertQuery = "INSERT INTO albums(name, userid) VALUES('$escapedName', '$escapedOwnerId')";
+        $insertQuery = "INSERT INTO albums(name, userid, pictures-count) VALUES('$escapedName', '$escapedOwnerId', '$picturesCount')";
 
         mysqli_query( $mysqliConnection, $insertQuery ) or die( mysqli_error( $mysqliConnection ) );
 
@@ -110,6 +110,11 @@ class Album
         Album::removeAlbum( $mysqliConnection, $this->id );
     }
 
+    public function save( $mysqliConnection )
+    {
+        // We skip the id and the dateCreated and we cant make album with rating more than 0!
+        Album::createAlbum( $mysqliConnection, $this->name, $this->ownerId, $this->picturesCount );
+    }
 
     /*
      * Getters
