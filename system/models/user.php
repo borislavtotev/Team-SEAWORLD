@@ -37,8 +37,27 @@ class User
         return new User( $mysqli, $userName );
     }
 
-    public static function isLoginDataValid( $mysqli, $username, $password )
+    /*
+     * We can insert the whole user instance into $_SESSION[ 'user' ] so
+     * we can use it everywhere it's needed.
+     * This function is suppose to try login and return instance on success.
+     * Instead of making infinite fields in the session,
+     * lets just make one with the logged user instance.
+     *
+     * TODO: Change logic!
+     */
+    public static function login( $mysqli, $username, $password )
     {
+        /*
+         * Pseudo code
+         *
+         *  if ($isLoginValid) {
+                return new User();
+            } else {
+                return null;
+            }
+         */
+
         $parsedUsrName = User::parseInput( $username );
         $hashPass = md5( $password );
 
