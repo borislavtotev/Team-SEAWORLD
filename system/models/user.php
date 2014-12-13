@@ -40,13 +40,13 @@ class User
     public static function isLoginDataValid( $mysqli, $username, $password )
     {
         $parsedUsrName = User::parseInput( $username );
-        $parsedPass = User::parseInput( $password );
+        $hashPass = md5( $password );
 
-        if (empty( $parsedUsrName ) || empty( $parsedPass ) ) {
-            die ( 'Name and pass cannot be empty!' );
+        if (empty( $parsedUsrName ) || empty( $hashPass ) ) {
+            return false; // Empty fields means invalid login!
         }
 
-        $query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+        $query = "SELECT * FROM user WHERE username='$username' AND password='$hashPass'";
         $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
 
         if ($checkMatch->num_rows == 1) {
