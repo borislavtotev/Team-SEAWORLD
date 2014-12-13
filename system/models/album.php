@@ -2,177 +2,144 @@
 /**
  * Album model.
  *
- * The constructor accepts mysqli connection!
- *
- * ============ Public API =============
- * Accepts album id as first parameter
- * Returns album as object or null if no album with this id exists
- * ---function getAlbumById( $id )
- *
- * Accepts album name as first parameter
- * Returns array with matching results, or empty array if there is no albums with this name
- * ---function getAlbumsByName( $name )
- *
- * Accepts user id as first parameter
- * Returns array of album entries as objects or empty array in case no matches
- * ---function getAlbumsByUserId( $userId )
- *
- * Removes album with given id
- * Stops the script if error or empty id!
- * ---function removeAlbum( $id )
- *
- * Updates album with id, given as first parameter
- * The second parameter must be object like the one returned by getAlbumById
- * Updates valid fields only! Stops the script if no id is provided!
- * ---function updateAlbum( $id, $newAlbum )
  */
 
 class Album
 {
-    private $mysqli;
+    private $id;
+    private $name;
+    private $ownerId;
+    private $dateCreated;
+    private $picturesCount;
+    private $rating;
 
-    public function __construct( $mysqli, $albumName, $userId )
+    public function __construct( $id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0 )
     {
-        $this->mysqli = $mysqli;
+        $this->id = $id;
+        $this->name = $name;
+        $this->ownerId = $ownerId;
+        $this->dateCreated = $dateCreated;
+        $this->picturesCount = $picturesCount;
+        $this->rating = $rating;
+    }
 
+    public static function createUser( $mysqliConnection, $albumName, $ownerId )
+    {
         if (empty( $name ) || empty( $userId )) {
             die ( 'Name and userID cannot be empty!' );
         }
 
-        $escapedName = $this->parseInput( $name );
-        $escapedUserId = $this->parseInput( $userId );
-        $insertQuery = "INSERT INTO albums(name, userid) VALUES('$escapedName', '$escapedUserId')";
-
-        mysqli_query( $this->mysqli, $insertQuery ) or die( mysqli_error( $this->mysqli ) );
         /*
-         * We can check here if such table exists
-         * If not... we must create it
+         * We must check if that user already has album with this name... don't wanna any collisions!
+         */
+
+        $escapedName = Album::parseInput( $albumName );
+        $escapedOwnerId = Album::parseInput( $ownerId );
+        $insertQuery = "INSERT INTO albums(name, userid) VALUES('$escapedName', '$escapedOwnerId')";
+
+        mysqli_query( $mysqliConnection, $insertQuery ) or die( mysqli_error( $mysqliConnection ) );
+
+        /*
+         * Now fetch the information of the user from the database and return instance!
+         * return new User( $id, $name, $ownerId, $dateCreated );
          */
     }
 
-    public function getAlbumById( $id )
+    public static function getAlbumById( $mysqliConnection, $id )
     {
         if (empty( $id )) {
             die ( 'empty id, cannot get album! aborting...' );
         }
 
-        $id = $this->parseInput( $id );
+        $id = Album::parseInput( $id );
         $query = "SELECT * FROM albums WHERE id = '$id'";
-        $result = $this->mysqli->query( $query );
+        $result = $mysqliConnection->query( $query );
 
         if ($result->num_rows == 0) {
             return null;
         } else {
             $row = $result->fetch_assoc();
-            return (object)[
-                'id' => $row[ 'id' ],
-                'name' => $row[ 'name' ],
-                'userid' => $row[ 'userid' ],
-                'dateCreated' => $row[ 'date-created' ],
-                'picturesCount' => $row[ 'pictures-count' ],
-                'rating' => $row[ 'rating' ]
-            ];
+            return new Album( $row[ 'id' ], $row[ 'name' ], $row[ 'userid' ],
+                $row[ 'date-created' ], $row[ 'pictures-count' ], $row[ 'rating' ] );
         }
     }
 
-    public function getAlbumsByName( $name )
+    public static function getAlbumsByOwnerId( $mysqliConnection, $ownerId )
     {
-        $query = "SELECT * FROM albums";
-
-        if (!empty( $name )) {
-            $escapedName = $this->parseInput( $name );
-            $query = $query . " WHERE name = '$escapedName'";
-        }
-
-        $result = $this->mysqli->query( $query );
-
-        return $this->getAlbumsFromMysqliResult( $result );
-    }
-
-    public function getAlbumsByUserId( $userId )
-    {
-        if (empty( $userId )) {
+        if (empty( $ownerId )) {
             die( 'no userId provided, cannot get albums. aborting...' );
         }
 
-        $escapedUserId = $this->parseInput( $userId );
-        $query = "SELECT * FROM albums WHERE userid = '$escapedUserId'";
+        $escapedOwnerId = Album::parseInput( $ownerId );
+        $query = "SELECT * FROM albums WHERE userid = '$escapedOwnerId'";
 
-        $result = $this->mysqli->query( $query );
-
-        return $this->getAlbumsFromMysqliResult( $result );
-    }
-
-    public function removeAlbum( $id )
-    {
-        if (empty( $id )) {
-            die( 'empty id, cannot remove album! aborting...' );
-        }
-
-        $id = $this->parseInput( $id );
-        $query = "REMOVE * FROM albums WHERE id = '$id'";
-
-        mysqli_query( $this->mysqli, $query ) or die ( mysqli_error( $this->mysqli ) );
-    }
-
-    public function updateAlbum( $id, $newAlbum )
-    {
-        if (empty( $id )) {
-            die( 'cannot update album, no id provided! aborting...' );
-        }
-        $id = $this->parseInput( $id );
-
-        // We cannot update date created or id columns, ignore them!!!
-        $albumName = $this->parseInput( $newAlbum->name );
-        $albumUserId = $this->parseInput( $newAlbum->userid );
-        $albumPicturesCnt = $this->parseInput( $newAlbum->picturesCount );
-        $albumRating = $this->parseInput( $newAlbum->rating );
-
-        $changedFields = [];
-        // We are going to update valid fields only!
-        if (!empty( $albumName )) {
-            $changedFields[] = "name='$albumName'";
-        }
-        if (!empty( $albumUserId )) {
-            $changedFields[] = "userid='$albumUserId'";
-        }
-        if (!empty( $albumPicturesCnt ) && is_numeric( $albumPicturesCnt )) {
-            $changedFields[] = "pictures-count='$albumPicturesCnt'";
-        }
-        if (!empty( $albumRating ) && is_numeric( $albumRating )) {
-            $changedFields[] = "rating='$albumRating'";
-        }
-
-        $changesAsString = implode( ', ', $changedFields );
-        $query = "UPDATE albums SET $changesAsString WHERE id='$id'";
-
-        mysqli_query( $this->mysqli, $query ) or die( mysqli_error( $this->mysqli ) );
-    }
-
-    private function parseInput( $input )
-    {
-        $regex = '/[^a-zA-Z0-9_]/';
-        return preg_replace( $regex, '', $input );
-    }
-
-    private function getAlbumsFromMysqliResult( $result )
-    {
+        $result = $mysqliConnection->query( $query ) or die( mysqli_error( $mysqliConnection ) );
         $albums = [];
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $album = (object)[
-                    'id' => $row[ 'id' ],
-                    'name' => $row[ 'name' ],
-                    'userid' => $row[ 'userid' ],
-                    'dateCreated' => $row[ 'date-created' ],
-                    'picturesCount' => $row[ 'pictures-count' ],
-                    'rating' => $row[ 'rating' ]
-                ];
+                $album = new Album( $row[ 'id' ], $row[ 'name' ], $row[ 'userid' ],
+                    $row[ 'date-created' ], $row[ 'pictures-count' ], $row[ 'rating' ] );
                 $albums[] = $album;
             }
         }
 
         return $albums;
+    }
+
+    public static function removeAlbum( $mysqliConnection, $id )
+    {
+        if (empty( $id )) {
+            die( 'empty id, cannot remove album! aborting...' );
+        }
+
+        $id = Album::parseInput( $id );
+        $query = "REMOVE * FROM albums WHERE id = '$id'";
+
+        mysqli_query( $mysqliConnection, $query ) or die ( mysqli_error( $mysqliConnection ) );
+    }
+
+    public function remove( $mysqliConnection )
+    {
+        Album::removeAlbum( $mysqliConnection, $this->id );
+    }
+
+    public function update( $name = null, $ownerId = null, $picturesCount = null, $rating = null )
+    {
+        $arguments = get_defined_vars();
+        $changedFields = [];
+
+        foreach($arguments as $argn => $argv) {
+            if ($argv != null) {
+                $fieldName = '';
+
+                switch ($argn) {
+                    case 'ownerId':
+                        $fieldName = 'userid';
+                        break;
+                    case 'picturesCount':
+                        $fieldName = 'pictures-count';
+                        break;
+                    default:
+                        $fieldName = $argn;
+                }
+
+                $escapedValue = Album::parseInput( $argv );
+                $fieldName .= "='$escapedValue'";
+
+                $changedFields[] = $fieldName;
+            }
+        }
+
+        $changesAsString = implode( ', ', $changedFields );
+        $query = "UPDATE albums SET $changesAsString WHERE id='$this->id'";
+
+        mysqli_query( $this->mysqli, $query ) or die( mysqli_error( $this->mysqli ) );
+    }
+
+    private static function parseInput( $input )
+    {
+        $regex = '/[^a-zA-Z0-9_]/';
+        return preg_replace( $regex, '', $input );
     }
 }
