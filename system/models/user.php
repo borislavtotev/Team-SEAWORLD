@@ -4,9 +4,14 @@ class User
     private $userId;
 	private $userName;
 
-    public function __construct( $userId, $userName )
+    public function __construct( $mysqli, $userName )
     {
-        $this->userId = $userId;
+        $escapedUserName = User::parseInput( $userName );
+        $getUserIdQuery = "SELECT userid FROM user WHERE username='$escapedUserName'";
+        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
+        $id = $result->fetch_assoc()[ 'userid' ];
+
+        $this->userId = $id;
         $this->userName = $userName;
     }
 
@@ -26,18 +31,10 @@ class User
         }
 
         $insertUserQuery = "INSERT INTO user(username, password) VALUES('$escapedUserName', '$password')";
+        $password = null; // Delete that info from the memory!!
         mysqli_query( $mysqli, $insertUserQuery ) or die( mysqli_error( $mysqli ) );
 
-        /*
-         * Get the user id from the database and create instance...
-         */
-        $getUserIdQuery = "SELECT userid FROM user WHERE username='$escapedUserName' AND password='$password'";
-        $password = null; // Delete that info from the memory!!
-
-        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
-        $id = $result->fetch_assoc()[ 'userid' ];
-
-        return new User( $id, $userName );
+        return new User( $mysqli, $userName );
     }
 
     public static function isLoginDataValid( $mysqli, $username, $password )
@@ -49,7 +46,7 @@ class User
             die ( 'Name and pass cannot be empty!' );
         }
 
-		$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+        $query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
         $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
 
         if ($checkMatch->num_rows == 1) {
