@@ -23,6 +23,9 @@ class Album
         $this->rating = $rating;
     }
 
+    /*
+     * Public Static methods
+     */
     public static function createUser( $mysqliConnection, $albumName, $ownerId )
     {
         if (empty( $name ) || empty( $userId )) {
@@ -99,42 +102,80 @@ class Album
         mysqli_query( $mysqliConnection, $query ) or die ( mysqli_error( $mysqliConnection ) );
     }
 
+    /*
+     * Public Instance methods
+     */
     public function remove( $mysqliConnection )
     {
         Album::removeAlbum( $mysqliConnection, $this->id );
     }
 
-    public function update( $name = null, $ownerId = null, $picturesCount = null, $rating = null )
+
+    /*
+     * Getters
+     */
+    public function getId()
     {
-        $arguments = get_defined_vars();
-        $changedFields = [];
+        return $this->id;
+    }
 
-        foreach($arguments as $argn => $argv) {
-            if ($argv != null) {
-                $fieldName = '';
+    public function getName()
+    {
+        return $this->name;
+    }
 
-                switch ($argn) {
-                    case 'ownerId':
-                        $fieldName = 'userid';
-                        break;
-                    case 'picturesCount':
-                        $fieldName = 'pictures-count';
-                        break;
-                    default:
-                        $fieldName = $argn;
-                }
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
 
-                $escapedValue = Album::parseInput( $argv );
-                $fieldName .= "='$escapedValue'";
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
 
-                $changedFields[] = $fieldName;
-            }
-        }
+    public function getPicturesCount()
+    {
+        return $this->picturesCount;
+    }
 
-        $changesAsString = implode( ', ', $changedFields );
-        $query = "UPDATE albums SET $changesAsString WHERE id='$this->id'";
+    public function getRating()
+    {
+        return $this->rating;
+    }
 
-        mysqli_query( $this->mysqli, $query ) or die( mysqli_error( $this->mysqli ) );
+    /*
+     * Setters
+     */
+
+    public function setName( $mysqliConnection, $name )
+    {
+        $this->update( $mysqliConnection, 'name', $name );
+        $this->name = $name;
+    }
+
+    public function setPicturesCount( $mysqliConnection, $count )
+    {
+        $this->update( $mysqliConnection, 'pictures-count', $count );
+        $this->picturesCount = $count;
+    }
+
+    public function setRating( $mysqliConnection, $rating )
+    {
+        $this->update( $mysqliConnection, 'rating', $rating );
+        $this->rating = $rating;
+    }
+
+    /*
+     * Private functions
+     */
+    private function update( $mysqliConnection, $field, $value )
+    {
+        $query = "UPDATE albums SET ";
+        $query .= $field . "='" . Album::parseInput( $value ) . "'";
+        $query .= " WHERE id='$this->id'";
+
+        mysqli_query( $mysqliConnection, $query ) or die( mysqli_error( $mysqliConnection ) );
     }
 
     private static function parseInput( $input )
