@@ -48,5 +48,7 @@
         }
     });
 </script>
+
+<script src="js/body-overflow-handler.js"></script>
 </body>
 </html>

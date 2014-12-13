@@ -82,3 +82,7 @@ footer .well {
 .title{
     font-color: #ffffff;
 }
+
+.hidden-overflow {
+    overflow: hidden;
+}
