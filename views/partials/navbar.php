@@ -23,7 +23,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <?php else: ?>
                         <li>
                     <?php endif; ?>
-                    <a href="/news.php">Albums</a>
+                    <a href="/news.php">News</a>
                     </li>
                 <?php endif; ?>
 
