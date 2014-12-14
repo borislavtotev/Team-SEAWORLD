@@ -14,5 +14,4 @@
 <?php
 include_once( 'views/partials/navbar.php' );
 include_once( 'views/modals/login-register.php' );
-include_once( 'views/modals/error.php' );
 ?>

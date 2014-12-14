@@ -1,4 +1,3 @@
-<?php if (isset( $_SESSION[ 'error' ] )) :?>
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="Error" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,7 +14,3 @@
         </div>
     </div>
 </div>
-<?php 
-		unset($_SESSION[ 'error' ]);
-	endif; 
-?>
