@@ -62,6 +62,20 @@ class User
         }
     }
 
+    public static function getAllUsers( $mysqli )
+    {
+        $query = "SELECT userid FROM users";
+        $result = $mysqli->query( $query ) or die ( mysqli_error( $mysqli ) );
+        $users = [];
+        if ($result->num_rows > 0) {
+            while ($userData = $result->fetch_assoc()) {
+                $users[] = new User( $mysqli, $userData[ 'userid' ] );
+            }
+        }
+
+        return $users;
+    }
+
     /*
      * Getters
      */
@@ -79,6 +93,11 @@ class User
     {
         include_once 'system/models/album.php';
         return Album::getAlbumsByOwnerId( $mysqli, $this->userId );
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /*
