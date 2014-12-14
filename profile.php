@@ -14,21 +14,42 @@ if (isset( $_GET[ 'id' ] )) {
     header( 'Location: index.php' );
 }
 
+$albumsCount = 10;
+$rows = ceil( $albumsCount / 3 );
+
 ?>
 <main class="container">
     <div class="row">
         <div class="col-md-12">
             <header class="jumbotron">
-                <h1 class="text-center">
-                    <?=htmlspecialchars( $user->getUserName() )?>
-                </h1>
+                <hgroup>
+                    <h1 class="text-center">
+                        <?=htmlspecialchars( $user->getUserName() )?>
+                    </h1>
+                    <h3 class="text-right">
+                        <?=htmlspecialchars( $user->getEmail() )?>
+                    </h3>
+                </hgroup>
             </header>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <section class="well">
-
+            <section>
+                <?php for ($row = 0, $pics = 0; $row < $rows; $row++): ?>
+                <div class="row">
+                    <?php for($col = 0; $col < 3 && $pics < $albumsCount; $col++, $pics++) :?>
+                        <div class="col-md-4">
+                            <figure>
+                                <a href="/album.php?id=">
+                                    <img class="img-responsive" src="http://oleaass.com/wp-content/uploads/2014/09/PHP.png">
+                                </a>
+                                <figcaption class="text-center">Album Name</figcaption>
+                            </figure>
+                        </div>
+                    <?php endfor; ?>
+                </div>
+                <?php endfor; ?>
             </section>
         </div>
     </div>
