@@ -46,8 +46,9 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a href="./users.php">Users</a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <input type="text" class="form-control col-lg-8" placeholder="Search">
+            <form class="navbar-form navbar-left" method="get" action="search.php">
+                <input type="text" name="pattern" class="form-control col-lg-8" placeholder="Search">
+                <input type="submit" class="btn btn-md btn-danger" value="Search">
             </form>
             <ul class="nav navbar-nav navbar-right">
             <?php if (isset( $_SESSION[ 'user' ] )): ?>

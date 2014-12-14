@@ -14,7 +14,7 @@ class Album
     private $rating;
     private $imagesHandler;
 
-    public function __construct( $id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0 )
+    public function __construct($id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0)
     {
         $this->id = $id;
         $this->name = $name;
@@ -30,21 +30,21 @@ class Album
     /*
      * Public Static methods
      */
-    public static function createAlbum( $mysqliConnection, $albumName, $ownerId, $picturesCount )
+    public static function createAlbum($mysqliConnection, $albumName, $ownerId, $picturesCount)
     {
-        if (empty( $albumName ) || empty( $ownerId )) {
-            die ( 'Name and userID cannot be empty!' );
+        if (empty($albumName) || empty($ownerId)) {
+            die ('Name and userID cannot be empty!');
         }
 
         /*
          * We must check if that user already has album with this name... don't wanna any collisions!
          */
 
-        $escapedName = Album::parseInput( $albumName );
-        $escapedOwnerId = Album::parseInput( $ownerId );
+        $escapedName = Album::parseInput($albumName);
+        $escapedOwnerId = Album::parseInput($ownerId);
         $insertQuery = "INSERT INTO albums(name, userid, pictures-count) VALUES('$escapedName', '$escapedOwnerId', '$picturesCount')";
 
-        mysqli_query( $mysqliConnection, $insertQuery ) or die( mysqli_error( $mysqliConnection ) );
+        mysqli_query($mysqliConnection, $insertQuery) or die(mysqli_error($mysqliConnection));
 
         /*
          * Now fetch the information of the user from the database and return instance!
@@ -52,41 +52,41 @@ class Album
          */
     }
 
-    public static function getAlbumById( $mysqliConnection, $id )
+    public static function getAlbumById($mysqliConnection, $id)
     {
-        if (empty( $id )) {
-            die ( 'empty id, cannot get album! aborting...' );
+        if (empty($id)) {
+            die ('empty id, cannot get album! aborting...');
         }
 
-        $id = Album::parseInput( $id );
+        $id = Album::parseInput($id);
         $query = "SELECT * FROM albums WHERE id = '$id'";
-        $result = $mysqliConnection->query( $query );
+        $result = $mysqliConnection->query($query);
 
         if ($result->num_rows == 0) {
             return null;
         } else {
             $row = $result->fetch_assoc();
-            return new Album( $row[ 'id' ], $row[ 'name' ], $row[ 'userid' ],
-                $row[ 'date-created' ], $row[ 'pictures-count' ], $row[ 'rating' ] );
+            return new Album($row['id'], $row['name'], $row['userid'],
+                $row['date-created'], $row['pictures-count'], $row['rating']);
         }
     }
 
-    public static function getAlbumsByOwnerId( $mysqliConnection, $ownerId )
+    public static function getAlbumsByOwnerId($mysqliConnection, $ownerId)
     {
-        if (empty( $ownerId )) {
-            die( 'no userId provided, cannot get albums. aborting...' );
+        if (empty($ownerId)) {
+            die('no userId provided, cannot get albums. aborting...');
         }
 
-        $escapedOwnerId = Album::parseInput( $ownerId );
+        $escapedOwnerId = Album::parseInput($ownerId);
         $query = "SELECT * FROM albums WHERE userid = '$escapedOwnerId'";
 
-        $result = $mysqliConnection->query( $query ) or die( mysqli_error( $mysqliConnection ) );
+        $result = $mysqliConnection->query($query) or die(mysqli_error($mysqliConnection));
         $albums = [];
 
         if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $album = new Album( $row[ 'id' ], $row[ 'name' ], $row[ 'userid' ],
-                    $row[ 'date-created' ], $row[ 'pictures-count' ], $row[ 'rating' ] );
+            while ($row = $result->fetch_assoc()) {
+                $album = new Album($row['id'], $row['name'], $row['userid'],
+                    $row['date-created'], $row['pictures-count'], $row['rating']);
                 $albums[] = $album;
             }
         }
@@ -94,16 +94,31 @@ class Album
         return $albums;
     }
 
-    public static function removeAlbum( $mysqliConnection, $id )
+    public static function removeAlbum($mysqliConnection, $id)
     {
-        if (empty( $id )) {
-            die( 'empty id, cannot remove album! aborting...' );
+        if (empty($id)) {
+            die('empty id, cannot remove album! aborting...');
         }
 
-        $id = Album::parseInput( $id );
+        $id = Album::parseInput($id);
         $query = "REMOVE * FROM albums WHERE id = '$id'";
 
-        mysqli_query( $mysqliConnection, $query ) or die ( mysqli_error( $mysqliConnection ) );
+        mysqli_query($mysqliConnection, $query) or die (mysqli_error($mysqliConnection));
+    }
+
+    public static function getAllAlbums( $mysqli )
+    {
+        include_once 'system/models/user.php';
+
+        $users = User::getAllUsers( $mysqli );
+        $allAlbums = [];
+        foreach ($users as $user) {
+            foreach (Album::getAlbumsByOwnerId( $mysqli, $user->getId() ) as $album) {
+                $allAlbums[] = $album;
+            };
+        }
+
+        return $allAlbums;
     }
 
     /*

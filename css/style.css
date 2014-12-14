@@ -12,6 +12,10 @@ figure {
     margin-bottom: 10px;
 }
 
+input[value="Search"] {
+    margin-left: 10px;
+}
+
 div.navbar-header *{
     color: #fff !important;
 }
