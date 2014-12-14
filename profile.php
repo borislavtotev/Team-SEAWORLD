@@ -14,7 +14,7 @@ if (isset( $_GET[ 'id' ] )) {
     header( 'Location: index.php' );
 }
 
-$albumsCount = 10;
+$albumsCount = 9;
 $rows = ceil( $albumsCount / 3 );
 
 ?>
