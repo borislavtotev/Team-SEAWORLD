@@ -21,45 +21,53 @@ class User
      */
     public static function createUser( $mysqli, $userName, $email, $password )
     {
-        $escapedUserName = User::parseInput( $userName );
-        $password = md5( $password );
-
-
-        $selectByUserNameQuery = "SELECT * FROM users WHERE username='$escapedUserName'";
-        $result = $mysqli->query( $selectByUserNameQuery );
-        if ( $result->num_rows > 0 ) {
-            return 'User with that username already exists!';
-        }
-
-        $insertUserQuery = "INSERT INTO users(username, email, password) VALUES('$escapedUserName', '$email', '$password')";
-        $password = null; // Delete that info from the memory!!
-        mysqli_query( $mysqli, $insertUserQuery ) or die( mysqli_error( $mysqli ) );
-
-        $getUserIdQuery = "SELECT userid FROM users WHERE username='$escapedUserName'";
-        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
-
-        return new User( $mysqli, $result->fetch_assoc()[ 'userid' ] );
+		$checkedUser = User::checkUserInputs($mysqli, $userName, $email, $password);
+		$hashPass = md5( $password );
+		
+		if ($checkedUser===true) {
+	        $insertUserQuery = "INSERT INTO users(username, email, password) VALUES('$userName', '$email', '$hashPass')";
+	        $password = null; // Delete that info from the memory!!
+	        mysqli_query( $mysqli, $insertUserQuery ) or die( mysqli_error( $mysqli ) );
+	
+	        $getUserIdQuery = "SELECT userid FROM users WHERE username='$userName'";
+	        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
+	
+	        return new User( $mysqli, $result->fetch_assoc()[ 'userid' ] );
+		} else {
+			return $checkedUser;
+		}
     }
 
     public static function login( $mysqli, $username, $password )
     {
-        $parsedUsrName = User::parseInput( $username );
         $hashPass = md5( $password );
 
-        if (empty( $parsedUsrName ) || empty( $hashPass ) ) {
-            return null; // Empty fields means invalid login!
+        $errors = '';
+		$findError = false;
+        
+        if ( empty( $username ) ) {
+        	$errors.="The user name can not be empty!<br>";
+			$findError = true;
+        }
+		
+		if ( empty( $password ) ) {
+        	$errors.="The password can not be empty!<br>";
+			$findError = true;
         }
 
-        $query = "SELECT userid FROM users WHERE username='$parsedUsrName' AND password='$hashPass'";
-        $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
-
-        echo $checkMatch->num_rows;
-
-        if ($checkMatch->num_rows == 1) {
-            return new User( $mysqli, $checkMatch->fetch_assoc()[ 'userid' ] );
-        } else {
-            return null;
-        }
+        if (! $findError ) {
+	        $query = "SELECT userid FROM users WHERE username='$username' AND password='$hashPass'";
+	        $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
+	
+	        if ($checkMatch->num_rows == 1) {
+	            return new User( $mysqli, $checkMatch->fetch_assoc()[ 'userid' ] );
+	        } else {
+	        	$errors.="Wrong user name and/or password!<br>";
+				return $errors;
+	        }
+		} else {
+			return $errors;
+		}
     }
 
     public static function getAllUsers( $mysqli )
@@ -114,9 +122,43 @@ class User
     /*
      * Private methods
      */
-    private static function parseInput( $input )
-    {
-        $regex = '/[^a-zA-Z0-9_]/';
-        return preg_replace( $regex, '', $input );
-    }
+	private static function checkUserInputs ($mysqli, $userName, $email, $password) {
+
+        $selectByUserNameQuery = "SELECT * FROM users WHERE username='$userName'";
+        $result = $mysqli->query( $selectByUserNameQuery );
+        
+        $errors = '';
+		$findError = false;
+		
+        if ( $result->num_rows > 0 ) {
+            $errors.='User with that username already exists!<br>';
+			$findError = true;
+        }
+
+	    if (mb_strlen($userName) < 3 || mb_strlen($userName) > 15) {
+	        $errors.= 'The user name must have more than 3 and less than 15 symbols!<br>';	
+			$findError = true;
+	    }
+	
+	    if (preg_match('/[^A-Za-z0-9]+/', $username)) {
+	        $errors.= 'The user name must have only latin letter and numbers!<br>';	
+			$findError = true;
+	    }
+	
+	    if (!preg_match('/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/', $email)) {
+	        $errors.= 'The email address is not valid!<br>';	
+			$findError = true;
+	    }
+	    
+	    if (mb_strlen($password) < 3 || mb_strlen($password) > 30) {
+	        $errors.= 'The password must have more than 3 and less than 30 symbols!<br>';	
+			$findError = true;
+	    } 
+	
+	    if (! $findError) {
+	    	return true;
+		} else {
+			return $errors;
+		}
+	}
 }

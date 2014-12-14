@@ -6,8 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
-    !empty( $_POST[ 'username' ] ) && !empty( $_POST[ 'password' ] )) {
+if (isset( $_POST[ 'username' ], $_POST[ 'password' ] )) {
     mb_internal_encoding('UTF-8');
 	
     $rememberMe = false;
@@ -16,10 +15,10 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
     }
 
     $user = User::login( $mysqli, $_POST[ 'username' ], $_POST[ 'password' ] );
-	if ($user != null) {
+	if ($user instanceof User) {
 	    $_SESSION[ 'user' ] = $user;
     } else {
-        $_SESSION['error'] = 'Грешен потребител или парола!';
+        $_SESSION['error'] = $user;
     }
 }
 
