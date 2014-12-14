@@ -24,7 +24,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <?php else: ?>
                         <li>
                     <?php endif; ?>
-                    <a href="/news.php">News</a>
+                    <a href="./news.php">News</a>
                     </li>
                 <?php endif; ?>
 
@@ -34,7 +34,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php else: ?>
                 <li>
                 <?php endif; ?>
-                    <a href="/albums.php">Albums</a>
+                    <a href="./albums.php">Albums</a>
                 </li>
 
                 <!-- Users link -->
@@ -43,7 +43,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php else: ?>
                 <li>
                 <?php endif; ?>
-                    <a href="/users.php">Users</a>
+                    <a href="./users.php">Users</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left">
