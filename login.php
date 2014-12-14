@@ -15,10 +15,6 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
         $rememberMe = $_POST[ 'rememberMe' ];
     }
 
-	//Create always new user - just for testing. Should be moved in register.php
-	//$testUser = new User($mysqli, $username, $password);
-	
-    //$user = new User($username, $password);
     $user = User::login( $mysqli, $_POST[ 'username' ], $_POST[ 'password' ] );
 	if ($user != null) {
 	    $_SESSION[ 'user' ] = $user;

@@ -41,15 +41,6 @@ class User
         return new User( $mysqli, $result->fetch_assoc()[ 'userid' ] );
     }
 
-    /*
-     * We can insert the whole user instance into $_SESSION[ 'user' ] so
-     * we can use it everywhere it's needed.
-     * This function is suppose to try login and return instance on success.
-     * Instead of making infinite fields in the session,
-     * lets just make one with the logged user instance.
-     *
-     * TODO: Change logic!
-     */
     public static function login( $mysqli, $username, $password )
     {
         $parsedUsrName = User::parseInput( $username );
