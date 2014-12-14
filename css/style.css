@@ -86,6 +86,7 @@ li .btn.btn-danger {
 footer .well {
     background-color: rgba(0, 0, 0, .9);
     box-shadow: 0 0 30px yellow;
+    margin-top: 20px;
 }
 .title{
     font-color: #ffffff;
@@ -93,4 +94,8 @@ footer .well {
 
 .hidden-overflow {
     overflow: hidden;
+}
+
+.img-responsive {
+    border-radius: 20px;
 }

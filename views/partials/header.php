@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body class="hidden-overflow">
+<body>
 <?php
 include_once( 'views/partials/navbar.php' );
 include_once( 'views/modals/login-register.php' );
