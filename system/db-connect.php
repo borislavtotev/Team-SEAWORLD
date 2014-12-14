@@ -4,6 +4,9 @@
 //$mysql_user = "a6289514_admin";
 //$mysql_password = "whatsmyname1";
 
+
+$d0ntth1nc_DBname = 'seaworld';
+
 $dbName = 'firstDB';
 $dbUser = 'root';
 $dbPass = '';
