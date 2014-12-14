@@ -6,7 +6,7 @@ include_once( 'system/db-connect.php' );
 <main class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="jumbotron">
+            <div class="jumbotron animated fadeIn">
             <table class="table table-striped table-hover ">
                 <thead>
                 <tr>
