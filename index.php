@@ -1,11 +1,6 @@
 <?php
 include_once( 'views/partials/header.php' );
 
-if (isset( $_SESSION[ 'error' ] )) {
-    include_once( 'views/modals/error.php' );
-    unset( $_SESSION[ 'error' ] );
-}
-
 /*
  * Simulate extraction from db
  */
