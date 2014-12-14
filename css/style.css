@@ -35,7 +35,7 @@ h1, h2{
 }
 .jumbotron {
     color: #fff;
-    box-shadow: 0 0 30px green;
+    /*box-shadow: 0 0 30px green; */
     background-color: rgba(0, 0, 0, .9);
     border-radius: 30px !important;
 }
@@ -48,7 +48,7 @@ h1, h2{
 
 .modal-content {
     background-color: black;
-    box-shadow: 0 0 40px blue;
+    /*box-shadow: 0 0 40px blue;*/
 }
 
 .list-group-item {
@@ -85,7 +85,7 @@ li .btn.btn-danger {
 
 footer .well {
     background-color: rgba(0, 0, 0, .9);
-    box-shadow: 0 0 30px yellow;
+    /*box-shadow: 0 0 30px yellow;*/
     margin-top: 20px;
 }
 .title{
