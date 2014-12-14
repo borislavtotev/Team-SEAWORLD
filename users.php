@@ -22,7 +22,7 @@ include_once( 'system/db-connect.php' );
                 <tr>
                     <td><?= $user->getId() ?></td>
                     <td>
-                        <a href="/profile.php?id=<?=$user->getId()?>">
+                        <a href="./profile.php?id=<?=$user->getId()?>">
                             <?= htmlspecialchars( $user->getUserName() ) ?>
                         </a>
                     </td>

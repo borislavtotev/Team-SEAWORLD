@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index.php">Index</a>
+            <a class="navbar-brand" href="./index.php">Index</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" id="navigation-up-left">
@@ -54,7 +54,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li>
                     <h4 class="greetings">
                         Welcome,
-                        <a href="/profile.php">
+                        <a href="./profile.php">
                             <?= htmlspecialchars( $_SESSION[ 'user' ]->getUserName() ) ?>
                         </a>!
                     </h4>

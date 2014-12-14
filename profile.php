@@ -41,7 +41,7 @@ $rows = ceil( $albumsCount / 3 );
                     <?php for($col = 0; $col < 3 && $pics < $albumsCount; $col++, $pics++) :?>
                         <div class="col-md-4">
                             <figure>
-                                <a href="/album.php?id=">
+                                <a href="./album.php?id=">
                                     <img class="img-responsive" src="http://oleaass.com/wp-content/uploads/2014/09/PHP.png">
                                 </a>
                                 <figcaption class="text-center">Album Name</figcaption>
