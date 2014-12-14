@@ -1,4 +1,4 @@
-<?php if (isset( $_GET[ 'error' ] )) :?>
+<?php if (isset( $_SESSION[ 'error' ] )) :?>
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="Error" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="errModalLabel">Error</h4>
             </div>
             <div class="modal-body">
-                <p><?= $_GET[ 'error' ] ?></p>
+                <p><?= $_SESSION[ 'error' ] ?></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -15,4 +15,7 @@
         </div>
     </div>
 </div>
-<?php endif; ?>
+<?php 
+		unset($_SESSION[ 'error' ]);
+	endif; 
+?>

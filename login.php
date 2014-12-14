@@ -19,7 +19,7 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
 	if ($user != null) {
 	    $_SESSION[ 'user' ] = $user;
     } else {
-        $loginError = 'Грешен потребител или парола!';
+        $_SESSION['error'] = 'Грешен потребител или парола!';
     }
 }
 
@@ -27,10 +27,6 @@ $redirectLocation = 'index.php';
 
 if (isset( $_POST[ 'redirectTo' ] )) {
     $redirectLocation = $_POST[ 'redirectTo' ];
-}
-
-if (isset( $loginError )) {
-   $redirectLocation .= "?error=$loginError";
 }
 
 header("Location: $redirectLocation"); // Logged in, or logged not... we redirect!
