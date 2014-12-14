@@ -1,8 +1,9 @@
 <?php
+include( 'system/models/user.php' );
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
 ?>
 <div class="container">
     <div class="navbar navbar-default">
@@ -17,7 +18,7 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" id="navigation-up-left">
                 <!-- Feed link -->
-                <?php if (isset( $_SESSION[ 'username' ], $_SESSION[ 'userid' ], $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
+                <?php if (isset( $_SESSION[ 'user' ] )): ?>
                     <?php if ($_SERVER[ 'REQUEST_URI' ] == 'news.php'): ?>
                         <li class="active">
                     <?php else: ?>
@@ -49,12 +50,12 @@ if (session_status() == PHP_SESSION_NONE) {
                 <input type="text" class="form-control col-lg-8" placeholder="Search">
             </form>
             <ul class="nav navbar-nav navbar-right">
-            <?php if (isset( $_SESSION[ 'username' ], $_SESSION[ 'userid' ], $_SESSION[ 'is_logged' ] ) && $_SESSION[ 'is_logged' ] === true): ?>
+            <?php if (isset( $_SESSION[ 'user' ] )): ?>
                 <li>
                     <h4 class="greetings">
                         Welcome,
                         <a href="/profile.php">
-                            <?= htmlspecialchars( $_SESSION[ 'username' ] ) ?>
+                            <?= htmlspecialchars( $_SESSION[ 'user' ]->getUserName() ) ?>
                         </a>!
                     </h4>
                 </li>

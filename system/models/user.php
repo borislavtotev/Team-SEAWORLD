@@ -3,38 +3,42 @@ class User
 {
     private $userId;
 	private $userName;
+    private $email;
 
-    public function __construct( $mysqli, $userName )
+    public function __construct( $mysqli, $id )
     {
-        $escapedUserName = User::parseInput( $userName );
-        $getUserIdQuery = "SELECT userid FROM user WHERE username='$escapedUserName'";
+        $getUserIdQuery = "SELECT username, email FROM users WHERE userid='$id'";
         $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
-        $id = $result->fetch_assoc()[ 'userid' ];
+        $userData = $result->fetch_assoc();
 
         $this->userId = $id;
-        $this->userName = $userName;
+        $this->userName = $userData[ 'username' ];
+        $this->email = $userData[ 'email' ];;
     }
 
     /*
      * Static methods
      */
-    public static function createUser( $mysqli, $userName, $password )
+    public static function createUser( $mysqli, $userName, $email, $password )
     {
         $escapedUserName = User::parseInput( $userName );
         $password = md5( $password );
 
 
-        $selectByUserNameQuery = "SELECT * FROM user WHERE username='$escapedUserName'";
+        $selectByUserNameQuery = "SELECT * FROM users WHERE username='$escapedUserName'";
         $result = $mysqli->query( $selectByUserNameQuery );
         if ( $result->num_rows > 0 ) {
-            die( 'User with that username already exists!' );
+            return 'User with that username already exists!';
         }
 
-        $insertUserQuery = "INSERT INTO user(username, password) VALUES('$escapedUserName', '$password')";
+        $insertUserQuery = "INSERT INTO users(username, email, password) VALUES('$escapedUserName', '$email', '$password')";
         $password = null; // Delete that info from the memory!!
         mysqli_query( $mysqli, $insertUserQuery ) or die( mysqli_error( $mysqli ) );
 
-        return new User( $mysqli, $userName );
+        $getUserIdQuery = "SELECT userid FROM users WHERE username='$escapedUserName'";
+        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
+
+        return new User( $mysqli, $result->fetch_assoc()[ 'userid' ] );
     }
 
     /*
@@ -48,30 +52,22 @@ class User
      */
     public static function login( $mysqli, $username, $password )
     {
-        /*
-         * Pseudo code
-         *
-         *  if ($isLoginValid) {
-                return new User();
-            } else {
-                return null;
-            }
-         */
-
         $parsedUsrName = User::parseInput( $username );
         $hashPass = md5( $password );
 
         if (empty( $parsedUsrName ) || empty( $hashPass ) ) {
-            return false; // Empty fields means invalid login!
+            return null; // Empty fields means invalid login!
         }
 
-        $query = "SELECT * FROM user WHERE username='$username' AND password='$hashPass'";
+        $query = "SELECT userid FROM users WHERE username='$parsedUsrName' AND password='$hashPass'";
         $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
 
+        echo $checkMatch->num_rows;
+
         if ($checkMatch->num_rows == 1) {
-            return true;
+            return new User( $mysqli, $checkMatch->fetch_assoc()[ 'userid' ] );
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -100,7 +96,7 @@ class User
     public function changePassword( $mysqli, $password )
     {
         $password = md5( $password );
-        $query = "UPDATE user SET password='$password' WHERE userid='$this->userId'";
+        $query = "UPDATE users SET password='$password' WHERE userid='$this->userId'";
         $password = null;
         mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
     }

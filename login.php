@@ -9,10 +9,6 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
     !empty( $_POST[ 'username' ] ) && !empty( $_POST[ 'password' ] )) {
     mb_internal_encoding('UTF-8');
-
-    $username = trim( $_POST[ 'username' ] );
-    //$password = md5( trim( $_POST[ 'password' ] ) ); // Encrypt password with md5 hash algorithm
-    $password = trim( $_POST[ 'password' ] ); //Tested without md5 :)
 	
     $rememberMe = false;
     if (isset( $_POST[ 'rememberMe' ] )) {
@@ -23,14 +19,9 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] ) &&
 	//$testUser = new User($mysqli, $username, $password);
 	
     //$user = new User($username, $password);
-    $correctUser = User::checkUser($mysqli,$username, $password);
-    
-	if ($correctUser) {
-		$user = new User($mysqli, $username, $password);
-		$userId = $user->getUserId();
-	    $_SESSION[ 'is_logged' ] = true;
-	    $_SESSION[ 'username' ] = $username;
-        $_SESSION[ 'userid' ] = $userId; // We also need user id since it's the key for all user data
+    $user = User::login( $mysqli, $_POST[ 'username' ], $_POST[ 'password' ] );
+	if ($user != null) {
+	    $_SESSION[ 'user' ] = $user;
     } else {
         $loginError = 'Грешен потребител или парола!';
     }
