@@ -14,7 +14,7 @@ if (isset( $_GET[ 'id' ] )) {
     header( 'Location: index.php' );
 }
 
-$albumsCount = 10;
+$albumsCount = 9;
 $rows = ceil( $albumsCount / 3 );
 
 ?>
@@ -30,6 +30,14 @@ $rows = ceil( $albumsCount / 3 );
                         <?=htmlspecialchars( $user->getEmail() )?>
                     </h3>
                 </hgroup>
+
+                <div class="butt-group">
+                    <button type="button" class="btn btn-primary">Upload Picture</button>                
+                    <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
+                </div>
+                
+
+
             </header>
         </div>
     </div>

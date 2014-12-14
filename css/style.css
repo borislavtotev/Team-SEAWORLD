@@ -103,3 +103,11 @@ footer .well {
 .img-responsive {
     border-radius: 20px;
 }
+
+.butt-group{
+    margin-top: 70px; 
+}
+
+.butt-group #right-butt{
+    float: right;
+}

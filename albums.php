@@ -1,18 +1,7 @@
 <?php
 include_once( 'views/partials/header.php' );
 include_once( 'system/db-connect.php' );
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
-if (isset( $_GET[ 'id' ] )) {
-    $user = new User( $mysqli, $_GET[ 'id' ] );
-} else if (isset( $_SESSION[ 'user' ] )) {
-    $user = $_SESSION[ 'user' ];
-} else {
-    // No id? Get the fuck outta here!
-    header( 'Location: index.php' );
-}
 
 $albumsCount = 9;
 $rows = ceil( $albumsCount / 3 );
