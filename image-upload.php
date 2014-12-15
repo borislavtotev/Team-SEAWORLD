@@ -4,10 +4,16 @@
 }
 ?>
 <?php include 'views/modals/file-upload.php'; ?>
-
-<button type="file" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload" name="imgUpload">
+<form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="file" name="files[]">
+                        </div>
+                    </div>
+                </form>
+<!--<input type="file" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload" name="imgUpload">
     Upload files
-</button>
+</input>->
 <?php
     $target_dir = "upload/";
     $target_file = $target_dir . basename($_FILES["imgUpload"]["name"]);
