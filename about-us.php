@@ -8,7 +8,7 @@ include_once( 'views/partials/header.php' );
                 <div class="jumbotron animated fadeInDownBig">
                     <hgroup>
                         <h1 class="text-center">Programators! About us</h1>
-                        <h2 class="text-center">Изпрограмирайте се най - шашаво!</h2>
+                        <h2 class="text-center">Weird programmers. One place.</h2>
                     </hgroup>
                 </div>
         </header>
