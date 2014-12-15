@@ -125,3 +125,6 @@ footer .well {
 .butt-group #left-butt:hover{
     background-color: #0067DC;
 }
+#news-pic{
+    width: 300px;
+}
