@@ -1,6 +1,6 @@
 <?php
 include_once( 'views/partials/header.php' );
-include('views/modals/file-upload.php');
+
 /*
  * Simulate extraction from db
  */
@@ -75,4 +75,5 @@ $pictures = [
         </div>
     </main>
 </div>
+  <?php  include('views/modals/file-upload.php');?>
 <?php include_once( 'views/partials/footer.php' ); ?>
