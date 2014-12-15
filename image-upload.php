@@ -45,7 +45,7 @@
         echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
     } else {
-        if (move_uploaded_file($_FILES["fimgUpload"]["tmp_name"], $target_file)) {
+        if (move_uploaded_file($_FILES["imgUpload"]["tmp_name"], $target_file)) {
             echo "The file ". basename( $_FILES["imgUpload"]["name"]). " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
