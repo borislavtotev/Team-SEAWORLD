@@ -4,9 +4,9 @@
 }
 ?>
 <?php include 'views/modals/file-upload.php'; ?>
-<!--<button  class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload" name="imgUpload">
+<button  class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload" name="imgUpload">
     Upload files
-</button>-->
+</button>
 <?php
     $target_dir = "upload/";
     $target_file = $target_dir . basename($_FILES["imgUpload"]["name"]);
