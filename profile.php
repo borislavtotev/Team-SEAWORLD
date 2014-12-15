@@ -32,7 +32,7 @@ $rows = ceil( $albumsCount / 3 );
                 </hgroup>
 
                 <div class="butt-group">
-                    <button type="button" class="btn btn-primary">Upload Picture</button>                
+                    <button type="button" class="btn btn-primary" id="left-butt">Upload Picture</button>                
                     <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
                 </div>
                 

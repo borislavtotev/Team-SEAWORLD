@@ -109,4 +109,15 @@ footer .well {
 
 .butt-group #right-butt{
     float: right;
+    background-color: #3498db;
+}
+.butt-group #right-butt:hover{
+    background-color: #0067DC;
+}
+
+.butt-group #left-butt{
+    background-color: #3498db;
+}
+.butt-group #left-butt:hover{
+    background-color: #0067DC;
 }
