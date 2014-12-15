@@ -5,7 +5,7 @@
 ?>
 <?php include 'views/modals/file-upload.php'; ?>
 
-<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload" name="imgUpload">
+<button type="file" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload" name="imgUpload">
     Upload files
 </button>
 <?php
