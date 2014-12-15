@@ -1,6 +1,6 @@
 <?php
 include_once( 'views/partials/header.php' );
-
+include('image-upload.php');
 /*
  * Simulate extraction from db
  */
