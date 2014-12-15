@@ -32,7 +32,7 @@ $rows = ceil( $albumsCount / 3 );
                 </hgroup>
 
                 <div class="butt-group">
-                    <button type="button" class="btn btn-primary" id="left-butt">Upload Picture</button>                
+                    <button type="button" class="btn btn-primary" id="left-butt"  data-modal-type="login" data-toggle="modal" data-target="#filesUpload">Upload Picture</button>
                     <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
                 </div>
                 
@@ -62,4 +62,5 @@ $rows = ceil( $albumsCount / 3 );
         </div>
     </div>
 </main>
+<?php  include('views/modals/file-upload.php');?>
 <?php include_once( 'views/partials/footer.php' );

@@ -22,7 +22,7 @@ include 'views/partials/header.php';
                     <button id="add-img-btn" type="button" class="btn btn-default pull-left">Add More Images</button>
                 </div>
                 <div>
-                    <input type="submit" class="btn btn-danger btn-tg"/>
+                    <input type="submit" class="btn btn-danger btn-tg" name="submit"/>
                 </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
