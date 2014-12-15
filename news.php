@@ -14,6 +14,7 @@ $rows = ceil( $albumsCount / 3 );
                <?php
 				   $files = glob("img/*.*");
 				   var_dump($files);
+<<<<<<< HEAD
 				   for ($i=0; $i<count($files); $i++){
 					   $image = $files[$i];
                        ?>
@@ -26,6 +27,14 @@ $rows = ceil( $albumsCount / 3 );
 				   }
 
 				 ?>
+=======
+				   for ($i=1; $i<count($files); $i++):
+					  $image = $files[$i];?>
+
+					  <?php echo '<img src="'.$image .'" alt="Random image" id="news-pic"/>'."<br /><br />"; ?>
+					  
+				   <?php endfor; ?>
+>>>>>>> origin/master
             </section>
         </div>
     </div>
