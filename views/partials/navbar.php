@@ -45,6 +45,10 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php endif; ?>
                     <a href="./users.php">Users</a>
                 </li>
+                <!--About page-->
+                <li>
+                    <a href="../../about-page.html">About us</a>
+                </li>
             </ul>
             <form class="navbar-form navbar-left" method="get" action="search.php">
                 <input type="text" name="pattern" class="form-control col-lg-8" placeholder="Search">
