@@ -14,9 +14,7 @@ include_once( 'views/partials/header.php' );
                                 The best place for all the programmers to share what they find funny and interesting to others.
                             </div>
                                 <ul id="about-info">
-                                    <li>Upload funny photos</li>
-                                    <li>Rate photos</li>
-                                    <li>Comment photos</li>
+                                    <li>Upload/Rate/Comment photos</li>
                                     <li>Make your own albums with photos</li>
                                     <li>Be weird - have real Programator fun!</li>
                                 </ul>
