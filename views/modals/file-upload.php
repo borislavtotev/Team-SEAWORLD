@@ -9,7 +9,7 @@ include 'views/partials/header.php';
                 <h4 class="modal-title" id="myModalLabel">Upload images</h4>
             </div>
             <div class="modal-body">
-                <form id="uploadForm" action="#" method="post" class="form-horizontal">
+                <form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-lg-10">
                             <input type="file" name="files[]">
