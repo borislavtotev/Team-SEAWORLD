@@ -6,7 +6,7 @@
 <?php include 'views/modals/file-upload.php'; ?>
 
 <?php
-    $target_dir = "upload/";
+    $target_dir = "database/upload/";
     $target_file = $target_dir . basename($_FILES["files[]"]["name"]);
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -27,7 +27,7 @@
         $uploadOk = 0;
     }
     // Check file size(kolko e goem)
-    if ($_FILES["files[]"]["size"] > 5000000) {
+    if ($_FILES["files[]"]["size"] > 50000000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
