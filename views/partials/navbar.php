@@ -47,7 +47,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </li>
                 <!--About page-->
                 <li>
-                    <a href="../../about-us.php">About us</a>
+                    <a href="./about-us.php">About us</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" method="get" action="search.php">
