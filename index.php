@@ -1,6 +1,6 @@
 <?php
 include_once( 'views/partials/header.php' );
-include('image-upload.php');
+include('views/modals/file-upload.php');
 /*
  * Simulate extraction from db
  */
@@ -24,7 +24,7 @@ $pictures = [
                 </hgroup>
                 <img src="img/hd_computer_guy_meme_by_zapgod16-d4t2jh3.png" alt="" id="baner" class="img-responsive" alt="Responsive image"/>
                 <div class="butt-group">
-                    <button type="button" class="btn btn-primary" id="left-butt">Upload Picture</button>                
+                    <button type="button" class="btn btn-primary" id="left-butt" data-modal-type="login" data-toggle="modal" data-target="#filesUpload">Upload Picture</button>
                     <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
                 </div>
             </div>
