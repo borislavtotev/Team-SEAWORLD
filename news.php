@@ -10,15 +10,23 @@ $rows = ceil( $albumsCount / 3 );
 <main class="container">
     <div class="row">
         <div class="col-md-12">
-            <section>
+            <section class="jumbotron animated fadeInDownBig">
                <?php
 				   $files = glob("img/*.*");
-				   var_dump($files);
 				   for ($i=1; $i<count($files); $i++):
-					  $image = $files[$i];?>
-
-					  <?php echo '<img src="'.$image .'" alt="Random image" id="news-pic"/>'."<br /><br />"; ?>
-					  
+					  	$image = $files[$i];?>
+						<div class="news-img-section">
+							<?php echo '<img src="'.$image .'" alt="Random image" id="news-pic"/>'; ?>
+							<aside>
+								<h2>Image name</h2>
+								<h4>Comments</h4>
+								<ul class="comments">
+									<li class="comment">HI</li>
+									<li class="comment">Wow</li>
+									<li class="comment">xaxa</li>
+								</ul>
+							</aside>
+						</div>
 				   <?php endfor; ?>
             </section>
         </div>
