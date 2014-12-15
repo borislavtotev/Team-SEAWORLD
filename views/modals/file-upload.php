@@ -18,8 +18,12 @@ include 'views/partials/header.php';
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="add-img-btn" type="button" class="btn btn-default pull-left">Add More Images</button><br />
-                <br /><input type="submit" class="btn btn-danger btn-tg"/>
+                <div>
+                    <button id="add-img-btn" type="button" class="btn btn-default pull-left">Add More Images</button>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-danger btn-tg"/>
+                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
