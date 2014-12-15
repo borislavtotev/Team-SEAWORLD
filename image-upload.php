@@ -1,8 +1,8 @@
-//<?php
- //   if((!isset($_SESSION['user']))) {
- //       header("Location:index.php");
-//}
-//?>
+<?php
+    if((!isset($_SESSION['user']))) {
+       header("Location:index.php");
+}
+?>
 <?php include 'views/modals/file-upload.php'; ?>
 
 <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#filesUpload">
@@ -30,7 +30,7 @@
         $uploadOk = 0;
     }
     // Check file size(kolko e goem)
-    if ($_FILES["files[]"]["size"] > 500000) {
+    if ($_FILES["files[]"]["size"] > 5000000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
