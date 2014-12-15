@@ -30,6 +30,10 @@ h1, h2{
     margin: 0 auto;
     max-width: 200px;
 }
+#about-info{
+    list-style-type: none;
+    text-align: center;
+}
 .list-group-item:first-child, .list-group-item:last-child{
 
    /* border: 1px solid #555; */
