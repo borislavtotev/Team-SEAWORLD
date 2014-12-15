@@ -14,11 +14,15 @@ $rows = ceil( $albumsCount / 3 );
                <?php
 				   $files = glob("img/*.*");
 				   var_dump($files);
-				   for ($i=1; $i<count($files); $i++){
-					  $image = $files[$i];
-
-					  print $image ."<br />";
-					  echo '<img src="'.$image .'" alt="Random image" />'."<br /><br />";
+				   for ($i=0; $i<count($files); $i++){
+					   $image = $files[$i];
+                       ?>
+                       <div><?= $image ?></div>
+                       ?>
+                       <div>
+                           <img src="'.$image .'" alt="Random image" />
+                       </div>
+                       <?php
 				   }
 
 				 ?>
