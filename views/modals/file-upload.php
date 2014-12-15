@@ -12,7 +12,7 @@ include 'views/partials/header.php';
                 <form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input type="file" name="files[]">
+                            <input type="file" name="files[]" id="files[]">
                         </div>
                     </div>
                 </form>
