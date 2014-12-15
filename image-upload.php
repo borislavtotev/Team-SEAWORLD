@@ -10,7 +10,7 @@
 </button>
 <?php
     $target_dir = "database/upload/";
-    $target_file = $target_dir . basename($_FILES["files[]"]["name"]);
+    $target_file = $target_dir . basename($_FILES["files[]"]["uploadForm"]);
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     // Check if image file is a actual image or fake image
