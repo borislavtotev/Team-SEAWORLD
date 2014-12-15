@@ -16,7 +16,7 @@ $rows = ceil( $albumsCount / 3 );
 				   for ($i=1; $i<count($files); $i++):
                			$image = $files[$i];?>
 						<div class="news-img-section">
-							<?php echo '<img src="'.$image .'" alt="Random image" id="news-pic"/>'; ?>
+							<img src="<?=$image?>" alt="Random image" id="news-pic"/>
 							<aside>
 								<h2>Image name</h2>
 								<h4>Comments</h4>
