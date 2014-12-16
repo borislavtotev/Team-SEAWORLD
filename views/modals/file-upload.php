@@ -22,8 +22,10 @@ $albums = Album::getAlbumsByOwnerId( $_SESSION[ 'user' ]->getId() );
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-10">
-                            <input type="file" name="files[]">
+                        <div class="col-lg-10">                            
+                            <input type="text" name="pattern" class="upl-img-name" placeholder="Name">
+                            <input type="file" name="files[]" class="upl-img-file">
+                            <br>
                         </div>
                     </div>
                 </div>
