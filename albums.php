@@ -1,8 +1,9 @@
 <?php
 include_once( 'views/partials/header.php' );
 
-$albumsCount = 9;
-$rows = ceil( $albumsCount / 3 );
+$albums = Album::getAllAlbums();
+$rows = ceil( count($albums) / 3 );
+$userId = $_SESSION['user']->getID();
 ?>
 <main class="container">
     <div class="row">
@@ -10,11 +11,14 @@ $rows = ceil( $albumsCount / 3 );
             <section>
                 <?php for ($row = 0, $pics = 0; $row < $rows; $row++): ?>
                 <div class="row">
-                    <?php for($col = 0; $col < 3 && $pics < $albumsCount; $col++, $pics++) :?>
+                    <?php for($col = 0; $col < 3 && $pics < count($albums); $col++, $pics++) :
+                    	$albumId = $albums[$pics]->getId();
+						$sourcePath = $albums[$pics]->getFirstPic($userId,$albumId);
+                    	?>
                         <div class="col-md-4">
                             <figure>
-                                <a href="./album.php?id=">
-                                    <img class="img-responsive" src="http://oleaass.com/wp-content/uploads/2014/09/PHP.png">
+                                <a href="./albums.php?id=">
+                                    <img class="img-responsive" src=<?= $sourcePath ?>>
                                 </a>
                                 <figcaption class="text-center">Album Name</figcaption>
                             </figure>

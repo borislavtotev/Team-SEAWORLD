@@ -181,6 +181,15 @@ class Album
         $this->picturesCount--;
         $this->update( 'pictures-count', $this->picturesCount );
     }
+	
+	public function getFirstPic ($userId, $albumId) {	
+		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("./uploads/$userId/$albumId")) as $filename) {
+        	if (preg_match("/\.jpg$/",$filename) || preg_match("/\.png$/",$filename) || preg_match("/\.gif$/",$filename) || preg_match("/\.jpeg$/",$filename)) {
+				break;
+			}
+		}
+		return $filename;
+	}
 
     /*
      * Private functions
