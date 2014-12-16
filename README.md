@@ -1,8 +1,7 @@
 Team-SEAWORLD
 =============
 
-**Every echo function that prints HTML code will be deleted as soon as i see it and
-no fixes further will be provided!!!! - d0ntth1nc**
+**header.php defines autoload function which includes all necessary files in system/models automatically!**
 
 =============
 TO-DO LIST:
