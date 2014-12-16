@@ -182,22 +182,27 @@ class Album
         $this->update( 'pictures-count', $this->picturesCount );
     }
 	
-	public function getFirstPic ($userId, $albumId) {
-		$foundFile = false;		
-		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("./uploads/$userId/$albumId")) as $filename) {	
-        	if (preg_match("/\.jpg$/",$filename) || preg_match("/\.png/",$filename) || preg_match("/\.gif$/",$filename) || preg_match("/\.jpeg$/",$filename)) {
-				$foundFile = true;	
-				break;
-			}
-		}
+	public function getAllPicturesPath ($userId, $albumId) {
 		
-		if ($foundFile) {
-			return $filename;
-		} else {
-			return "http://oleaass.com/wp-content/uploads/2014/09/PHP.png"; 
-		}
-	}
+        $query = "SELECT * FROM images WHERE albumid = '$albumId'";
 
+        $result = $GLOBALS[ 'mysqli' ]->query($query) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+        $images = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $images[] = "./uploads/$userId/$albumId/" .$row['id'].'-'.$row['name'];
+            }
+        } else {
+        	$images[] = "http://oleaass.com/wp-content/uploads/2014/09/PHP.png";
+        }
+		return $images;		
+	}
+	
+	public function getFirstPic ($userId, $albumId) {
+		$images = $this->getAllPicturesPath($userId, $albumId);
+		return $images[0];
+	}
     /*
      * Private functions
      */
