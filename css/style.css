@@ -167,3 +167,7 @@ footer .well {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+#albumSelection{
+    color: black;
+}
