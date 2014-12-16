@@ -168,6 +168,10 @@ footer .well {
     border-radius: 4px;
 }
 
+#albumSelection{
+    color: black;
+}
+
 .figure-holder {
     position: relative;
 }
