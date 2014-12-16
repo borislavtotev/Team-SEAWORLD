@@ -60,7 +60,7 @@ class User
 	        $checkMatch = mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 	
 	        if ($checkMatch->num_rows == 1) {
-	            return new User( $GLOBALS[ 'mysqli' ], $checkMatch->fetch_assoc()[ 'userid' ] );
+	            return new User( $checkMatch->fetch_assoc()[ 'userid' ] );
 	        } else {
 	        	$errors.="Wrong user name and/or password!<br>";
 				return $errors;
