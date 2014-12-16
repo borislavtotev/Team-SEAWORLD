@@ -1,6 +1,5 @@
 <?php
 include_once( 'views/partials/header.php' );
-include_once( 'system/models/user.php' );
 ?>
 <main class="container">
     <div class="row">

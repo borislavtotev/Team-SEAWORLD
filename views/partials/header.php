@@ -12,6 +12,11 @@
 </head>
 <body>
 <?php
+function __autoload( $classname ) {
+    $filename = "./system/models/". strtolower( $classname ) .".php";
+    include_once( $filename );
+}
+
 include_once( 'system/db-connect.php' );
 include_once( 'views/partials/navbar.php' );
 

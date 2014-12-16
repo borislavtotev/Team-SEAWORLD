@@ -12,8 +12,6 @@ class SearchEngine
 
     private static function searchUsers( $pattern )
     {
-        include_once( 'system/models/user.php' );
-
         $users = User::getAllUsers();
         $matches = [];
         foreach ($users as $user) {
@@ -29,10 +27,7 @@ class SearchEngine
 
     private static function searchAlbums( $pattern )
     {
-	return [];
-    
-        include_once 'system/models/album.php';
-
+        return [];
         $albums = Album::getAllAlbums();
         $matches = [];
         foreach ($albums as $album) {

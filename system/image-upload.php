@@ -1,5 +1,4 @@
 <?php
-include_once 'system/models/album.php';
 const MAX_FILE_SIZE = 500000; // Bytes
 
 $uploadedFiles = [];
