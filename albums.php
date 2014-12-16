@@ -18,10 +18,10 @@ $userId = $_SESSION['user']->getID();
                     	?>
                         <div class="col-md-4">
                             <figure>
-                                <a href="./albums.php?id=">
+                                <a href="./albums.php?id=<?=$albums[$pics]->getId()?>">
                                     <img class="img-responsive" src=<?= $sourcePath ?>>
                                 </a>
-                                <figcaption class="text-center"><?= $albumName ?></figcaption>
+                                <figcaption class="text-center"><?= htmlentities($albumName) ?></figcaption>
                             </figure>
                         </div>
                     <?php endfor; ?>
