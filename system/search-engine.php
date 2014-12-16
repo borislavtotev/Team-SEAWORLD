@@ -12,7 +12,7 @@ class SearchEngine
 
     private static function searchUsers( $mysqli, $pattern )
     {
-        //include_once( 'system/models/user.php' );
+        include_once( 'system/models/user.php' );
 
         $users = User::getAllUsers( $mysqli );
         $matches = [];
@@ -29,6 +29,8 @@ class SearchEngine
 
     private static function searchAlbums( $mysqli, $pattern )
     {
+	return [];
+    
         include_once 'system/models/album.php';
 
         $albums = Album::getAllAlbums( $mysqli );

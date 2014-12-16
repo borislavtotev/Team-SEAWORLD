@@ -13,7 +13,17 @@
 <body>
 <?php
 include_once( 'views/partials/navbar.php' );
-include_once( 'views/modals/login-register.php' );
+
+if (!isset( $_SESSION[ 'user' ] )) {
+    include_once( 'views/modals/login-register.php' );
+} else {
+    include_once( 'views/modals/album-maker.html' );
+    include_once( 'views/modals/file-upload.php' );
+}
+
+/*
+ * Error modal
+ */
 if (isset( $_SESSION[ 'error' ] )) {
     include_once( 'views/modals/error.php' );
     unset( $_SESSION[ 'error' ] );

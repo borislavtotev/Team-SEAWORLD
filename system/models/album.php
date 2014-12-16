@@ -30,7 +30,7 @@ class Album
     /*
      * Public Static methods
      */
-    public static function createAlbum($mysqliConnection, $albumName, $ownerId, $picturesCount)
+    public static function createAlbum($mysqliConnection, $albumName, $ownerId)
     {
         if (empty($albumName) || empty($ownerId)) {
             die ('Name and userID cannot be empty!');
@@ -42,7 +42,7 @@ class Album
 
         $escapedName = Album::parseInput($albumName);
         $escapedOwnerId = Album::parseInput($ownerId);
-        $insertQuery = "INSERT INTO albums(name, userid, pictures-count) VALUES('$escapedName', '$escapedOwnerId', '$picturesCount')";
+        $insertQuery = "INSERT INTO albums(name, userid) VALUES('$escapedName', '$escapedOwnerId')";
 
         mysqli_query($mysqliConnection, $insertQuery) or die(mysqli_error($mysqliConnection));
 
@@ -219,7 +219,7 @@ class Album
 
     private static function parseInput( $input )
     {
-        $regex = '/[^a-zA-Z0-9_]/';
+        $regex = '/\'|\"/';
         return preg_replace( $regex, '', $input );
     }
 }

@@ -26,7 +26,7 @@ $pictures = [
                 <?php if (isset( $_SESSION[ 'user' ] )): ?>
                 <div class="butt-group">
                     <button type="button" class="btn btn-primary" id="left-butt" data-modal-type="login" data-toggle="modal" data-target="#filesUpload">Upload Picture</button>
-                    <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
+                    <button type="button" class="btn btn-primary" id="right-butt" data-modal-type="login" data-toggle="modal" data-target="#createAlbumModal">Make Album</button>
                 </div>
                 <?php endif; ?>
             </div>
@@ -77,5 +77,4 @@ $pictures = [
         </div>
     </main>
 </div>
- <?php  include('views/modals/file-upload.php');?>
 <?php include_once( 'views/partials/footer.php' ); ?>

@@ -1,6 +1,6 @@
 <?php include_once 'image-upload.php'; ?>
-<form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">
-    <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="FilesUpload" aria-hidden="true">
+<div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="FilesUpload" aria-hidden="true">
+    <form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -22,9 +22,9 @@
                     </div>
                     <div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

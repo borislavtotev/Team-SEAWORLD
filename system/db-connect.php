@@ -5,7 +5,7 @@
 //$mysql_password = "whatsmyname1";
 
 $slavDb = 'php_teamproject';
-$d0ntth1nc_DBname = 'test';
+$d0ntth1nc_DBname = 'somedb';
 
 $dbName = 'firstDB';
 $dbUser = 'root';
