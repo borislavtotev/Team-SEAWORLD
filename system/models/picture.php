@@ -5,12 +5,28 @@ class Picture
     private $name;
     private $albumId;
     private $dateUploaded;
-    private $picsLocation = '/uploads/';
+    private static $picsLocation = '/uploads/';
 
-    public function __construct( $name, $albumId, $pictureResource )
+    private function __construct( $name, $albumId, $pictureResource )
     {
-        $this->name = $name;
-        $this->albumId = $albumId;
+        //$this->name = $name;
+        //$this->albumId = $albumId;
+    }
+
+    public static function addPicture( $name, $path, $albumId )
+    {
+        $query = "INSERT INTO images(name, albumid) VALUES('$name', '$albumId')";
+        $GLOBALS[ 'mysqli' ]->query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+
+        $query = "SELECT `id` FROM `images` WHERE `name`='$name' AND `albumid`='$albumId'";
+        $result = $GLOBALS[ 'mysqli' ]->query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+
+        $picId = $result->fetch_assoc()[ 'id' ];
+        $userId = $_SESSION[ 'user' ]->getId();
+
+        $newPath = Picture::$picsLocation . "$userId/$albumId/$picId-$name";
+
+        move_uploaded_file( $path, "./".$newPath );
     }
 
     public static function remove( $id )

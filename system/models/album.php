@@ -12,7 +12,6 @@ class Album
     private $dateCreated;
     private $picturesCount;
     private $rating;
-    private $imagesHandler;
 
     private function __construct($id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0)
     {
@@ -22,9 +21,6 @@ class Album
         $this->dateCreated = $dateCreated;
         $this->picturesCount = $picturesCount;
         $this->rating = $rating;
-
-        //include 'system/images-handler.php';
-        //$this->imagesHandler = new ImagesHandler();
     }
 
     /*
@@ -46,10 +42,11 @@ class Album
 
         mysqli_query($GLOBALS[ 'mysqli' ], $insertQuery) or die(mysqli_error($GLOBALS[ 'mysqli' ]));
 
-        /*
-         * Now fetch the information of the user from the database and return instance!
-         * return new User( $id, $name, $ownerId, $dateCreated );
-         */
+        $query = "SELECT `id` FROM `albums` WHERE `name`='$escapedName' AND `userid`='$escapedOwnerId'";
+        $result = $GLOBALS['mysqli']->query( $query ) or die(mysqli_error($GLOBALS['mysqli']));
+        $id = $result->fetch_assoc()['id'];
+
+        mkdir( "uploads/$ownerId/$id" );
     }
 
     public static function getAlbumById( $id )
@@ -120,20 +117,6 @@ class Album
     }
 
     /*
-     * Public Instance methods
-     */
-    public function remove()
-    {
-        Album::removeAlbum( $this->id );
-    }
-
-    public function save()
-    {
-        // We skip the id and the dateCreated and we cant make album with rating more than 0!
-        Album::createAlbum($this->name, $this->ownerId, $this->picturesCount );
-    }
-
-    /*
      * Getters
      */
     public function getId()
@@ -188,22 +171,15 @@ class Album
 
     public function addPic( $picName, $picResource )
     {
-        //include_once 'system/models/picture.php';
-
-        //$pic = new Picture( $picName, $this->id, $picResource );
-        //$this->imagesHandler->addImage( $pic );
-
-        move_uploaded_file( $picResource, 'uploads/'.$picName );
-
+        Picture::addPicture( $picName, $picResource, $this->id );
         $this->picturesCount++;
-
         $this->update( 'pictures-count', $this->picturesCount );
     }
 
     public function removePic( $id )
     {
-        //$this->imagesHandler->removeImage( $id, $this->id );
-        $this->$picturesCount--;
+        $this->picturesCount--;
+        $this->update( 'pictures-count', $this->picturesCount );
     }
 
     /*

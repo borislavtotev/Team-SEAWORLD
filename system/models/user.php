@@ -31,8 +31,11 @@ class User
 	
 	        $getUserIdQuery = "SELECT userid FROM users WHERE username='$userName'";
 	        $result = $GLOBALS[ 'mysqli' ]->query( $getUserIdQuery ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
-	
-	        return new User( $result->fetch_assoc()[ 'userid' ] );
+
+            $userId = $result->fetch_assoc()[ 'userid' ];
+            mkdir( "uploads/$userId" );
+
+	        return new User( $userId );
 		} else {
 			return $checkedUser;
 		}
