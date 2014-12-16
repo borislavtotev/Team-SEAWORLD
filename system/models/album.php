@@ -182,13 +182,20 @@ class Album
         $this->update( 'pictures-count', $this->picturesCount );
     }
 	
-	public function getFirstPic ($userId, $albumId) {	
-		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("./uploads/$userId/$albumId")) as $filename) {
-        	if (preg_match("/\.jpg$/",$filename) || preg_match("/\.png$/",$filename) || preg_match("/\.gif$/",$filename) || preg_match("/\.jpeg$/",$filename)) {
+	public function getFirstPic ($userId, $albumId) {
+		$foundFile = false;		
+		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("./uploads/$userId/$albumId")) as $filename) {	
+        	if (preg_match("/\.jpg$/",$filename) || preg_match("/\.png/",$filename) || preg_match("/\.gif$/",$filename) || preg_match("/\.jpeg$/",$filename)) {
+				$foundFile = true;	
 				break;
 			}
 		}
-		return $filename;
+		
+		if ($foundFile) {
+			return $filename;
+		} else {
+			return "http://oleaass.com/wp-content/uploads/2014/09/PHP.png"; 
+		}
 	}
 
     /*

@@ -13,6 +13,7 @@ $userId = $_SESSION['user']->getID();
                 <div class="row">
                     <?php for($col = 0; $col < 3 && $pics < count($albums); $col++, $pics++) :
                     	$albumId = $albums[$pics]->getId();
+						$albumName = $albums[$pics]->getName();
 						$sourcePath = $albums[$pics]->getFirstPic($userId,$albumId);
                     	?>
                         <div class="col-md-4">
@@ -20,7 +21,7 @@ $userId = $_SESSION['user']->getID();
                                 <a href="./albums.php?id=">
                                     <img class="img-responsive" src=<?= $sourcePath ?>>
                                 </a>
-                                <figcaption class="text-center">Album Name</figcaption>
+                                <figcaption class="text-center"><?= $albumName ?></figcaption>
                             </figure>
                         </div>
                     <?php endfor; ?>
