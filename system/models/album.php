@@ -108,12 +108,10 @@ class Album
 
     public static function getAllAlbums()
     {
-        include_once 'system/models/user.php';
-
         $users = User::getAllUsers();
         $allAlbums = [];
         foreach ($users as $user) {
-            foreach (Album::getAlbumsByOwnerId( $GLOBALS[ 'mysqli' ], $user->getId() ) as $album) {
+            foreach (Album::getAlbumsByOwnerId( $user->getId() ) as $album) {
                 $allAlbums[] = $album;
             };
         }

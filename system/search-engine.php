@@ -5,7 +5,7 @@ class SearchEngine
     {
         $users = SearchEngine::searchUsers(  $pattern );
         $albums = SearchEngine::searchAlbums(  $pattern );
-        $comments = SearchEngine::searchComments(  $pattern );
+        $comments = SearchEngine::searchComments( $pattern );
 
         return [ 'users' => $users, 'albums' => $albums, 'comments' => $comments ];
     }
@@ -27,18 +27,15 @@ class SearchEngine
 
     private static function searchAlbums( $pattern )
     {
-        return [];
         $albums = Album::getAllAlbums();
         $matches = [];
         foreach ($albums as $album) {
-            var_dump( $album );
             if (preg_match( "/$pattern/", $album->getId() ) ||
-                preg_match( "/$pattern/", $album->getName() ||
-                preg_match( "/$pattern/", $album->getOwnerId() ))) {
+                preg_match( "/$pattern/", $album->getName() ) ||
+                preg_match( "/$pattern/", $album->getOwnerId() )) {
                 $matches[] = $album;
             }
         }
-
         return $matches;
     }
 

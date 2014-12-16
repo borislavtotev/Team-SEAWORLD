@@ -49,7 +49,7 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
             <div class="col-md-12">
                 <div class="jumbotron">
                     <header>
-                        <h2>User matches:</h2>
+                        <h2>Album matches:</h2>
                     </header>
                     <table class="table table-striped table-hover">
                         <thead>
@@ -66,13 +66,13 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
                             <tr>
                                 <td><?= $album->getId() ?></td>
                                 <td>
-                                    <a href="./profile.php?id=<?=$album->getId()?>">
+                                    <a href="./albums.php?id=<?=$album->getId()?>">
                                         <?= htmlspecialchars( $album->getName() )?>
                                     </a>
                                 </td>
                                 <td><?= $album->getDateCreated() ?></td>
                                 <td><?= $album->getPicturesCount() ?></td>
-                                <td><?= $album->getRating() ?>/td>
+                                <td><?= $album->getRating() ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
