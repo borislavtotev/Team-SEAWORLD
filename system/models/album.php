@@ -173,11 +173,6 @@ class Album {
 		return $images[0];
 	}
 
-	public function removePic($id) {
-		$this -> picturesCount--;
-		$this -> update('pictures-count', $this -> picturesCount);
-	}
-
 	public function remove() {
 		$query = "DELETE FROM `albums` WHERE `id` = '$this->id'";
 		mysqli_query($GLOBALS['mysqli'], $query) or die(mysqli_error($GLOBALS['mysqli']));
