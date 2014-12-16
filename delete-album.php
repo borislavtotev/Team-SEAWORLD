@@ -7,6 +7,7 @@ function __autoload( $classname )
 include 'system/db-connect.php';
 
 session_start();
+
 if (!isset( $_SESSION[ 'user' ] )) {
     echo 'not logged in';
 }
