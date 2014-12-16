@@ -5,10 +5,10 @@ class User
 	private $userName;
     private $email;
 
-    public function __construct( $mysqli, $id )
+    public function __construct( $id )
     {
         $getUserIdQuery = "SELECT username, email FROM users WHERE userid='$id'";
-        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
+        $result = $GLOBALS[ 'mysqli' ]->query( $getUserIdQuery ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
         $userData = $result->fetch_assoc();
 
         $this->userId = $id;
@@ -19,26 +19,26 @@ class User
     /*
      * Static methods
      */
-    public static function createUser( $mysqli, $userName, $email, $password )
+    public static function createUser( $userName, $email, $password )
     {
-		$checkedUser = User::checkUserInputs($mysqli, $userName, $email, $password);
+		$checkedUser = User::checkUserInputs( $userName, $email, $password);
 		$hashPass = md5( $password );
 		
 		if ($checkedUser===true) {
 	        $insertUserQuery = "INSERT INTO users(username, email, password) VALUES('$userName', '$email', '$hashPass')";
 	        $password = null; // Delete that info from the memory!!
-	        mysqli_query( $mysqli, $insertUserQuery ) or die( mysqli_error( $mysqli ) );
+	        mysqli_query( $GLOBALS[ 'mysqli' ], $insertUserQuery ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 	
 	        $getUserIdQuery = "SELECT userid FROM users WHERE username='$userName'";
-	        $result = $mysqli->query( $getUserIdQuery ) or die( mysqli_error( $mysqli ) );
+	        $result = $GLOBALS[ 'mysqli' ]->query( $getUserIdQuery ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 	
-	        return new User( $mysqli, $result->fetch_assoc()[ 'userid' ] );
+	        return new User( $result->fetch_assoc()[ 'userid' ] );
 		} else {
 			return $checkedUser;
 		}
     }
 
-    public static function login( $mysqli, $username, $password )
+    public static function login( $username, $password )
     {
         $hashPass = md5( $password );
 
@@ -57,10 +57,10 @@ class User
 
         if (! $findError ) {
 	        $query = "SELECT userid FROM users WHERE username='$username' AND password='$hashPass'";
-	        $checkMatch = mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
+	        $checkMatch = mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 	
 	        if ($checkMatch->num_rows == 1) {
-	            return new User( $mysqli, $checkMatch->fetch_assoc()[ 'userid' ] );
+	            return new User( $GLOBALS[ 'mysqli' ], $checkMatch->fetch_assoc()[ 'userid' ] );
 	        } else {
 	        	$errors.="Wrong user name and/or password!<br>";
 				return $errors;
@@ -70,14 +70,14 @@ class User
 		}
     }
 
-    public static function getAllUsers( $mysqli )
+    public static function getAllUsers()
     {
         $query = "SELECT userid FROM users";
-        $result = $mysqli->query( $query ) or die ( mysqli_error( $mysqli ) );
+        $result = $GLOBALS[ 'mysqli' ]->query( $query ) or die ( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
         $users = [];
         if ($result->num_rows > 0) {
             while ($userData = $result->fetch_assoc()) {
-                $users[] = new User( $mysqli, $userData[ 'userid' ] );
+                $users[] = new User( $userData[ 'userid' ] );
             }
         }
 
@@ -97,10 +97,10 @@ class User
         return $this->userName;
     }
 
-    public function getAlbums( $mysqli )
+    public function getAlbums()
     {
         include_once 'system/models/album.php';
-        return Album::getAlbumsByOwnerId( $mysqli, $this->userId );
+        return Album::getAlbumsByOwnerId( $this->userId );
     }
 
     public function getEmail()
@@ -111,21 +111,21 @@ class User
     /*
      * Setters
      */
-    public function changePassword( $mysqli, $password )
+    public function changePassword( $password )
     {
         $password = md5( $password );
         $query = "UPDATE users SET password='$password' WHERE userid='$this->userId'";
         $password = null;
-        mysqli_query( $mysqli, $query ) or die( mysqli_error( $mysqli ) );
+        mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
     }
 
     /*
      * Private methods
      */
-	private static function checkUserInputs ($mysqli, $userName, $email, $password) {
+	private static function checkUserInputs ($userName, $email, $password) {
 
         $selectByUserNameQuery = "SELECT * FROM users WHERE username='$userName'";
-        $result = $mysqli->query( $selectByUserNameQuery );
+        $result = $GLOBALS[ 'mysqli' ]->query( $selectByUserNameQuery );
         
         $errors = '';
 		$findError = false;
@@ -140,7 +140,7 @@ class User
 			$findError = true;
 	    }
 	
-	    if (preg_match('/[^A-Za-z0-9]+/', $username)) {
+	    if (preg_match('/[^A-Za-z0-9]+/', $userName)) {
 	        $errors.= 'The user name must have only latin letter and numbers!<br>';	
 			$findError = true;
 	    }

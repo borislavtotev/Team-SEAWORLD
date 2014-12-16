@@ -1,6 +1,4 @@
-<?php
-include_once( 'views/partials/header.php' );
-?>
+<?php include_once( 'views/partials/header.php' ); ?>
 <!--About us info-->
     <div class="container">
         <header class="row">
@@ -26,4 +24,4 @@ include_once( 'views/partials/header.php' );
         </header>
 
     </div>
-<?php include_once( 'views/partials/footer.php' ); ?>
+<?php include_once( 'views/partials/footer.php' );

@@ -14,7 +14,7 @@ if (isset( $_POST[ 'username' ], $_POST[ 'password' ] )) {
         $rememberMe = $_POST[ 'rememberMe' ];
     }
 
-    $user = User::login( $mysqli, $_POST[ 'username' ], $_POST[ 'password' ] );
+    $user = User::login( $_POST[ 'username' ], $_POST[ 'password' ] );
 	if ($user instanceof User) {
 	    $_SESSION[ 'user' ] = $user;
     } else {

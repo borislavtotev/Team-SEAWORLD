@@ -30,7 +30,7 @@ class Album
     /*
      * Public Static methods
      */
-    public static function createAlbum($mysqliConnection, $albumName, $ownerId)
+    public static function createAlbum($albumName, $ownerId)
     {
         if (empty($albumName) || empty($ownerId)) {
             die ('Name and userID cannot be empty!');
@@ -44,7 +44,7 @@ class Album
         $escapedOwnerId = Album::parseInput($ownerId);
         $insertQuery = "INSERT INTO albums(name, userid) VALUES('$escapedName', '$escapedOwnerId')";
 
-        mysqli_query($mysqliConnection, $insertQuery) or die(mysqli_error($mysqliConnection));
+        mysqli_query($GLOBALS[ 'mysqli' ], $insertQuery) or die(mysqli_error($GLOBALS[ 'mysqli' ]));
 
         /*
          * Now fetch the information of the user from the database and return instance!
@@ -52,15 +52,15 @@ class Album
          */
     }
 
-    public static function getAlbumById($mysqliConnection, $id)
+    public static function getAlbumById( $id )
     {
-        if (empty($id)) {
+        if (empty( $id )) {
             die ('empty id, cannot get album! aborting...');
         }
 
-        $id = Album::parseInput($id);
+        $id = Album::parseInput( $id );
         $query = "SELECT * FROM albums WHERE id = '$id'";
-        $result = $mysqliConnection->query($query);
+        $result = $GLOBALS[ 'mysqli' ]->query( $query );
 
         if ($result->num_rows == 0) {
             return null;
@@ -71,7 +71,7 @@ class Album
         }
     }
 
-    public static function getAlbumsByOwnerId($mysqliConnection, $ownerId)
+    public static function getAlbumsByOwnerId( $ownerId )
     {
         if (empty($ownerId)) {
             die('no userId provided, cannot get albums. aborting...');
@@ -80,7 +80,7 @@ class Album
         $escapedOwnerId = Album::parseInput($ownerId);
         $query = "SELECT * FROM albums WHERE userid = '$escapedOwnerId'";
 
-        $result = $mysqliConnection->query($query) or die(mysqli_error($mysqliConnection));
+        $result = $GLOBALS[ 'mysqli' ]->query($query) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
         $albums = [];
 
         if ($result->num_rows > 0) {
@@ -94,7 +94,7 @@ class Album
         return $albums;
     }
 
-    public static function removeAlbum($mysqliConnection, $id)
+    public static function removeAlbum( $id )
     {
         if (empty($id)) {
             die('empty id, cannot remove album! aborting...');
@@ -103,17 +103,17 @@ class Album
         $id = Album::parseInput($id);
         $query = "REMOVE * FROM albums WHERE id = '$id'";
 
-        mysqli_query($mysqliConnection, $query) or die (mysqli_error($mysqliConnection));
+        mysqli_query($GLOBALS[ 'mysqli' ], $query) or die (mysqli_error($GLOBALS[ 'mysqli' ]));
     }
 
-    public static function getAllAlbums( $mysqli )
+    public static function getAllAlbums()
     {
         include_once 'system/models/user.php';
 
-        $users = User::getAllUsers( $mysqli );
+        $users = User::getAllUsers();
         $allAlbums = [];
         foreach ($users as $user) {
-            foreach (Album::getAlbumsByOwnerId( $mysqli, $user->getId() ) as $album) {
+            foreach (Album::getAlbumsByOwnerId( $GLOBALS[ 'mysqli' ], $user->getId() ) as $album) {
                 $allAlbums[] = $album;
             };
         }
@@ -124,15 +124,15 @@ class Album
     /*
      * Public Instance methods
      */
-    public function remove( $mysqliConnection )
+    public function remove()
     {
-        Album::removeAlbum( $mysqliConnection, $this->id );
+        Album::removeAlbum( $this->id );
     }
 
-    public function save( $mysqliConnection )
+    public function save()
     {
         // We skip the id and the dateCreated and we cant make album with rating more than 0!
-        Album::createAlbum( $mysqliConnection, $this->name, $this->ownerId, $this->picturesCount );
+        Album::createAlbum($this->name, $this->ownerId, $this->picturesCount );
     }
 
     /*
@@ -176,19 +176,19 @@ class Album
     /*
      * Setters
      */
-    public function setName( $mysqliConnection, $name )
+    public function setName( $name )
     {
-        $this->update( $mysqliConnection, 'name', $name );
+        $this->update( 'name', $name );
         $this->name = $name;
     }
 
-    public function setRating( $mysqliConnection, $rating )
+    public function setRating( $rating )
     {
-        $this->update( $mysqliConnection, 'rating', $rating );
+        $this->update( 'rating', $rating );
         $this->rating = $rating;
     }
 
-    public function addPic( $mysqliConnection, $picName, $picResource )
+    public function addPic( $picName, $picResource )
     {
         //include_once 'system/models/picture.php';
 
@@ -199,23 +199,23 @@ class Album
 
         $this->picturesCount++;
 
-        $this->update( $mysqliConnection, 'pictures-count', $this->picturesCount );
+        $this->update( 'pictures-count', $this->picturesCount );
     }
 
     public function removePic( $id )
     {
-        $this->imagesHandler->removeImage( $id, $this->id );
+        //$this->imagesHandler->removeImage( $id, $this->id );
         $this->$picturesCount--;
     }
 
     /*
      * Private functions
      */
-    private function update( $mysqliConnection, $field, $value )
+    private function update( $field, $value )
     {
         $query = "UPDATE `albums` SET `$field`='$value' WHERE `id` = '$this->id'";
 
-        mysqli_query( $mysqliConnection, $query ) or die( mysqli_error( $mysqliConnection ) );
+        mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
     }
 
     private static function parseInput( $input )

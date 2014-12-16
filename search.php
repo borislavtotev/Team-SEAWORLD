@@ -5,7 +5,7 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
     include_once( 'system/search-engine.php' );
     include_once( 'system/models/user.php' );
 
-    $results = SearchEngine::searchFor( $mysqli, $_GET[ 'pattern' ] );
+    $results = SearchEngine::searchFor( $_GET[ 'pattern' ] );
 } else {
     header( 'Location: index.php' );
 }

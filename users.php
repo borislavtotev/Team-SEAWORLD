@@ -1,7 +1,6 @@
 <?php
 include_once( 'views/partials/header.php' );
 include_once( 'system/models/user.php' );
-include_once( 'system/db-connect.php' );
 ?>
 <main class="container">
     <div class="row">
@@ -18,7 +17,7 @@ include_once( 'system/db-connect.php' );
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach( User::getAllUsers( $mysqli ) as $user ): ?>
+                <?php foreach( User::getAllUsers() as $user ): ?>
                 <tr>
                     <td><?= $user->getId() ?></td>
                     <td>

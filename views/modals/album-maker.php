@@ -1,8 +1,7 @@
 <?php
 include_once 'system/models/album.php';
-include_once 'system/db-connect.php';
 if (isset( $_POST[ 'albumName' ] ) && !empty( $_POST[ 'albumName' ] )) {
-    Album::createAlbum( $mysqli, $_POST[ 'albumName' ], $_SESSION[ 'user' ]->getId() );
+    Album::createAlbum( $_POST[ 'albumName' ], $_SESSION[ 'user' ]->getId() );
 }
 ?>
 <div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="CreateAlbum" aria-hidden="true">

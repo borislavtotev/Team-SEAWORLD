@@ -1,20 +1,20 @@
 <?php
 class SearchEngine
 {
-    public static function searchFor( $mysqli, $pattern )
+    public static function searchFor( $pattern )
     {
-        $users = SearchEngine::searchUsers( $mysqli, $pattern );
-        $albums = SearchEngine::searchAlbums( $mysqli, $pattern );
-        $comments = SearchEngine::searchComments( $mysqli, $pattern );
+        $users = SearchEngine::searchUsers(  $pattern );
+        $albums = SearchEngine::searchAlbums(  $pattern );
+        $comments = SearchEngine::searchComments(  $pattern );
 
         return [ 'users' => $users, 'albums' => $albums, 'comments' => $comments ];
     }
 
-    private static function searchUsers( $mysqli, $pattern )
+    private static function searchUsers( $pattern )
     {
         include_once( 'system/models/user.php' );
 
-        $users = User::getAllUsers( $mysqli );
+        $users = User::getAllUsers();
         $matches = [];
         foreach ($users as $user) {
             if (preg_match( "/$pattern/", $user->getId() ) ||
@@ -27,13 +27,13 @@ class SearchEngine
         return $matches;
     }
 
-    private static function searchAlbums( $mysqli, $pattern )
+    private static function searchAlbums( $pattern )
     {
 	return [];
     
         include_once 'system/models/album.php';
 
-        $albums = Album::getAllAlbums( $mysqli );
+        $albums = Album::getAllAlbums();
         $matches = [];
         foreach ($albums as $album) {
             var_dump( $album );
@@ -47,7 +47,7 @@ class SearchEngine
         return $matches;
     }
 
-    private static function searchComments( $mysqli, $pattern )
+    private static function searchComments( $pattern )
     {
         // TODO: Implement it!
         return [];

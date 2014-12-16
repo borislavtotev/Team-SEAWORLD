@@ -12,6 +12,7 @@
 </head>
 <body>
 <?php
+include_once( 'system/db-connect.php' );
 include_once( 'views/partials/navbar.php' );
 
 if (!isset( $_SESSION[ 'user' ] )) {
@@ -28,4 +29,3 @@ if (isset( $_SESSION[ 'error' ] )) {
     include_once( 'views/modals/error.php' );
     unset( $_SESSION[ 'error' ] );
 }
-?>

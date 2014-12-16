@@ -1,6 +1,5 @@
 <?php
 include_once 'system/models/album.php';
-include_once 'system/db-connect.php';
 const MAX_FILE_SIZE = 500000; // Bytes
 
 $uploadedFiles = [];
@@ -23,13 +22,13 @@ if (isset( $_FILES[ 'files' ] )) {
 }
 
 if (isset( $_POST[ 'albumId' ] ) || !empty( $_POST[ 'albumId' ] )) {
-    $album = Album::getAlbumById( $mysqli, $_POST[ 'albumId' ] );
+    $album = Album::getAlbumById( $_POST[ 'albumId' ] );
     if ($album->getOwnerId() != $_SESSION[ 'user' ]->getId()) {
         die( 'No chance to upload pic in foreign album! :D:D' );
     }
 
     foreach ($uploadedFiles as $file) {
-        $album->addPic( $mysqli, $file[ 'name' ], $file[ 'location' ] );
+        $album->addPic( $file[ 'name' ], $file[ 'location' ] );
     }
 
     if (count( $errors )) {

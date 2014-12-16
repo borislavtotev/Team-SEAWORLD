@@ -1,12 +1,12 @@
 <?php
 include_once( 'views/partials/header.php' );
-include_once( 'system/db-connect.php' );
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
 if (isset( $_GET[ 'id' ] )) {
-    $user = new User( $mysqli, $_GET[ 'id' ] );
+    $user = new User( $_GET[ 'id' ] );
 } else if (isset( $_SESSION[ 'user' ] )) {
     $user = $_SESSION[ 'user' ];
 } else {
@@ -14,7 +14,7 @@ if (isset( $_GET[ 'id' ] )) {
     header( 'Location: index.php' );
 }
 
-$albums = Album::getAlbumsByOwnerId( $mysqli, $user->getId() );
+$albums = Album::getAlbumsByOwnerId( $user->getId() );
 $rows = ceil( count( $albums ) / 3 );
 ?>
 <main class="container">

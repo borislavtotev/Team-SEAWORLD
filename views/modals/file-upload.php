@@ -2,7 +2,7 @@
 include_once 'image-upload.php';
 include_once 'system/models/album.php';
 
-$albums = Album::getAlbumsByOwnerId( $mysqli, $_SESSION[ 'user' ]->getId() );
+$albums = Album::getAlbumsByOwnerId( $_SESSION[ 'user' ]->getId() );
 ?>
 <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="FilesUpload" aria-hidden="true">
     <form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">

@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if (isset( $_POST[ 'username' ], $_POST[ 'email' ], $_POST[ 'password' ] )) {
-    $user = User::createUser( $mysqli, $_POST[ 'username' ], $_POST[ 'email' ], $_POST[ 'password' ] );
+    $user = User::createUser( $_POST[ 'username' ], $_POST[ 'email' ], $_POST[ 'password' ] );
     if ($user instanceof User) {
         session_start();
         $_SESSION[ 'user' ] = $user;

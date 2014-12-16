@@ -1,7 +1,5 @@
 <?php
 include_once( 'views/partials/header.php' );
-include_once( 'system/db-connect.php' );
-
 
 $albumsCount = 9;
 $rows = ceil( $albumsCount / 3 );
