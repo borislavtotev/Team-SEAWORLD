@@ -8,13 +8,11 @@
                     <h4 class="modal-title" id="myModalLabel">Upload images</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="uploadForm" class="form-horizontal">
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="file" name="fileToUpload" id="fileToUpload">
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div>
