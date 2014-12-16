@@ -1,7 +1,4 @@
-<?php
-include 'views/partials/header.php';
-include 'image-upload.php';
-?>
+<?php include_once 'image-upload.php'; ?>
 <form id="uploadForm" action="#" method="post" class="form-horizontal" enctype="multipart/form-data">
     <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="FilesUpload" aria-hidden="true">
         <div class="modal-dialog">
@@ -31,4 +28,3 @@ include 'image-upload.php';
         </div>
     </div>
 </form>
-<?php include 'views/partials/footer.php'; ?>

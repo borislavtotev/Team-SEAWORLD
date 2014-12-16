@@ -33,5 +33,3 @@ $rows = ceil( $albumsCount / 3 );
     </div>
 </main>
 <?php include_once( 'views/partials/footer.php' );
-
-   

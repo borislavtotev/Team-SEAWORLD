@@ -30,14 +30,12 @@ $rows = ceil( $albumsCount / 3 );
                         <?=htmlspecialchars( $user->getEmail() )?>
                     </h3>
                 </hgroup>
-
+                <?php if (isset( $_SESSION[ 'user' ] ) && $user == $_SESSION[ 'user' ]): ?>
                 <div class="butt-group">
                     <button type="button" class="btn btn-primary" id="left-butt"  data-modal-type="login" data-toggle="modal" data-target="#filesUpload">Upload Picture</button>
                     <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
                 </div>
-                
-
-
+                <?php endif; ?>
             </header>
         </div>
     </div>
@@ -62,5 +60,6 @@ $rows = ceil( $albumsCount / 3 );
         </div>
     </div>
 </main>
-<?php  include('views/modals/file-upload.php');?>
-<?php include_once( 'views/partials/footer.php' );
+<?php
+include( 'views/modals/file-upload.php' );
+include_once( 'views/partials/footer.php' );

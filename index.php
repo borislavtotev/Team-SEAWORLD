@@ -23,10 +23,12 @@ $pictures = [
                     <h2 class="text-center">Weird programmers. One place.</h2>
                 </hgroup>
                 <img src="img/hd_computer_guy_meme_by_zapgod16-d4t2jh3.png" alt="" id="baner" class="img-responsive" alt="Responsive image"/>
+                <?php if (isset( $_SESSION[ 'user' ] )): ?>
                 <div class="butt-group">
                     <button type="button" class="btn btn-primary" id="left-butt" data-modal-type="login" data-toggle="modal" data-target="#filesUpload">Upload Picture</button>
                     <button type="button" class="btn btn-primary" id="right-butt">Make Album</button>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </header>
