@@ -40,11 +40,12 @@ $rows = ceil( count( $albums ) / 3 );
     </div>
     <div class="row">
         <div class="col-md-12">
-            <section>
+            <section id="albums-container">
                 <?php //for ($row = 0, $pics = 0; $row < $rows; $row++): ?>
                 <div class="row">
                     <?php foreach($albums as $album) :?>
-                        <div class="col-md-4">
+                        <div class="col-md-4 figure-holder">
+                            <button data-albumid="<?=$album->getId()?>" class="delete-btn"></button>
                             <figure>
                                 <a href="./album.php?id=<?=$album->getId()?>">
                                     <img class="img-responsive" src="http://oleaass.com/wp-content/uploads/2014/09/PHP.png">

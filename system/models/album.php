@@ -91,18 +91,6 @@ class Album
         return $albums;
     }
 
-    public static function removeAlbum( $id )
-    {
-        if (empty($id)) {
-            die('empty id, cannot remove album! aborting...');
-        }
-
-        $id = Album::parseInput($id);
-        $query = "REMOVE * FROM albums WHERE id = '$id'";
-
-        mysqli_query($GLOBALS[ 'mysqli' ], $query) or die (mysqli_error($GLOBALS[ 'mysqli' ]));
-    }
-
     public static function getAllAlbums()
     {
         $users = User::getAllUsers();
@@ -154,6 +142,22 @@ class Album
         return $this->rating;
     }
 
+    public function getFirstPic ($userId, $albumId) {
+        $foundFile = false;
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("./uploads/$userId/$albumId")) as $filename) {
+            if (preg_match("/\.jpg$/",$filename) || preg_match("/\.png/",$filename) || preg_match("/\.gif$/",$filename) || preg_match("/\.jpeg$/",$filename)) {
+                $foundFile = true;
+                break;
+            }
+        }
+
+        if ($foundFile) {
+            return $filename;
+        } else {
+            return "http://oleaass.com/wp-content/uploads/2014/09/PHP.png";
+        }
+    }
+
     /*
      * Setters
      */
@@ -182,21 +186,19 @@ class Album
         $this->update( 'pictures-count', $this->picturesCount );
     }
 	
-	public function getFirstPic ($userId, $albumId) {
-		$foundFile = false;		
-		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("./uploads/$userId/$albumId")) as $filename) {	
-        	if (preg_match("/\.jpg$/",$filename) || preg_match("/\.png/",$filename) || preg_match("/\.gif$/",$filename) || preg_match("/\.jpeg$/",$filename)) {
-				$foundFile = true;	
-				break;
-			}
-		}
-		
-		if ($foundFile) {
-			return $filename;
-		} else {
-			return "http://oleaass.com/wp-content/uploads/2014/09/PHP.png"; 
-		}
-	}
+	public function remove()
+    {
+        $query = "DELETE FROM `albums` WHERE `id` = '$this->id'";
+        mysqli_query($GLOBALS[ 'mysqli' ], $query) or die (mysqli_error($GLOBALS[ 'mysqli' ]));
+
+        $albumDir = "uploads/$this->ownerId/$this->id";
+        $albumContents = scandir($albumDir);
+        foreach ($albumContents as $content) {
+            if (!is_dir( $albumDir . "/$content" ))
+                unlink( $albumDir . "/$content" );
+        }
+        rmdir( $albumDir );
+    }
 
     /*
      * Private functions
