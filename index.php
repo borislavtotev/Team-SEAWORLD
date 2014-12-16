@@ -75,5 +75,5 @@ $pictures = [
         </div>
     </main>
 </div>
-  <?php  include('views/modals/file-upload.php');?>
+ <?php  include('views/modals/file-upload.php');?>
 <?php include_once( 'views/partials/footer.php' ); ?>
