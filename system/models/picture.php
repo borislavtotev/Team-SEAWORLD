@@ -5,6 +5,7 @@ class Picture
     private $name;
     private $albumId;
     private $dateUploaded;
+    private $picsLocation = '/uploads/';
 
     public function __construct( $name, $albumId, $pictureResource )
     {

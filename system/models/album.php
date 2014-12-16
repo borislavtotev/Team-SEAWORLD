@@ -14,7 +14,7 @@ class Album
     private $rating;
     private $imagesHandler;
 
-    public function __construct($id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0)
+    private function __construct($id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0)
     {
         $this->id = $id;
         $this->name = $name;
@@ -23,8 +23,8 @@ class Album
         $this->picturesCount = $picturesCount;
         $this->rating = $rating;
 
-        include 'system/images-handler.php';
-        $this->imagesHandler = new ImagesHandler();
+        //include 'system/images-handler.php';
+        //$this->imagesHandler = new ImagesHandler();
     }
 
     /*
@@ -190,10 +190,13 @@ class Album
 
     public function addPic( $mysqliConnection, $picName, $picResource )
     {
-        include_once 'system/models/picture.php';
+        //include_once 'system/models/picture.php';
 
-        $pic = new Picture( $picName, $this->id, $picResource );
-        $this->imagesHandler->addImage( $pic );
+        //$pic = new Picture( $picName, $this->id, $picResource );
+        //$this->imagesHandler->addImage( $pic );
+
+        move_uploaded_file( $picResource, 'uploads/'.$picName );
+
         $this->picturesCount++;
 
         $this->update( $mysqliConnection, 'pictures-count', $this->picturesCount );
@@ -210,9 +213,7 @@ class Album
      */
     private function update( $mysqliConnection, $field, $value )
     {
-        $query = "UPDATE albums SET ";
-        $query .= $field . "='" . Album::parseInput( $value ) . "'";
-        $query .= " WHERE id='$this->id'";
+        $query = "UPDATE `albums` SET `$field`='$value' WHERE `id` = '$this->id'";
 
         mysqli_query( $mysqliConnection, $query ) or die( mysqli_error( $mysqliConnection ) );
     }

@@ -17,7 +17,7 @@ include_once( 'views/partials/navbar.php' );
 if (!isset( $_SESSION[ 'user' ] )) {
     include_once( 'views/modals/login-register.php' );
 } else {
-    include_once( 'views/modals/album-maker.html' );
+    include_once( 'views/modals/album-maker.php' );
     include_once( 'views/modals/file-upload.php' );
 }
 

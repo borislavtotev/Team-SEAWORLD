@@ -1,46 +1,38 @@
 <?php
+include_once 'system/models/album.php';
+include_once 'system/db-connect.php';
+const MAX_FILE_SIZE = 500000; // Bytes
 
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-	$target_dir = "img/";
-	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-	$uploadOk = 1;
-	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
+$uploadedFiles = [];
+$errors = [];
+if (isset( $_FILES[ 'files' ] )) {
+    for ($i = 0; $i < count( $_FILES[ 'files' ][ 'name' ] ); $i++) {
+        $fileName = $_FILES[ 'files' ][ 'name' ][ $i ];
+        $fileType = $_FILES[ 'files' ][ 'type' ][ $i ];
+        $fileSize = $_FILES[ 'files' ][ 'size' ][ $i ];
+        $filePath = $_FILES[ 'files' ][ 'tmp_name' ][$i ];
+
+        if ($fileSize > MAX_FILE_SIZE) {
+            $errors[] = "Skipped file $fileName! Too large! Maximum size = " . MAX_FILE_SIZE .'!';
+        } else if (!preg_match( '/image\/png|jpg|gif|jpeg/', $fileType )) {
+            $errors[] = "Skipped file $fileName! File type is not image!";
+        } else {
+            $uploadedFiles[] = [ 'name' => $fileName, 'size' => $fileSize, 'location' => $filePath ];
+        }
     }
-    // Check if file already exists
-	if (file_exists($target_file)) {
-	    echo "Sorry, file already exists.";
-	    $uploadOk = 0;
-	}
-	// Check file size
-	if ($_FILES["fileToUpload"]["size"] > 500000) {
-	    echo "Sorry, your file is too large.";
-	    $uploadOk = 0;
-	}
-	// Allow certain file formats
-	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-	&& $imageFileType != "gif" ) {
-	    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-	    $uploadOk = 0;
-	}
-	// Check if $uploadOk is set to 0 by an error
-	if ($uploadOk == 0) {
-	    echo "Sorry, your file was not uploaded.";
-	// if everything is ok, try to upload file
-	} else {
-	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-	        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-	    } else {
-	        echo "Sorry, there was an error uploading your file.";
-	    }
-	}
 }
 
-?>
+if (isset( $_POST[ 'albumId' ] ) || !empty( $_POST[ 'albumId' ] )) {
+    $album = Album::getAlbumById( $mysqli, $_POST[ 'albumId' ] );
+    if ($album->getOwnerId() != $_SESSION[ 'user' ]->getId()) {
+        die( 'No chance to upload pic in foreign album! :D:D' );
+    }
+
+    foreach ($uploadedFiles as $file) {
+        $album->addPic( $mysqli, $file[ 'name' ], $file[ 'location' ] );
+    }
+
+    if (count( $errors )) {
+        $_SESSION[ 'error' ] = implode( ' ', $errors );
+    }
+}

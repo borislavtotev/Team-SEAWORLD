@@ -1,10 +1,10 @@
 'use strict';
 $( function() {
-    var uploadForm = $( '#uploadForm' ),
+    var formBody = $( '#filesUpload').find( '.modal-body' ),
         addImagesButton = $( '#add-img-btn'),
-        inputTemplate = uploadForm.find( '.form-group').clone();
+        inputTemplate = formBody.find( '.form-group' ).last();
 
     addImagesButton.on( 'click', function() {
-       uploadForm.append( inputTemplate.clone() );
+       formBody.append( inputTemplate.clone() );
     });
 });
