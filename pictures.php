@@ -21,10 +21,10 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
                                     <figcaption class="text-center text-danger">Date created: <?= $picture->getDateUploaded() ?></figcaption>
                                     <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
                                     <figcaption class="text-center text-success">
-                                        <button class="vote-up"></button>
-                                        Up votes: <?=$picture->getRating()['ups']?> |
-                                        Down votes: <?=$picture->getRating()['downs']?>
-                                        <button class="vote-down"></button>
+                                        <button data-target-type="false" data-target="<?=$picture->getId()?>" class="vote vote-up"></button>
+                                        Up votes: <span class="up"><?=$picture->getRating()['ups']?></span> |
+                                        Down votes: <span class="down"><?=$picture->getRating()['downs']?></span>
+                                        <button data-target-type="false" data-target="<?=$picture->getId()?>" class="vote vote-down"></button>
                                     </figcaption>
                                     <figcaption class="text-center text-success">Comments: <?= htmlentities($picture->getId())?></figcaption>
                                 </figure>
@@ -48,4 +48,6 @@ $comments = Comments::getAllCommentsByPicId($_GET[ 'id' ]);
 foreach ($comments as $key => $value) {
 	echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
 }
+
+include_once 'views/partials/footer.php';
 ?>
