@@ -14,9 +14,9 @@ if (isset( $_POST[ 'albumName' ] ) && !empty( $_POST[ 'albumName' ] )) {
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <div class="col-lg-10">
-                            <label for="inputName">Album name:</label>
-                            <input type="text" name="albumName" id="inputName">
+                        <label for="inputName" class="control-label col-lg-3">Album name:</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" name="albumName" id="inputName">
                         </div>
                     </div>
                 </div>

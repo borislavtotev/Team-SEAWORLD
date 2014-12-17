@@ -20,6 +20,31 @@ if (isset( $_SESSION[ 'user' ] )) {
     <main class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="navbar navbar-default">
+                    <div class="navbar-collapse collapse navbar-responsive-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Order by <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Date posted</a></li>
+                                    <li><a href="#">Rating</a></li>
+                                    <li><a href="#">Name</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Order <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Ascending</a></li>
+                                    <li><a href="#">Descending</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <section id="albums-container">
                     <div class="row">
                         <?php foreach ($elements as $element) :
