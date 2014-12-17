@@ -2,10 +2,12 @@
 include_once( 'views/partials/header.php' );
 
 $elements = null;
+$path = "./albums.php?id=";
 if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
     $album = Album::getAlbumById( $_GET[ 'id' ] );
     if ($album != null)
         $elements = $album -> getPictures();
+		$path = "./pictures.php?id=";
 }
 
 if ($elements == null) {
@@ -88,7 +90,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <button data-picid="<?=$picId?>" data-albumid="<?=$albumId?>" class="delete-btn"></button>
                                 <?php endif; ?>
                                 <figure>
-                                    <a href="./albums.php?id=<?= $element -> getId()?>">
+                                    <a href="<?= $path.$element -> getId()?>">
                                         <img class="img-responsive" src=<?= $src ?>>
                                     </a>
                                     <figcaption class="text-center text-success">Name: <?= htmlentities($element->getName()) ?></figcaption>
@@ -100,6 +102,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                         Down votes: <span class="down"><?=$element->getRating()['downs']?></span>
                                         <button class="vote vote-down" data-target-type="<?=$element instanceof Album?>" data-target="<?= $element -> getId()?>"></button>
                                     </figcaption>
+                                    <figcaption class="text-center text-success">Comments: <?= htmlentities($element->getId())?></figcaption>
                                 </figure>
                             </div>
                         <?php endforeach; ?>

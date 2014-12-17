@@ -6,13 +6,13 @@
 
 $slavDb = 'php_teamproject';
 $d0ntth1nc_DBname = 'somedb';
-
 $asyaDBname = 'firstDB';
+
 $dbUser = 'root';
 $dbPass = '';
 $dbLocation = 'localhost';
 
-$mysqli = mysqli_connect( $dbLocation, 'root', '', $d0ntth1nc_DBname );
+$mysqli = mysqli_connect( $dbLocation, 'root', '', $asyaDBname );
 
 if ($mysqli->connect_errno) {
     die( "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error );
