@@ -6,10 +6,10 @@ class Comments
 	
 		$comment = trim($content);
 		
-		$query = 'INSERT INTO comments (userid, picid, albumid, content) VALUES (' . $userid . ', ' . $picid . ', ' . $albumid . ', "' . $comment . '")';
+		$query = 'INSERT INTO `comments` (`userid`, `picid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $picid . ', ' . $albumid . ', "' . $comment . '")';
 		
 		if (is_null($picid)) {
-			$query = 'INSERT INTO comments (userid, albumid, content) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
+			$query = 'INSERT INTO `comments` (`userid`, albumid`, content`) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
 		}
 		
 		if (empty($comment)) {
@@ -20,7 +20,7 @@ class Comments
 	}
 	
 	public static function getAllCommentsByPicId($picid) {
-        $query = "Select * FROM comments WHERE picid=$picid";
+        $query = "Select * FROM `comments` WHERE `picid`='$picid'";
         $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
 
         $comments = [];
@@ -35,7 +35,7 @@ class Comments
     }
 	
 	public static function getAllCommentsByAlbumId($albumid) {
-        $query = "Select * FROM comments WHERE albumid=$albumid AND picid IS NULL";
+        $query = "Select * FROM `comments` WHERE `albumid`='$albumid' AND `picid` IS NULL";
         $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
 		
         $comments = [];
@@ -69,5 +69,25 @@ class Comments
 			return count($results);
 		}		
 	}
+	public static function getOwnerId ($commentid) {
+        $query = "Select userid FROM comments WHERE commentid=$commentid";
+        $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
+		
+        $userid = null;
+        if ($result->num_rows > 0) {
+            while ($row = $result -> fetch_assoc()) {
+                $userid = $row['userid'];
+            }
+        } else {
+        	return false;
+        }
+
+        return $userid;		
+	}
+	public static function remove ($commentid) {
+        $query = "DELETE FROM comments WHERE commentid=$commentid";
+        $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));	
+	}
+
 }
  ?>
