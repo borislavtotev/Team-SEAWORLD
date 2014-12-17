@@ -10,7 +10,7 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
 ?>
 <main class="container">
     <?php if (!empty( $results[ 'users' ] )): ?>
-    <div class="row">
+    <section class="row">
         <div class="col-md-12">
             <div class="jumbotron">
                 <header>
@@ -27,7 +27,6 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
                     <tbody>
                     <?php foreach ($results[ 'users' ] as $user): ?>
                     <tr>
-
                         <td><?= $user->getId() ?></td>
                         <td>
                             <a href="./profile.php?id=<?=$user->getId()?>">
@@ -41,11 +40,11 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
                 </table>
             </div>
         </div>
-    </div>
+    </section>
     <?php endif; ?>
 
     <?php if (!empty( $results[ 'albums' ] )): ?>
-        <div class="row">
+        <section class="row">
             <div class="col-md-12">
                 <div class="jumbotron">
                     <header>
@@ -79,7 +78,29 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
                     </table>
                 </div>
             </div>
-        </div>
+        </section>
+    <?php endif; ?>
+
+    <?php if (!empty( $results[ 'pics' ] )): ?>
+        <section class="jumbotron">
+            <div class="row">
+                <div class="col-md-12">
+                    <header>
+                        <h2>Pics matches:</h2>
+                    </header>
+                </div>
+                <?php foreach ($results[ 'pics' ] as $pic): ?>
+                <div class="col-md-4">
+                    <figure>
+                        <a href="./albums.php?id=<?=$pic -> getId()?>">
+                            <img class="img-responsive" src=<?= $pic->getFullPath() ?>>
+                        </a>
+                        <figcaption class="text-center"><?= htmlentities($pic->getName()) ?></figcaption>
+                    </figure>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
     <?php endif; ?>
 </main>
 <?php include_once( 'views/partials/footer.php' );

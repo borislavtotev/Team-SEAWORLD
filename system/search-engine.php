@@ -6,8 +6,12 @@ class SearchEngine
         $users = SearchEngine::searchUsers(  $pattern );
         $albums = SearchEngine::searchAlbums(  $pattern );
         $comments = SearchEngine::searchComments( $pattern );
+        $pics = SearchEngine::searchPics( $pattern );
 
-        return [ 'users' => $users, 'albums' => $albums, 'comments' => $comments ];
+        return [
+            'users' => $users, 'albums' => $albums, 'comments' => $comments,
+            'pics' => $pics
+        ];
     }
 
     private static function searchUsers( $pattern )
@@ -36,6 +40,20 @@ class SearchEngine
                 $matches[] = $album;
             }
         }
+        return $matches;
+    }
+
+    private static function searchPics( $pattern )
+    {
+        $matches = [];
+        foreach (Album::getAllAlbums() as $album) {
+            foreach (Picture::getPicturesFromAlbum( $album->getId(), $album->getOwnerId() ) as $pic) {
+                if (preg_match( "/$pattern/", $pic->getName() )) {
+                    $matches[] = $pic;
+                }
+            }
+        }
+
         return $matches;
     }
 
