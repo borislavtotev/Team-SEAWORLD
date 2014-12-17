@@ -25,6 +25,8 @@ class Picture
 
     public static function addPicture( $name, $path, $albumId )
     {
+        $name = preg_replace( '/[^a-zA-Z_]/', '', $name );
+
         $query = "INSERT INTO images(name, albumid) VALUES('$name', '$albumId')";
         $GLOBALS[ 'mysqli' ]->query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 
@@ -34,7 +36,7 @@ class Picture
         $picId = $result->fetch_assoc()[ 'id' ];
         $userId = $_SESSION[ 'user' ]->getId();
 
-        $newPath = Picture::$picsLocation . "$userId/$albumId/$picId";
+        $newPath = Picture::$picsLocation . "$userId/$albumId/$picId-$name";
 
         move_uploaded_file( $path, "./".$newPath );
     }
@@ -47,7 +49,7 @@ class Picture
         $images = [];
         if ($result -> num_rows > 0) {
             while ($row = $result -> fetch_assoc()) {
-                $fullPath = "./uploads/$ownerId/$albumId/" . $row['id'];
+                $fullPath = "./uploads/$ownerId/$albumId/" . $row['id'] . '-' . $row[ 'name' ];
                 $rating = [ 'ups' => $row[ 'votes-up' ], 'downs' => $row[ 'votes-down' ] ];
                 $images[] =
                     new Picture( $row[ 'id' ], $row[ 'name' ],
@@ -74,7 +76,7 @@ class Picture
         $albumId = $album->getId();
 
         $rating = [ 'ups' => $info[ 'votes-up' ], 'downs' => $info[ 'votes-down' ] ];
-        $fullPath = "./uploads/$ownerId/$albumId/" . $info[ 'id' ];
+        $fullPath = "./uploads/$ownerId/$albumId/" . $info[ 'id' ] . '-' . $info[ 'name' ];
         return new Picture( $info['id'], $info['name'], $album->getId(),
             $info[ 'date-uploaded' ], $album->getOwnerId(), $fullPath, $rating );
     }

@@ -141,6 +141,11 @@ class Album {
 		return $this -> rating;
 	}
 
+    public function getFirstPic() {
+        $images = $this -> getPictures();
+        return $images[0];
+    }
+
 	/*
 	 * Setters
 	 */
@@ -165,28 +170,6 @@ class Album {
         $pic->remove();
 		$this -> picturesCount--;
 		$this -> update('pictures-count', $this -> picturesCount);
-	}
-
-	public function getAllPicturesPath() {
-
-		$query = "SELECT * FROM images WHERE albumid = '$this->id'";
-
-		$result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
-		$images = [];
-
-		if ($result -> num_rows > 0) {
-			while ($row = $result -> fetch_assoc()) {
-				$images[] = "./uploads/$this->ownerId/$this->id/" . $row['id'] . '-' . $row['name'];
-			}
-		} else {
-			$images[] = "http://oleaass.com/wp-content/uploads/2014/09/PHP.png";
-		}
-		return $images;
-	}
-
-	public function getFirstPic() {
-		$images = $this -> getAllPicturesPath();
-		return $images[0];
 	}
 
 	public function remove() {

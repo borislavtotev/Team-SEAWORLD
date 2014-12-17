@@ -74,7 +74,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                             $picId = '';
                             $albumId = '';
                             if ($element instanceof Album) {
-                                $src = $element->getFirstPic();
+                                $src = $element->getFirstPic()->getFullPath();
                                 $albumId = $element->getId();
                             } else {
                                 $src = $element->getFullPath();
@@ -85,7 +85,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <button data-picid="<?=$picId?>" data-albumid="<?=$albumId?>" class="delete-btn"></button>
                                 <?php endif; ?>
                                 <figure>
-                                    <a href="./albums.php?id=<?=$element -> getId()?>">
+                                    <a href="./albums.php?id=<?= $element -> getId()?>">
                                         <img class="img-responsive" src=<?= $src ?>>
                                     </a>
                                     <figcaption class="text-center"><?= htmlentities($element->getName()) ?></figcaption>

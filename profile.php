@@ -46,7 +46,7 @@ if (isset( $_GET[ 'id' ] )) {
                             <?php endif; ?>
                             <figure>
                                 <a href="./albums.php?id=<?=$album->getId()?>">
-                                    <img class="img-responsive" src=<?= $album->getFirstPic() ?>>
+                                    <img class="img-responsive" src=<?= $album->getFirstPic()->getFullPath() ?>>
                                 </a>
                                 <figcaption class="text-center"><?= htmlspecialchars( $album->getName() )?></figcaption>
                             </figure>
