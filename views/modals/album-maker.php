@@ -17,6 +17,8 @@ if (isset( $_POST[ 'albumName' ] ) && !empty( $_POST[ 'albumName' ] )) {
                         <label for="inputName" class="control-label col-lg-3">Album name:</label>
                         <div class="col-lg-9">
                             <input type="text" class="form-control" name="albumName" id="inputName">
+                            <!--Hidden input used to get current URL (used function from the header)-->
+                            <input type="hidden" name="getCurrentURL" value="<?= currentPageURL() ?>">
                         </div>
                     </div>
                 </div>
