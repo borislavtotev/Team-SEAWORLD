@@ -14,7 +14,7 @@
 <?php
 
 //Get current page URL; the method can be called whenever we include the header.php
-function curPageURL() {
+function currentPageURL() {
     $pageURL = 'http';
     if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
     $pageURL .= "://";

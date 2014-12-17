@@ -33,8 +33,8 @@ $albums = Album::getAlbumsByOwnerId( $_SESSION[ 'user' ]->getId() );
                 <div class="modal-footer">
                     <button class="btn btn-warning btn-md pull-left" type="button" id="add-img-btn">More images</button>
                     <!--Hidden input used to get current URL (used function from the header)-->
-                    <input type="hidden" name="getCurrentURL" value="<?php curPageURL() ?>">
-                    
+                    <input type="hidden" name="getCurrentURL" value="<?= currentPageURL() ?>">
+
                     <input type="submit" class="btn btn-danger btn-tg pull-left" value="Upload"/>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
