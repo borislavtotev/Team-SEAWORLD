@@ -10,7 +10,6 @@ class Comments
 			$_SESSION['error'] = "You can not add empty comment!";
 		} else {
 			mysqli_query($GLOBALS['mysqli'], 'INSERT INTO comments (userid, picid, albumid, content) VALUES (' . $userid . ', ' . $picid . ', ' . $albumid . ', "' . $comment . '")') or die(mysqli_error($GLOBALS['mysqli']));
-			exit();
 		}
 	}
 	
