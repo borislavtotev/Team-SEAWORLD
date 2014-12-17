@@ -5,6 +5,10 @@ Team-SEAWORLD
 
 the requirements checked with '*' are not done; '-' are done
 =============
+TO-DO:
+* set black block under photos etc.
+* remove feed?
+* edit design of form with comments etc.
 MAY-DO LIST:
 1. user & comments:
  * user can write some info about him (short bio)
