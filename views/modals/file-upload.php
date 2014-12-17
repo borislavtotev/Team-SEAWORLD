@@ -12,7 +12,7 @@ $albums = Album::getAlbumsByOwnerId( $_SESSION[ 'user' ]->getId() );
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="albumSelection" class="control-label col-lg-4">Select album:</label>
+                        <label for="albumSelection" class="control-label col-lg-4 albumSelectionLabel">Select album:</label>
                         <div class="col-lg-8">
                             <select id="albumSelection" class="form-control" name="albumId">
                                 <?php foreach ($albums as $album): ?>
