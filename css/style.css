@@ -141,9 +141,15 @@ footer .well {
     display: block;
     text-align: center;
 }
+.albumSelectionLabel{
+    vertical-align: middle;
+}
 
 #albumSelection{
     color: black;
+    height: 40px;
+    padding: 0px;
+    vertical-align: middle;
 }
 
 .figure-holder {
