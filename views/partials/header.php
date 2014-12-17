@@ -18,6 +18,7 @@ if (session_status() == PHP_SESSION_NONE) {
 //Get current page URL; the method can be called whenever we include the header.php
 function currentPageURL() {
     $pageURL = 'http';
+    if (isset($_SERVER['HTTPS']))
     if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
     $pageURL .= "://";
     if ($_SERVER["SERVER_PORT"] != "80") {
