@@ -23,7 +23,8 @@ if (!isset( $_SESSION[ 'user' ] )) {
     if ($pic->getOwnerId() != $_SESSION[ 'user' ]->getId()) {
         die( 'cannot delete foreign pic' );
     } else {
-        $pic->remove();
+        $album = Album::getAlbumById( $pic->getAlbumId() );
+        $album->removePic( $_POST[ 'picId' ] );
         echo '';
     }
 } else {

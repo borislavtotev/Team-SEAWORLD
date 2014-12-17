@@ -7,9 +7,12 @@ class Picture
     private $ownerId;
     private $dateUploaded;
     private $fullPath;
+    private $rating;
     private static $picsLocation = '/uploads/';
+    const MIN_RATING = 0;
+    const MAX_RATING = 10;
 
-    private function __construct( $id, $name, $albumId, $dateUploaded, $ownerId, $fullPath )
+    private function __construct( $id, $name, $albumId, $dateUploaded, $ownerId, $fullPath, $rating )
     {
         $this->id = $id;
         $this->name = $name;
@@ -17,6 +20,7 @@ class Picture
         $this->dateUploaded = $dateUploaded;
         $this->ownerId = $ownerId;
         $this->fullPath = $fullPath;
+        $this->rating = $rating;
     }
 
     public static function addPicture( $name, $path, $albumId )
@@ -44,12 +48,13 @@ class Picture
         if ($result -> num_rows > 0) {
             while ($row = $result -> fetch_assoc()) {
                 $fullPath = "./uploads/$ownerId/$albumId/" . $row['id'] . '-' . $row['name'];
+                $rating = [ 'ups' => $row[ 'votes-up' ], 'downs' => $row[ 'votes-down' ] ];
                 $images[] =
                     new Picture( $row[ 'id' ], $row[ 'name' ],
-                        $row[ 'albumid' ], $row[ 'date-uploaded' ], $ownerId, $fullPath );
+                        $row[ 'albumid' ], $row[ 'date-uploaded' ], $ownerId, $fullPath, $rating );
             }
         } else {
-            $images[] = new Picture( null, null, null, null, null, "http://oleaass.com/wp-content/uploads/2014/09/PHP.png" );
+            $images[] = new Picture( null, null, null, null, null, "http://oleaass.com/wp-content/uploads/2014/09/PHP.png", null );
         }
         return $images;
     }
@@ -67,8 +72,11 @@ class Picture
         if ($album == null) die("no album with this id");
         $ownerId = $album->getOwnerId();
         $albumId = $album->getId();
+
+        $rating = [ 'ups' => $info[ 'votes-up' ], 'downs' => $info[ 'votes-down' ] ];
         $fullPath = "./uploads/$ownerId/$albumId/" . $info[ 'id' ] . '-' . $info[ 'name' ];
-        return new Picture( $info['id'], $info['name'], $album->getId(), $info[ 'date-uploaded' ], $album->getOwnerId(), $fullPath );
+        return new Picture( $info['id'], $info['name'], $album->getId(),
+            $info[ 'date-uploaded' ], $album->getOwnerId(), $fullPath, $rating );
     }
 
     public function getId()
@@ -103,9 +111,20 @@ class Picture
 
     public function getRating()
     {
-        return 0;
+        return $this->rating;
     }
 
+    public function voteUp()
+    {
+        $this->rating[ 'ups' ]++;
+        $this->changeRating();
+    }
+
+    public function voteDown()
+    {
+        $this->rating[ 'downs' ]++;
+        $this->changeRating();
+    }
 
     public function remove()
     {
@@ -113,5 +132,13 @@ class Picture
         mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 
         unlink( $this->fullPath );
+    }
+
+    private function changeRating()
+    {
+        $ups = $this->rating[ 'ups' ];
+        $downs = $this->rating[ 'downs' ];
+        $query = "UPDATE `images` SET `votes-up`='$ups', `votes-down`='$downs' WHERE `id`='$this->id'";
+        $GLOBALS[ 'mysqli' ]->query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
     }
 }

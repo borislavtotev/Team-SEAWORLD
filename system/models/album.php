@@ -12,7 +12,7 @@ class Album {
 	private $picturesCount;
 	private $rating;
 
-	private function __construct($id, $name, $ownerId, $dateCreated, $picturesCount = 0, $rating = 0) {
+	private function __construct($id, $name, $ownerId, $dateCreated, $picturesCount, $rating) {
 		$this -> id = $id;
 		$this -> name = $name;
 		$this -> ownerId = $ownerId;
@@ -59,7 +59,8 @@ class Album {
 			return null;
 		} else {
 			$row = $result -> fetch_assoc();
-			return new Album($row['id'], $row['name'], $row['userid'], $row['date-created'], $row['pictures-count'], $row['rating']);
+			return new Album($row['id'], $row['name'], $row['userid'],
+                $row['date-created'], $row['pictures-count'], [ 'ups' => $row[ 'votes-up' ], 'downs' => $row[ 'votes-down' ] ]);
 		}
 	}
 
@@ -76,7 +77,8 @@ class Album {
 
 		if ($result -> num_rows > 0) {
 			while ($row = $result -> fetch_assoc()) {
-				$album = new Album($row['id'], $row['name'], $row['userid'], $row['date-created'], $row['pictures-count'], $row['rating']);
+				$album = new Album($row['id'], $row['name'], $row['userid'],
+                    $row['date-created'], $row['pictures-count'], [ 'ups' => $row[ 'votes-up' ], 'downs' => $row[ 'votes-down' ] ]);
 				$albums[] = $album;
 			}
 		}
@@ -95,6 +97,18 @@ class Album {
 
 		return $allAlbums;
 	}
+
+    public function voteUp()
+    {
+        $this->rating[ 'ups' ]++;
+        $this->changeRating();
+    }
+
+    public function voteDown()
+    {
+        $this->rating[ 'downs' ]++;
+        $this->changeRating();
+    }
 
 	/*
 	 * Getters
@@ -147,6 +161,8 @@ class Album {
 	}
 
 	public function removePic($id) {
+        $pic = Picture::getPicById($id);
+        $pic->remove();
 		$this -> picturesCount--;
 		$this -> update('pictures-count', $this -> picturesCount);
 	}
@@ -199,4 +215,11 @@ class Album {
 		return preg_replace($regex, '', $input);
 	}
 
+    private function changeRating()
+    {
+        $ups = $this->rating[ 'ups' ];
+        $downs = $this->rating[ 'downs' ];
+        $query = "UPDATE `albums` SET `votes-up`='$ups', `votes-down`='$downs' WHERE `id`='$this->id'";
+        $GLOBALS[ 'mysqli' ]->query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+    }
 }
