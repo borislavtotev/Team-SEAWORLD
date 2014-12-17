@@ -54,6 +54,23 @@ class Picture
         return $images;
     }
 
+    public static function getPicById( $id )
+    {
+        $query = "SELECT * FROM `images` WHERE `id`='$id'";
+        $result = $GLOBALS[ 'mysqli' ] -> query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+        if ($result->num_rows == 0) {
+            return null;
+        }
+
+        $info = $result->fetch_assoc();
+        $album = Album::getAlbumById( $info[ 'albumid' ] );
+        if ($album == null) die("no album with this id");
+        $ownerId = $album->getOwnerId();
+        $albumId = $album->getId();
+        $fullPath = "./uploads/$ownerId/$albumId/" . $info[ 'id' ] . '-' . $info[ 'name' ];
+        return new Picture( $info['id'], $info['name'], $album->getId(), $info[ 'date-uploaded' ], $album->getOwnerId(), $fullPath );
+    }
+
     public function getId()
     {
         return $this->id;
@@ -82,5 +99,13 @@ class Picture
     public function getFullPath()
     {
         return $this->fullPath;
+    }
+
+    public function remove()
+    {
+        $query = "DELETE FROM `images` WHERE `id` = '$this->id'";
+        mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+
+        unlink( $this->fullPath );
     }
 }

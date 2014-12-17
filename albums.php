@@ -1,69 +1,52 @@
 <?php
 include_once( 'views/partials/header.php' );
-$albums = Album::getAllAlbums();
-$rows = ceil( count($albums) / 3 );
-$userId = $_SESSION['user']->getID();
-if (!isset($_GET['id'])) {
-    ?>
+
+$elements = null;
+if (isset( $_GET[ 'id' ] )) {
+    $album = Album::getAlbumById( $_GET[ 'id' ] );
+    if ($album != null)
+        $elements = $album -> getPictures();
+}
+
+if ($elements == null) {
+    $elements = Album::getAllAlbums();
+}
+
+$ownerId = -1;
+if (isset( $_SESSION[ 'user' ] )) {
+    $ownerId = $_SESSION[ 'user' ] -> getId();
+}
+?>
     <main class="container">
         <div class="row">
             <div class="col-md-12">
-                <section>
-                    <?php for ($row = 0, $pics = 0; $row < $rows; $row++): ?>
-                        <div class="row">
-                            <?php for($col = 0; $col < 3 && $pics < count($albums); $col++, $pics++) :
-                                $albumId = $albums[$pics]->getId();
-                                $albumName = $albums[$pics]->getName();
-                                $sourcePath = $albums[$pics]->getFirstPic($userId,$albumId);
-                                ?>
-                                <div class="col-md-4">
-                                    <figure>
-                                        <a href="./albums.php?id=<?=$albums[$pics]->getId()?>">
-                                            <img class="img-responsive" src=<?= $sourcePath ?>>
-                                        </a>
-                                        <figcaption class="text-center"><?= htmlentities($albumName) ?></figcaption>
-                                    </figure>
-                                </div>
-                            <?php endfor; ?>
-                        </div>
-                    <?php endfor; ?>
+                <section id="albums-container">
+                    <div class="row">
+                        <?php foreach ($elements as $element) :
+                            $picId = '';
+                            $albumId = '';
+                            if ($element instanceof Album) {
+                                $src = $element->getFirstPic();
+                                $albumId = $element->getId();
+                            } else {
+                                $src = $element->getFullPath();
+                                $picId = $element->getId();
+                            } ?>
+                            <div class="col-md-4 figure-holder">
+                                <?php if ($ownerId == $element -> getOwnerId()): ?>
+                                    <button data-picid="<?=$picId?>" data-albumid="<?=$albumId?>" class="delete-btn"></button>
+                                <?php endif; ?>
+                                <figure>
+                                    <a href="./albums.php?id=<?=$element -> getId()?>">
+                                        <img class="img-responsive" src=<?= $src ?>>
+                                    </a>
+                                    <figcaption class="text-center"><?= htmlentities($element->getName()) ?></figcaption>
+                                </figure>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </section>
             </div>
         </div>
     </main>
-<?php
-}
-else {
-    $album = Album::getAlbumById($_GET['id']);
-
-    if (!$album instanceof Album) {
-        $_SESSION['error'] = "Invalid Album Id";
-    }
-
-    $count=$album->getPicturesCount();
-    $rows = ceil( $count / 3 );
-    $picPaths = $album->getAllPicturesPath($userId, $_GET['id']);
-    ?>
-    <main class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <section>
-                    <?php for ($row = 0, $pics = 0; $row < $rows; $row++): ?>
-                        <div class="row">
-                            <?php for($col = 0; $col < 3 && $pics < $count; $col++, $pics++) :?>
-                                <div class="col-md-4">
-                                    <figure>
-                                        <img class="img-responsive" src=<?= $picPaths[$pics] ?>>
-                                        <figcaption class="text-center">To do</figcaption>
-                                    </figure>
-                                </div>
-                            <?php endfor; ?>
-                        </div>
-                    <?php endfor; ?>
-                </section>
-            </div>
-        </div>
-    </main>
-<?php
-}
-include_once( 'views/partials/footer.php' );
+<?php include_once( 'views/partials/footer.php' );

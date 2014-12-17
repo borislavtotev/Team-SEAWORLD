@@ -9,13 +9,23 @@ include 'system/db-connect.php';
 session_start();
 
 if (!isset( $_SESSION[ 'user' ] )) {
-    echo 'not logged in';
-}
-
-$album = Album::getAlbumById( $_POST[ 'albumId' ] );
-if ($album->getOwnerId() != $_SESSION[ 'user' ]->getId()) {
-    echo 'cannot delete foreign album';
+    die( 'not logged in' );
+} else if (isset( $_POST[ 'albumId' ] ) && !empty( $_POST[ 'albumId' ] )) {
+    $album = Album::getAlbumById( $_POST[ 'albumId' ] );
+    if ($album->getOwnerId() != $_SESSION[ 'user' ]->getId()) {
+        die( 'cannot delete foreign album' );
+    } else {
+        $album->remove();
+        echo '';
+    }
+} else if (isset( $_POST[ 'picId' ] ) && !empty( $_POST[ 'picId' ] )) {
+    $pic = Picture::getPicById( $_POST[ 'picId' ] );
+    if ($pic->getOwnerId() != $_SESSION[ 'user' ]->getId()) {
+        die( 'cannot delete foreign pic' );
+    } else {
+        $pic->remove();
+        echo '';
+    }
 } else {
-    $album->remove();
-    echo '';
+    echo 'no id selected';
 }
