@@ -190,3 +190,8 @@ footer .well {
     background-size: contain;
     border: none;
 }
+.innerContactForm{
+    margin-top: 30px;
+    float: none;
+    margin: auto;
+}
