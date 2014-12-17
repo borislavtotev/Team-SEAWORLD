@@ -34,16 +34,12 @@ h1, h2{
     list-style-type: none;
     text-align: center;
 }
-.list-group-item:first-child, .list-group-item:last-child{
 
-   /* border: 1px solid #555; */
-}
 .container{
     color: #fff;
 }
 .jumbotron {
     color: #fff;
-    /*box-shadow: 0 0 30px green; */
     background-color: rgba(0, 0, 0, .9);
     border-radius: 30px !important;
 }
@@ -55,7 +51,6 @@ h1, h2{
 }
 .modal-content {
     background-color: black;
-    /*box-shadow: 0 0 40px blue;*/
 }
 
 .list-group-item {
@@ -92,7 +87,6 @@ li .btn.btn-danger {
 
 footer .well {
     background-color: rgba(0, 0, 0, .9);
-    /*box-shadow: 0 0 30px yellow;*/
     margin-top: 20px;
 }
 .title{
@@ -146,26 +140,6 @@ footer .well {
     margin: auto;
     display: block;
     text-align: center;
-}
-.form-group{
-    /*border-bottom: 1px solid grey;
-    margin-bottom: 20px;*/
-}
-.upl-img-file{
-
-}
-.upl-img-name{
-    display: inline-block;
-    margin-bottom: 20px;
-    width: 40%;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
 #albumSelection{
