@@ -5,7 +5,7 @@ if (isset( $_POST[ 'albumName' ] ) && !empty( $_POST[ 'albumName' ] )) {
 }
 ?>
 <div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="CreateAlbum" aria-hidden="true">
-    <form id="albumMaker" action="./index.php" method="post" class="form-horizontal">
+    <form id="albumMaker" action="#" method="post" class="form-horizontal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -17,8 +17,6 @@ if (isset( $_POST[ 'albumName' ] ) && !empty( $_POST[ 'albumName' ] )) {
                         <label for="inputName" class="control-label col-lg-3">Album name:</label>
                         <div class="col-lg-9">
                             <input type="text" class="form-control" name="albumName" id="inputName">
-                            <!--Hidden input used to get current URL (used function from the header)-->
-                            <input type="hidden" name="getCurrentURL" value="<?= currentPageURL() ?>">
                         </div>
                     </div>
                 </div>

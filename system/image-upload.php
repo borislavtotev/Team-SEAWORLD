@@ -1,5 +1,5 @@
 <?php
-const MAX_FILE_SIZE = 500000; // Bytes
+const MAX_FILE_SIZE = 10000000; // 10 MB
 
 $uploadedFiles = [];
 $errors = [];

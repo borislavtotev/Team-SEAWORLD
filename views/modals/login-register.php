@@ -6,7 +6,7 @@
                 <h4 class="modal-title" id="loginRegisterLabel"></h4>
             </div>
             <div class="modal-body">
-                <form id="loginRegisterForm" class="form-horizontal" action="" method="post">
+                <form id="loginRegisterForm" class="form-horizontal" action="#" method="post">
                     <input type="hidden" name="redirectTo" value="<?=$_SERVER[ 'REQUEST_URI' ]?>">
                     <div class="form-group">
                         <label for="inputUserName" class="col-lg-2 control-label">Username</label>
