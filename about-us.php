@@ -1,4 +1,7 @@
-<?php include_once( 'views/partials/header.php' ); ?>
+<?php 
+include_once( 'views/partials/header.php'); 
+include_once( 'system/send-email.php' ); 
+?>
 <!--About us info-->
     <div class="container">
         <header class="row">
@@ -22,7 +25,7 @@
                     </hgroup>
                     <div class="formContainer">
 						<div class="row">
-						  <form role="form" action="" method="post" >
+						  <form role="form" method="post" >
 						    <div class="col-lg-6 innerContactForm">			      
 						      <div class="form-group">
 						        <label for="InputName">Your Name</label>
