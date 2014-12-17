@@ -173,6 +173,9 @@ class Album {
 	}
 
 	public function remove() {
+        $query = "DELETE FROM `votes` WHERE `target-id` = '$this->id' AND `target-type` = 'album'";
+        mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+
         $pics = $this->getPictures();
         foreach ($pics as $pic) {
             $pic->remove();

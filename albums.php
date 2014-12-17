@@ -97,10 +97,10 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <figcaption class="text-center text-danger">Date created: <?= $dateCreated ?></figcaption>
                                     <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
                                     <figcaption class="text-center text-success">
-                                        <button class="vote-up"></button>
-                                        Up votes: <?=$element->getRating()['ups']?> |
-                                        Down votes: <?=$element->getRating()['downs']?>
-                                        <button class="vote-down"></button>
+                                        <button class="vote vote-up" data-target-type="<?=$element instanceof Album?>" data-target="<?= $element -> getId()?>"></button>
+                                        Up votes: <span class="up"><?=$element->getRating()['ups']?></span> |
+                                        Down votes: <span class="down"><?=$element->getRating()['downs']?></span>
+                                        <button class="vote vote-down" data-target-type="<?=$element instanceof Album?>" data-target="<?= $element -> getId()?>"></button>
                                     </figcaption>
                                     <figcaption class="text-center text-success">Comments: <?= htmlentities($element->getId())?></figcaption>
                                 </figure>

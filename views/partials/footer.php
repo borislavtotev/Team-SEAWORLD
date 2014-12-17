@@ -49,6 +49,6 @@
     });
 </script>
 
-<script src="js/albumsRemover.js"></script>
+<script src="js/buttons-handler.js"></script>
 </body>
 </html>
