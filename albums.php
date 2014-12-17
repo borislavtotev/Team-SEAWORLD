@@ -71,14 +71,17 @@ if (isset( $_SESSION[ 'user' ] )) {
                 <section id="albums-container">
                     <div class="row">
                         <?php foreach ($elements as $element) :
+                            $creator = new User( $element->getOwnerId() );
                             $picId = '';
                             $albumId = '';
                             if ($element instanceof Album) {
                                 $src = $element->getFirstPic()->getFullPath();
+                                $dateCreated = $element->getDateCreated();
                                 $albumId = $element->getId();
                             } else {
                                 $src = $element->getFullPath();
                                 $picId = $element->getId();
+                                $dateCreated = $element->getDateUploaded();
                             } ?>
                             <div class="col-md-4 figure-holder">
                                 <?php if ($ownerId == $element -> getOwnerId()): ?>
@@ -88,7 +91,13 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <a href="./albums.php?id=<?= $element -> getId()?>">
                                         <img class="img-responsive" src=<?= $src ?>>
                                     </a>
-                                    <figcaption class="text-center"><?= htmlentities($element->getName()) ?></figcaption>
+                                    <figcaption class="text-center text-success">Name: <?= htmlentities($element->getName()) ?></figcaption>
+                                    <figcaption class="text-center text-danger">Date created: <?= $dateCreated ?></figcaption>
+                                    <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
+                                    <figcaption class="text-center text-success">
+                                        Up votes: <?=$element->getRating()['ups']?> |
+                                        Down votes: <?=$element->getRating()['downs']?>
+                                    </figcaption>
                                 </figure>
                             </div>
                         <?php endforeach; ?>
