@@ -1,6 +1,6 @@
 'use strict';
 jQuery(function() {
-    jQuery( 'figure' ).on( 'click', 'button', function ( e )  {
+    jQuery( 'body' ).on( 'click', 'button', function ( e )  {
         var button = jQuery(e.target );
         if (button.is( '.delete-btn' )) {
             e.stopPropagation();
@@ -10,7 +10,7 @@ jQuery(function() {
             jQuery.post( './delete-album.php', { albumId:albumId, picId:picId }, function( result ) {
                 if (!result) {
                     button.remove();
-                    container.animate( { width: 0, opacity: 0 }, 1000, function() {
+                    container.animate( { width: 0, opacity: 0, height: 0 }, 1000, function() {
                         jQuery( this ).remove();
                     });
                 } else {
@@ -18,6 +18,7 @@ jQuery(function() {
                 }
             });
         } else if (button.is( '.vote' )) {
+            e.stopPropagation();
             var target = button.data( 'target' );
             var targetType = button.data( 'targetType' ) ? true : false;
             var isVoteUp = button.is( '.vote-up' ) ? true : false;
