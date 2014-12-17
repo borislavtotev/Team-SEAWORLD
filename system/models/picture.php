@@ -4,13 +4,19 @@ class Picture
     private $id;
     private $name;
     private $albumId;
+    private $ownerId;
     private $dateUploaded;
+    private $fullPath;
     private static $picsLocation = '/uploads/';
 
-    private function __construct( $name, $albumId, $pictureResource )
+    private function __construct( $id, $name, $albumId, $dateUploaded, $ownerId, $fullPath )
     {
-        //$this->name = $name;
-        //$this->albumId = $albumId;
+        $this->id = $id;
+        $this->name = $name;
+        $this->albumId = $albumId;
+        $this->dateUploaded = $dateUploaded;
+        $this->ownerId = $ownerId;
+        $this->fullPath = $fullPath;
     }
 
     public static function addPicture( $name, $path, $albumId )
@@ -29,17 +35,52 @@ class Picture
         move_uploaded_file( $path, "./".$newPath );
     }
 
-    public static function remove( $id )
+    public static function getPicturesFromAlbum( $albumId, $ownerId )
     {
-        // TODO: implement it!
+        $query = "SELECT * FROM images WHERE albumid = '$albumId'";
+        $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
+
+        $images = [];
+        if ($result -> num_rows > 0) {
+            while ($row = $result -> fetch_assoc()) {
+                $fullPath = "./uploads/$ownerId/$albumId/" . $row['id'] . '-' . $row['name'];
+                $images[] =
+                    new Picture( $row[ 'id' ], $row[ 'name' ],
+                        $row[ 'albumid' ], $row[ 'date-uploaded' ], $ownerId, $fullPath );
+            }
+        } else {
+            $images[] = new Picture( null, null, null, null, null, "http://oleaass.com/wp-content/uploads/2014/09/PHP.png" );
+        }
+        return $images;
     }
 
-    public function save()
+    public function getId()
     {
-        // TODO: implement it!
-        // Get a unique id somehow
-        // Set proper date of uploading
-        // Move the pic resource to its folder
-        // Anything else?
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getAlbumId()
+    {
+        return $this->albumId;
+    }
+
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
+
+    public function getDateUploaded()
+    {
+        return $this->dateUploaded;
+    }
+
+    public function getFullPath()
+    {
+        return $this->fullPath;
     }
 }

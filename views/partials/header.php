@@ -12,7 +12,8 @@
 </head>
 <body>
 <?php
-function __autoload( $classname ) {
+function __autoload( $classname )
+{
     $filename = "./system/models/". strtolower( $classname ) .".php";
     include_once( $filename );
 }

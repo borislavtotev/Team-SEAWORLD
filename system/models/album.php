@@ -120,7 +120,7 @@ class Album {
 	}
 
 	public function getPictures() {
-		// TODO: implement it!
+		return Picture::getPicturesFromAlbum( $this->id, $this->ownerId );
 	}
 
 	public function getRating() {
@@ -151,16 +151,16 @@ class Album {
 		$this -> update('pictures-count', $this -> picturesCount);
 	}
 
-	public function getAllPicturesPath($userId, $albumId) {
+	public function getAllPicturesPath() {
 
-		$query = "SELECT * FROM images WHERE albumid = '$albumId'";
+		$query = "SELECT * FROM images WHERE albumid = '$this->id'";
 
 		$result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
 		$images = [];
 
 		if ($result -> num_rows > 0) {
 			while ($row = $result -> fetch_assoc()) {
-				$images[] = "./uploads/$userId/$albumId/" . $row['id'] . '-' . $row['name'];
+				$images[] = "./uploads/$this->ownerId/$this->id/" . $row['id'] . '-' . $row['name'];
 			}
 		} else {
 			$images[] = "http://oleaass.com/wp-content/uploads/2014/09/PHP.png";
@@ -168,8 +168,8 @@ class Album {
 		return $images;
 	}
 
-	public function getFirstPic($userId, $albumId) {
-		$images = $this -> getAllPicturesPath($userId, $albumId);
+	public function getFirstPic() {
+		$images = $this -> getAllPicturesPath();
 		return $images[0];
 	}
 
