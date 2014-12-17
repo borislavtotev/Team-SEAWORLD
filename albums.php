@@ -129,6 +129,9 @@ if (isset( $_SESSION[ 'user' ] )) {
 							if ($comments) {
 								foreach ($comments as $key => $value) {
 									echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
+				                    if (Comments::getOwnerId($value['commentid']) == $ownerId): ?>
+				                   		<button>Delete</button>
+	                               <?php endif;
 								}
 							}
 						}
