@@ -12,6 +12,28 @@ if ($elements == null) {
     $elements = Album::getAllAlbums();
 }
 
+if (isset( $_GET[ 'orderBy' ], $_GET[ 'order' ] ) && !empty( $_GET[ 'orderBy' ] ) && !empty( $_GET[ 'order' ] )) {
+    usort( $elements, function( $left, $right )
+    {
+        $leftProp = '';
+        $rightProp = '';
+        switch ($_GET[ 'orderBy' ]) {
+            case 'date-posted':
+                $leftProp = 'date-posted';
+                $rightProp = '';
+                break;
+            case 'rating':
+                $orderBy = 'rating';
+                break;
+            case 'name':
+                $orderBy = 'name';
+                break;
+            default:
+                $orderBy = 'id';
+        }
+    });
+}
+
 $ownerId = -1;
 if (isset( $_SESSION[ 'user' ] )) {
     $ownerId = $_SESSION[ 'user' ] -> getId();
