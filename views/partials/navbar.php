@@ -1,6 +1,4 @@
 <?php
-include( 'system/models/user.php' );
-
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -21,17 +19,6 @@ if (session_status() == PHP_SESSION_NONE) {
                 <li>
                     <a href="./feed.php">Feed</a>
                 </li>
-
-                <!-- News link: Slav edition -->
-                <?php if (isset( $_SESSION[ 'user' ] )): ?>
-                    <?php if ($_SERVER[ 'REQUEST_URI' ] == 'news.php'): ?>
-                        <li class="active">
-                    <?php else: ?>
-                        <li>
-                    <?php endif; ?>
-                    <a href="./news.php">News</a>
-                    </li>
-                <?php endif; ?>
 
                 <!-- Albums link -->
                 <?php if ($_SERVER[ 'REQUEST_URI' ] == 'albums.php'): ?>

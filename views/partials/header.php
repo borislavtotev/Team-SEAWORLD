@@ -12,7 +12,9 @@
 </head>
 <body>
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 //Get current page URL; the method can be called whenever we include the header.php
 function currentPageURL() {
     $pageURL = 'http';
