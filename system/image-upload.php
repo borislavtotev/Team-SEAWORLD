@@ -6,7 +6,7 @@ $errors = [];
 if (isset( $_FILES[ 'files' ] )) {
     for ($i = 0; $i < count( $_FILES[ 'files' ][ 'name' ] ); $i++) {
     	$ext = pathinfo($_FILES['files']['name'][$i], PATHINFO_EXTENSION);
-        $fileName = $_POST['upl-img-name'][$i] . '.' . $ext;
+        $fileName = $_POST['upl-img-name'][$i];
 
         if (empty( $_POST[ 'upl-img-name' ][ $i ] )) {
             $fileName = $_FILES[ 'files' ][ 'name' ];
