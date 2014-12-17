@@ -34,7 +34,7 @@ class Picture
         $picId = $result->fetch_assoc()[ 'id' ];
         $userId = $_SESSION[ 'user' ]->getId();
 
-        $newPath = Picture::$picsLocation . "$userId/$albumId/$picId-$name";
+        $newPath = Picture::$picsLocation . "$userId/$albumId/$picId";
 
         move_uploaded_file( $path, "./".$newPath );
     }
@@ -47,7 +47,7 @@ class Picture
         $images = [];
         if ($result -> num_rows > 0) {
             while ($row = $result -> fetch_assoc()) {
-                $fullPath = "./uploads/$ownerId/$albumId/" . $row['id'] . '-' . $row['name'];
+                $fullPath = "./uploads/$ownerId/$albumId/" . $row['id'];
                 $rating = [ 'ups' => $row[ 'votes-up' ], 'downs' => $row[ 'votes-down' ] ];
                 $images[] =
                     new Picture( $row[ 'id' ], $row[ 'name' ],
@@ -74,7 +74,7 @@ class Picture
         $albumId = $album->getId();
 
         $rating = [ 'ups' => $info[ 'votes-up' ], 'downs' => $info[ 'votes-down' ] ];
-        $fullPath = "./uploads/$ownerId/$albumId/" . $info[ 'id' ] . '-' . $info[ 'name' ];
+        $fullPath = "./uploads/$ownerId/$albumId/" . $info[ 'id' ];
         return new Picture( $info['id'], $info['name'], $album->getId(),
             $info[ 'date-uploaded' ], $album->getOwnerId(), $fullPath, $rating );
     }
