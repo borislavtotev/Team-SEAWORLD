@@ -133,7 +133,11 @@ class Picture
         $query = "DELETE FROM `images` WHERE `id` = '$this->id'";
         mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 
-        unlink( $this->fullPath );
+        $query = "DELETE FROM `votes` WHERE `target-id` = '$this->id' AND `target-type` = 'pic'";
+        mysqli_query( $GLOBALS[ 'mysqli' ], $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
+
+        if (file_exists( $this->fullPath ))
+            unlink( $this->fullPath );
     }
 
     private function changeRating()
