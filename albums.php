@@ -111,7 +111,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                 </figure>
                             </div>
                         <?php endforeach; 
-						if ( ($_SESSION['user'] instanceof User) && isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
+						if ( ($ownerId != -1) && isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
 						
 						    if (isset($_POST['addComment'])) {
 						
