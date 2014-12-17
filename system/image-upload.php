@@ -5,7 +5,9 @@ $uploadedFiles = [];
 $errors = [];
 if (isset( $_FILES[ 'files' ] )) {
     for ($i = 0; $i < count( $_FILES[ 'files' ][ 'name' ] ); $i++) {
-        $fileName = $_FILES[ 'files' ][ 'name' ][ $i ];
+    	$ext = pathinfo($_FILES['files']['name'][$i], PATHINFO_EXTENSION);
+        $fileName = $_POST['upl-img-name'] . '.' . $ext;
+        
         $fileType = $_FILES[ 'files' ][ 'type' ][ $i ];
         $fileSize = $_FILES[ 'files' ][ 'size' ][ $i ];
         $filePath = $_FILES[ 'files' ][ 'tmp_name' ][$i ];
