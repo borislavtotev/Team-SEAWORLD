@@ -95,8 +95,10 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <figcaption class="text-center text-danger">Date created: <?= $dateCreated ?></figcaption>
                                     <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
                                     <figcaption class="text-center text-success">
+                                        <button class="vote-up"></button>
                                         Up votes: <?=$element->getRating()['ups']?> |
                                         Down votes: <?=$element->getRating()['downs']?>
+                                        <button class="vote-down"></button>
                                     </figcaption>
                                 </figure>
                             </div>

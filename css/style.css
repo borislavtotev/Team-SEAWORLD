@@ -168,3 +168,19 @@ footer .well {
     max-height: 200px;
     margin: auto;
 }
+
+.vote-up {
+    background: url('../img/vote_up.png');
+}
+
+.vote-down {
+    background: url('../img/Bad_mark.png');
+}
+
+.vote-up, .vote-down {
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-size: contain;
+    border: none;
+}
