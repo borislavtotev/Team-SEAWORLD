@@ -17,7 +17,12 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" id="navigation-up-left">
-                <!-- Feed link -->
+                <!--About page-->
+                <li>
+                    <a href="./feed.php">Feed</a>
+                </li>
+
+                <!-- News link: Slav edition -->
                 <?php if (isset( $_SESSION[ 'user' ] )): ?>
                     <?php if ($_SERVER[ 'REQUEST_URI' ] == 'news.php'): ?>
                         <li class="active">
