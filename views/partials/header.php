@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-<!-- Add jQuery to use it for 'Back to top' button -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 <?php
 if (session_status() == PHP_SESSION_NONE) {
