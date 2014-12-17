@@ -106,6 +106,7 @@ class Picture
         return 0;
     }
 
+
     public function remove()
     {
         $query = "DELETE FROM `images` WHERE `id` = '$this->id'";

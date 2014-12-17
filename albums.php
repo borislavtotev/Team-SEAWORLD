@@ -2,7 +2,7 @@
 include_once( 'views/partials/header.php' );
 
 $elements = null;
-if (isset( $_GET[ 'id' ] )) {
+if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
     $album = Album::getAlbumById( $_GET[ 'id' ] );
     if ($album != null)
         $elements = $album -> getPictures();
@@ -42,6 +42,9 @@ if (isset( $_SESSION[ 'user' ] )) {
                 <div class="navbar navbar-default">
                     <div class="navbar-collapse collapse navbar-responsive-collapse">
                         <form class="navbar-form navbar-left" action="#" method="get">
+                            <?php if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )): ?>
+                            <input type="hidden" name="id" value="<?=$_GET[ 'id' ]?>">
+                            <?php endif; ?>
                             <div class="form-group">
                                 <label for="orderBy" class="control-label">Order By: </label>
                                 <select name="orderBy" class="form-control" id="orderBy">
