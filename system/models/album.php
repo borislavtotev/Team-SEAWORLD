@@ -173,6 +173,11 @@ class Album {
 	}
 
 	public function remove() {
+        $pics = $this->getPictures();
+        foreach ($pics as $pic) {
+            $pic->remove();
+        }
+
 		$query = "DELETE FROM `albums` WHERE `id` = '$this->id'";
 		mysqli_query($GLOBALS['mysqli'], $query) or die(mysqli_error($GLOBALS['mysqli']));
 		$albumDir = "uploads/$this->ownerId/$this->id";
