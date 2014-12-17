@@ -159,3 +159,7 @@ footer .well {
     background: url('../img/redX.png') center no-repeat;
     border: none;
 }
+
+.sort-btn, .order-holder {
+    margin-left: 30px;
+}

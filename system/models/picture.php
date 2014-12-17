@@ -101,6 +101,11 @@ class Picture
         return $this->fullPath;
     }
 
+    public function getRating()
+    {
+        return 0;
+    }
+
     public function remove()
     {
         $query = "DELETE FROM `images` WHERE `id` = '$this->id'";
