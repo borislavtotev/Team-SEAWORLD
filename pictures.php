@@ -26,7 +26,7 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
                                         Down votes: <?=$picture->getRating()['downs']?>
                                         <button class="vote-down"></button>
                                     </figcaption>
-                                    <figcaption class="text-center text-success">Comments: <?= htmlentities($picture->getId())?></figcaption>
+                                    <figcaption class="text-center text-success">Comments: <?=Comments::countPicComments($_GET['id']) ?></figcaption>
                                 </figure>
 <?php 
 if ($_SESSION['user'] instanceof User) {
@@ -45,7 +45,9 @@ if ($_SESSION['user'] instanceof User) {
 <?php
 }
 $comments = Comments::getAllCommentsByPicId($_GET[ 'id' ]);
-foreach ($comments as $key => $value) {
-	echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
+if ($comments) {
+	foreach ($comments as $key => $value) {
+		echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
+	}
 }
 ?>

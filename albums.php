@@ -2,6 +2,7 @@
 include_once( 'views/partials/header.php' );
 
 $elements = null;
+
 $path = "./albums.php?id=";
 if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
     $album = Album::getAlbumById( $_GET[ 'id' ] );
@@ -37,6 +38,8 @@ $ownerId = -1;
 if (isset( $_SESSION[ 'user' ] )) {
     $ownerId = $_SESSION[ 'user' ] -> getId();
 }
+
+
 ?>
     <main class="container">
         <div class="row">
@@ -80,10 +83,12 @@ if (isset( $_SESSION[ 'user' ] )) {
                                 $src = $element->getFirstPic()->getFullPath();
                                 $dateCreated = $element->getDateCreated();
                                 $albumId = $element->getId();
+								$numberOfComments = Comments::countAlbumComments($albumId);
                             } else {
                                 $src = $element->getFullPath();
                                 $picId = $element->getId();
                                 $dateCreated = $element->getDateUploaded();
+								$numberOfComments = Comments::countPicComments($picId);
                             } ?>
                             <div class="col-md-4 figure-holder">
                                 <?php if ($ownerId == $element -> getOwnerId()): ?>
@@ -102,10 +107,33 @@ if (isset( $_SESSION[ 'user' ] )) {
                                         Down votes: <?=$element->getRating()['downs']?>
                                         <button class="vote-down"></button>
                                     </figcaption>
-                                    <figcaption class="text-center text-success">Comments: <?= htmlentities($element->getId())?></figcaption>
+                                    <figcaption class="text-center text-success">Comments: <?= $numberOfComments ?></figcaption>
                                 </figure>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach; 
+						if ( ($_SESSION['user'] instanceof User) && isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
+						
+						    if (isset($_POST['addComment'])) {
+						
+						       Comments::addComment($_SESSION['user']->getId(), null, $_GET[ 'id' ], $_POST['comment']);;
+						    }
+						    ?>
+						                                <form method="post">
+						                                	<label>Add Comment:</label>
+						                                	<textarea name="comment"></textarea>
+						                                	<input type="submit" name="addComment" />
+						                                </form>
+						                            </div>
+						<?php
+							$comments = Comments::getAllCommentsByAlbumId($_GET[ 'id' ]);
+							if ($comments) {
+								foreach ($comments as $key => $value) {
+									echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
+								}
+							}
+						}
+                        ?>
+                        
                     </div>
                 </section>
             </div>
