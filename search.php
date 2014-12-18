@@ -71,7 +71,7 @@ if (isset( $_GET[ 'pattern' ] ) && !empty( $_GET[ 'pattern' ] )) {
                                 </td>
                                 <td><?= $album->getDateCreated() ?></td>
                                 <td><?= $album->getPicturesCount() ?></td>
-                                <td><?= $album->getRating() ?></td>
+                                <td><?= $album->getRatingNumber() ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
