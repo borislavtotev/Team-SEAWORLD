@@ -19,7 +19,7 @@ if (isset( $_POST[ 'username' ], $_POST[ 'email' ], $_POST[ 'password' ] )) {
 
 $redirectLocation = 'index.php';
 
-if (isset( $_POST[ 'redirectTo' ]) && !empty( $_POST['redirectTo'])) {
+if (isset( $_POST[ 'redirectTo' ] )) {
     $redirectLocation = $_POST[ 'redirectTo' ];
 }
 

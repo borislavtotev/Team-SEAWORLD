@@ -3,6 +3,7 @@ const TOP_RATED_ELEMENTS_COUNT = 5;
 
 include_once( 'views/partials/header.php' );
 
+
 function sortById( $left, $right )
 {
     $leftRating = $left->getRating();

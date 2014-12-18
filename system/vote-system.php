@@ -3,10 +3,29 @@ include './db-connect.php';
 include './models/album.php';
 include './models/picture.php';
 
+function get_client_ip() {
+    $ipaddress = '';
+    if ($_SERVER['HTTP_CLIENT_IP'])
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if($_SERVER['HTTP_X_FORWARDED'])
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if($_SERVER['HTTP_FORWARDED_FOR'])
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if($_SERVER['HTTP_FORWARDED'])
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if($_SERVER['REMOTE_ADDR'])
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
+
 if (isset( $_POST[ 'target' ], $_POST[ 'isVoteUp' ], $_POST[ 'targetType' ] ) &&
     !empty( $_POST[ 'target' ] ) && !empty( $_POST[ 'isVoteUp' ] ) &&
     !empty( $_POST[ 'targetType' ] )) {
-    $client = $_SERVER[ 'REMOTE_ADDR' ];
+    $client = get_client_ip();
     $targetId = $_POST[ 'target' ];
     $targetType = $_POST[ 'targetType' ] == 'true' ? 'album' : 'pic';
 
