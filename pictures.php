@@ -19,7 +19,7 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body full-screen">
                 <img id="img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
             </div>
         </div>

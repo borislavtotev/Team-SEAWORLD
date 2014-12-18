@@ -29,12 +29,16 @@ figure {
     display: none;
 }
 
+.full-screen {
+    padding: 0;
+}
+
 .jumbotron aside p {
     font-size: 19px;
 }
 
 #img.img-responsive {
-    max-width: none;
+    max-width: 100%;
     max-height: none;
 }
 
