@@ -6,9 +6,9 @@ Team-SEAWORLD
 the requirements checked with '*' are not done; '-' are done
 =============
 TO-DO:
-* set black block under photos etc.
-* remove feed?
+* set black block under current photo in pictures.php
 * edit design of form with comments etc.
+* Creating new album in a category
 MAY-DO LIST:
 1. user & comments:
  * user can write some info about him (short bio)
@@ -19,7 +19,7 @@ MAY-DO LIST:
 REQUIREMENTS:
 *Required functionalities:*
 -View all albums / categories (optionally with paging). Browse album photos.
--Creating new album in a category.
+*Creating new album in a category.
 -Uploading photos (validating pictures size and type) / downloading photos.
 -Adding comments to photos and albums.
 -Implement album's ranking system (e.g. vote from 1 to 10 or like / dislike).
