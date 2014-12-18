@@ -17,6 +17,27 @@ figure {
     margin-bottom: 10px;
 }
 
+#img {
+    display: block;
+    margin: auto;
+}
+
+#picModal {
+    padding: 0 !important;
+}
+
+#picModal .modal-dialog {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#picModal .modal-content {
+    height: 100%;
+    border-radius: 0;
+}
+
 #inputComment {
     width: 80%;
     display: block;

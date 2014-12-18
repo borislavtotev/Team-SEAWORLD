@@ -10,18 +10,28 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
 		$creator = new User( $picture->getOwnerId() );
 	}
 } else {
-	//To do redirect
+	header( 'Location: ./albums.php' );
 }
-
-// Check for add comment request
-
 ?>
+<div class="modal fade" id="picModal" tabindex="-1" role="dialog" aria-labelledby="PicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <img id="img" src="<?= $picture->getFullPath() ?>">
+            </div>
+        </div>
+    </div>
+</div>
 <main class="container-fluid">
     <div class="jumbotron">
     <div class="row">
-
             <section class="col-md-8">
-                <img id="big-img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
+                <a id="openImg" href="#">
+                    <img id="big-img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
+                </a>
             </section>
             <aside class="col-md-4">
                 <p class="text-center text-success">Name: <?= htmlentities($picture->getName()) ?></p>

@@ -5,6 +5,8 @@ $(function(){
         modalForm = $( '#loginRegisterForm' ),
         modalEmail = $( '#emailInputContainer' ),
         modalCheckBox = $( '#rememberMeCheck' ),
+        picModal = $( '#picModal' ),
+        openImgBtn = $( '#openImg' ),
         modalSubmitBtn = $( '#submitBtn' );
 
     if (errorModal.length) {
@@ -28,5 +30,12 @@ $(function(){
             modalCheckBox.hide();
             modalSubmitBtn.text( 'Register' );
         }
-    })
+    });
+
+    if (picModal.length && openImgBtn.length) {
+        openImgBtn.on( 'click', function( e ) {
+            e.preventDefault();
+            picModal.modal( 'show' );
+        });
+    }
 });
