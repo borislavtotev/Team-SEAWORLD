@@ -3,12 +3,10 @@ include_once( 'views/partials/header.php' );
 
 $elements = null;
 
-$path = "./albums.php?id=";
 if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
     $album = Album::getAlbumById( $_GET[ 'id' ] );
     if ($album != null)
         $elements = $album -> getPictures();
-		$path = "./pictures.php?id=";
 }
 
 if ($elements == null) {
@@ -80,18 +78,21 @@ if (isset( $_SESSION[ 'user' ] )) {
                             $picId = '';
                             $albumId = '';
                             $hasLink = true;
+                            $path = '';
                             if ($element instanceof Album) {
                                 $src = $element->getFirstPic()->getFullPath();
                                 $dateCreated = $element->getDateCreated();
                                 $albumId = $element->getId();
 								$numberOfComments = Comments::countAlbumComments($albumId);
                                 $hasLink = $element->getPicturesCount() == 0 ? false : true;
+                                $path = "./albums.php?id=".$element->getId();
                             } else {
                                 $src = $element->getFullPath();
                                 $picId = $element->getId();
                                 $dateCreated = $element->getDateUploaded();
 								$numberOfComments = Comments::countPicComments($picId);
                                 $hasLink = $element->getId() == null ? false : true;
+                                $path = "./pictures.php?id=".$element->getId();
                             } ?>
                             <div class="col-md-4 figure-holder">
                                 <?php if ($ownerId == $element -> getOwnerId()): ?>
@@ -99,7 +100,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                 <?php endif; ?>
                                 <figure>
                                     <?php if( $hasLink ): ?>
-                                    <a href="./albums.php?id=<?= $element -> getId()?>">
+                                    <a href="<?= $path ?>">
                                     <?php endif; ?>
                                         <img class="img-responsive" src="<?= $src ?>">
                                     <?php if( $hasLink ): ?>
