@@ -33,7 +33,7 @@ class User
 	        $result = $GLOBALS[ 'mysqli' ]->query( $getUserIdQuery ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 
             $userId = $result->fetch_assoc()[ 'userid' ];
-            mkdir( "uploads/$userId" );
+            mkdir( "./uploads/$userId" );
 
 	        return new User( $userId );
 		} else {

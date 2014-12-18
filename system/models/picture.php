@@ -8,7 +8,7 @@ class Picture
     private $dateUploaded;
     private $fullPath;
     private $rating;
-    private static $picsLocation = '/uploads/';
+    private static $picsLocation = './uploads/';
     const MIN_RATING = 0;
     const MAX_RATING = 10;
 

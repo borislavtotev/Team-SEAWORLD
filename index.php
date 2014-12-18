@@ -49,7 +49,7 @@ usort( $pictures, 'sortById' );
                 <div class="panel-body">
                     <div class="list-group">
                     <?php foreach(array_slice( $albums, 0, TOP_RATED_ELEMENTS_COUNT ) as $album):
-                        if ($album->getRating()[ 'ups' ] != 0 && $album->getRating()[ 'downs' ] != 0):
+                        if ($album->getRating()[ 'ups' ] > 0):
                             if ($album->getPicturesCount() > 0 ): ?>
                             <a href="./albums.php?id=<?=$album->getId()?>" class="list-group-item">
                             <?php endif; ?>

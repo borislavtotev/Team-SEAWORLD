@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `picid` int(11) DEFAULT NULL,
   `albumid` int(11) NOT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

@@ -12,7 +12,7 @@ $dbUser = 'root';
 $dbPass = '';
 $dbLocation = 'localhost';
 
-$mysqli = mysqli_connect( $dbLocation, 'root', '', $d0ntth1nc_DBname );
+$mysqli = mysqli_connect( 'localhost', '490149', '51pxo4n11', '490149' );
 
 if ($mysqli->connect_errno) {
     die( "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error );
