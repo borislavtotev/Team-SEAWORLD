@@ -12,7 +12,6 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
 } else {
 	//To do redirect
 }
-
 ?>
                             <div class="col-md-12 figure-holder">
                                 <figure>
@@ -28,7 +27,7 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
                                     </figcaption>
                                     <figcaption class="text-center text-success">Comments: <?=Comments::countPicComments($_GET['id']) ?></figcaption>
                                 </figure>
-<?php 
+<?php
 if ($_SESSION['user'] instanceof User) {
 
     if (isset($_POST['addComment'])) {
