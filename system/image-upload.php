@@ -35,8 +35,11 @@ if (isset( $_POST[ 'albumId' ] ) || !empty( $_POST[ 'albumId' ] )) {
     foreach ($uploadedFiles as $file) {
         $album->addPic( $file[ 'name' ], $file[ 'location' ] );
     }
-
+	
     if (count( $errors )) {
         $_SESSION[ 'error' ] = implode( ' ', $errors );
     }
+	
+	header("Location: ./profile.php");
 }
+

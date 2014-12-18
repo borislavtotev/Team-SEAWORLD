@@ -9,7 +9,7 @@ class Comments
 		$query = 'INSERT INTO `comments` (`userid`, `picid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $picid . ', ' . $albumid . ', "' . $comment . '")';
 		
 		if (is_null($picid)) {
-			$query = 'INSERT INTO `comments` (`userid`, albumid`, content`) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
+			$query = 'INSERT INTO `comments` (`userid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
 		}
 		
 		if (empty($comment)) {
@@ -69,5 +69,25 @@ class Comments
 			return count($results);
 		}		
 	}
+	public static function getOwnerId ($commentid) {
+        $query = "Select userid FROM comments WHERE commentid=$commentid";
+        $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
+		
+        $userid = null;
+        if ($result->num_rows > 0) {
+            while ($row = $result -> fetch_assoc()) {
+                $userid = $row['userid'];
+            }
+        } else {
+        	return false;
+        }
+
+        return $userid;		
+	}
+	public static function remove ($commentid) {
+        $query = "DELETE FROM comments WHERE commentid=$commentid";
+        $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));	
+	}
+
 }
  ?>

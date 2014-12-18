@@ -79,32 +79,25 @@ if (isset( $_SESSION[ 'user' ] )) {
                             $creator = new User( $element->getOwnerId() );
                             $picId = '';
                             $albumId = '';
-                            $hasLink = false;
                             if ($element instanceof Album) {
                                 $src = $element->getFirstPic()->getFullPath();
                                 $dateCreated = $element->getDateCreated();
                                 $albumId = $element->getId();
 								$numberOfComments = Comments::countAlbumComments($albumId);
-                                $hasLink = $element->getPicturesCount() == 0 ? false : true;
                             } else {
                                 $src = $element->getFullPath();
                                 $picId = $element->getId();
                                 $dateCreated = $element->getDateUploaded();
 								$numberOfComments = Comments::countPicComments($picId);
-                                $hasLink = $element->getId() == null ? false : true;
                             } ?>
                             <div class="col-md-4 figure-holder">
                                 <?php if ($ownerId == $element -> getOwnerId()): ?>
                                     <button data-picid="<?=$picId?>" data-albumid="<?=$albumId?>" class="delete-btn"></button>
                                 <?php endif; ?>
                                 <figure>
-                                    <?php if ($hasLink): ?>
-                                    <a href="./albums.php?id=<?= $element -> getId()?>">
-                                    <?php endif; ?>
+                                    <a href="<?= $path.$element -> getId()?>">
                                         <img class="img-responsive" src=<?= $src ?>>
-                                    <?php if ($hasLink): ?>
                                     </a>
-                                    <?php endif; ?>
                                     <figcaption class="text-center text-success">Name: <?= htmlentities($element->getName()) ?></figcaption>
                                     <figcaption class="text-center text-danger">Date created: <?= $dateCreated ?></figcaption>
                                     <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
@@ -117,18 +110,19 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <figcaption class="text-center text-success">Comments: <?= $numberOfComments ?></figcaption>
                                 </figure>
                             </div>
-                        <?php
-                        endforeach;
-						if (($_SESSION[ 'user' ] instanceof User) && isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )):
-						    if (isset( $_POST[ 'addComment' ] )):
-						       Comments::addComment($_SESSION['user']->getId(), null, $_GET[ 'id' ], $_POST['comment']);
-						    endif;
-						?>
-                            <form method="post">
-                                <label>Add Comment:</label>
-                                <textarea name="comment"></textarea>
-                                <input type="submit" name="addComment" />
-                            </form>
+                        <?php endforeach; 
+						if ( ($_SESSION['user'] instanceof User) && isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
+						
+						    if (isset($_POST['addComment'])) {
+						
+						       Comments::addComment($_SESSION['user']->getId(), null, $_GET[ 'id' ], $_POST['comment']);;
+						    }
+						    ?>
+						                                <form method="post">
+						                                	<label>Add Comment:</label>
+						                                	<textarea name="comment"></textarea>
+						                                	<input type="submit" name="addComment" />
+						                                </form>
 						                            </div>
 						<?php
 							$comments = Comments::getAllCommentsByAlbumId($_GET[ 'id' ]);
@@ -137,7 +131,7 @@ if (isset( $_SESSION[ 'user' ] )) {
 									echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
 								}
 							}
-						endif;
+						}
                         ?>
                         
                     </div>

@@ -15,14 +15,6 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" id="navigation-up-left">
-                <!--About page-->
-                <?php if (basename( currentPageURL() ) == 'feed.php'): ?>
-                <li class="active">
-                <?php else: ?>
-                <li>
-                    <?php endif; ?>
-                    <a href="./feed.php">Feed</a>
-                </li>
 
                 <!-- Albums link -->
                 <?php if (basename( currentPageURL() ) == 'albums.php'): ?>
