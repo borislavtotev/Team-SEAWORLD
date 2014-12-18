@@ -29,7 +29,7 @@ class Comments
                 $comments[] = $row;
             }
         } else {
-        	return false;
+        	return [];
         }
         return $comments;
     }

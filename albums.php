@@ -118,30 +118,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <figcaption class="text-center text-success">Comments: <?= $numberOfComments ?></figcaption>
                                 </figure>
                             </div>
-                        <?php endforeach; 
-						if ( ($_SESSION['user'] instanceof User) && isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
-						
-						    if (isset($_POST['addComment'])) {
-						
-						       Comments::addComment($_SESSION['user']->getId(), null, $_GET[ 'id' ], $_POST['comment']);;
-						    }
-						    ?>
-                        <form method="post">
-                            <label>Add Comment:</label>
-                            <textarea name="comment"></textarea>
-                            <input type="submit" name="addComment" />
-                        </form>
-                    </div>
-						<?php
-							$comments = Comments::getAllCommentsByAlbumId($_GET[ 'id' ]);
-							if ($comments) {
-								foreach ($comments as $key => $value) {
-									echo $value['content'].' '.$value['date'].' '.$value['userid'].'<br>';
-								}
-							}
-						}
-                        ?>
-                        
+                        <?php endforeach; ?>
                     </div>
                 </section>
             </div>

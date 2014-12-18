@@ -50,5 +50,6 @@
 </script>
 
 <script src="js/buttons-handler.js"></script>
+<script src="js/post-comment.js"></script>
 </body>
 </html>
