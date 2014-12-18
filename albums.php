@@ -44,6 +44,7 @@ if (isset( $_SESSION[ 'user' ] )) {
             <div class="col-md-12">
                 <div class="navbar navbar-default">
                     <div class="navbar-collapse collapse navbar-responsive-collapse">
+                        <!--Top form about sorting-->
                         <form class="navbar-form navbar-left" action="#" method="get">
                             <?php if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )): ?>
                             <input type="hidden" name="id" value="<?=$_GET[ 'id' ]?>">
@@ -65,12 +66,15 @@ if (isset( $_SESSION[ 'user' ] )) {
                             </div>
                             <button type="submit" class="sort-btn btn btn-default btn-success">Sort</button>
                         </form>
+                        <!--End of top form about sorting-->
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
+                <!--ALBUM CONTAINER-->
+                <div class="jumbotron">
                 <section id="albums-container">
                     <div class="row">
                         <?php foreach ($elements as $element) :
@@ -121,6 +125,8 @@ if (isset( $_SESSION[ 'user' ] )) {
                         <?php endforeach; ?>
                     </div>
                 </section>
+                            </div>
+                <!--END OF ALBUM CONTAINER-->
             </div>
         </div>
      <section class="row animated">
