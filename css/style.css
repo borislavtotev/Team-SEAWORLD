@@ -33,9 +33,9 @@ figure {
     font-size: 19px;
 }
 
-#img {
-    display: block;
-    margin: auto;
+#img.img-responsive {
+    max-width: none;
+    max-height: none;
 }
 
 #picModal {

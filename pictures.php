@@ -20,7 +20,7 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <img id="img" src="<?= $picture->getFullPath() ?>">
+                <img id="img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
             </div>
         </div>
     </div>

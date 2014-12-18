@@ -40,7 +40,7 @@ if (isset( $_GET[ 'id' ] )) {
             <section id="albums-container">
                 <div class="row">
                     <?php foreach(Album::getAlbumsByOwnerId( $user->getId() ) as $album) :?>
-                        <div class="col-md-4 figure-holder">
+                        <div class="col-md-4 figure-holder animated zoomIn">
                             <?php if (isset( $_SESSION[ 'user' ] ) && $album->getOwnerId() == $_SESSION['user']->getId()): ?>
                             <button data-albumid="<?=$album->getId()?>" class="delete-btn"></button>
                             <?php endif; ?>
@@ -48,7 +48,18 @@ if (isset( $_GET[ 'id' ] )) {
                                 <a href="./albums.php?id=<?=$album->getId()?>">
                                     <img class="img-responsive" src=<?= $album->getFirstPic()->getFullPath() ?>>
                                 </a>
-                                <figcaption class="text-center"><?= htmlspecialchars( $album->getName() )?></figcaption>
+                                <figcaption class="text-center text-success">Name: <?= htmlentities($album->getName()) ?></figcaption>
+                                <figcaption class="text-center text-danger">Date created: <?= $album->getDateCreated() ?></figcaption>
+                                <?php $creator = new User( $album->getOwnerId() ); ?>
+                                <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
+                                <figcaption class="text-center text-success">
+                                    <button class="vote vote-up" data-target-type="1" data-target="<?= $album -> getId()?>"></button>
+                                    Up votes: <span class="up"><?=$album->getRating()['ups']?></span> |
+                                    Down votes: <span class="down"><?=$album->getRating()['downs']?></span>
+                                    <button class="vote vote-down" data-target-type="1" data-target="<?= $album -> getId()?>"></button>
+                                </figcaption>
+                                <?php $numberOfComments = Comments::countAlbumComments($album -> getId()); ?>
+                                <figcaption class="text-center text-success">Comments: <?= $numberOfComments ?></figcaption>
                             </figure>
                         </div>
                     <?php endforeach; ?>

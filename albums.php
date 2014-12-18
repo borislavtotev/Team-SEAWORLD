@@ -94,7 +94,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                                 $hasLink = $element->getId() == null ? false : true;
                                 $path = "./pictures.php?id=".$element->getId();
                             } ?>
-                            <div class="col-md-4 figure-holder">
+                            <div class="col-md-4 figure-holder animated zoomIn">
                                 <?php if ($ownerId == $element -> getOwnerId()): ?>
                                     <button data-picid="<?=$picId?>" data-albumid="<?=$albumId?>" class="delete-btn"></button>
                                 <?php endif; ?>
