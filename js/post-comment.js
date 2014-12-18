@@ -9,7 +9,9 @@ jQuery(function() {
 
             var comment = jQuery( '#inputComment' ).val();
             var picId = jQuery( '#picId' ).val();
-            jQuery.post( './system/add-comment.php', { comment: comment, id: picId }, function( result ) {
+            var albumId = jQuery( '#albumId' ).val();
+            var obj = { comment: comment, picid: picId, albumid: albumId };
+            jQuery.post( './system/add-comment.php', obj, function( result ) {
                 var comment = JSON.parse( result );
                 if (comment) {
                     var commentElement = template.clone();
@@ -20,7 +22,7 @@ jQuery(function() {
                     commentElement.fadeIn();
                     jQuery( '#inputComment' ).val( '' );
                 } else {
-                    console.log( result )
+                    console.log( result );
                 }
             });
         });

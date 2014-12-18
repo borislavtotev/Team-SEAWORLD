@@ -123,5 +123,46 @@ if (isset( $_SESSION[ 'user' ] )) {
                 </section>
             </div>
         </div>
+     <section class="row animated">
+        <div class="comments-holder">
+            <article id="comment-template" style="display: none;" class="col-md-12 comment-container animated fadeInDown">
+                <div class="jumbotron">
+                    <p></p>
+                    <span class="pull-left text-danger"></span>
+                    <span class="pull-right text-danger"></span>
+                </div>
+            </article>
+            <?php 
+            if (isset($_GET[ 'id' ])) :
+                foreach(Comments::getAllCommentsByAlbumId( $_GET[ 'id' ] ) as $comment): ?>
+            <article class="col-md-12 comment-container animated fadeInDown">
+                <div class="jumbotron">
+                    <p><?=htmlspecialchars( $comment[ 'content' ] )?></p>
+                    <?php $commentOwner = new User( $comment[ 'userid' ] ); ?>
+                    <span class="pull-left text-danger">By <?=htmlspecialchars( $commentOwner->getUserName() )?></span>
+                    <span class="pull-right text-danger"><?=$comment[ 'date' ]?></span>
+                </div>
+            </article>
+            <?php endforeach;
+            if (isset( $_SESSION[ 'user' ] )): ?>
+            <section class="col-md-12">
+                <div class="comment-form-container">
+                    <form id="comment-form" role="form" method="post" action="#">
+                        <input type="hidden" value="<?=$_GET[ 'id' ]?>" id="albumId">
+                        <input type="hidden" value="" id="picId">
+                        <div class="form-group">
+                            <textarea name="comment" class="form-control" id="inputComment"></textarea>
+                        </div>
+                        <div class="center-block">
+                            <button id="submit-comment-btn" type="submit" class="btn btn-warning">Post comment</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <?php endif;
+            endif; ?>
+        </div>
+    </section>
+ 
     </main>
 <?php include_once( 'views/partials/footer.php' );

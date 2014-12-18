@@ -71,6 +71,14 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
                 <div class="comment-form-container">
                     <form id="comment-form" role="form" method="post" action="#">
                         <input type="hidden" value="<?=$_GET[ 'id' ]?>" id="picId">
+                        <?php 
+                                $picture = Picture::getPicById( $_GET[ 'id' ] );
+                                $albumId = '';
+                                if ($picture != null) {
+                                    $albumId = $picture->getAlbumId($albumId);
+                                }                                  
+                         ?>
+                        <input type="hidden" value="<?=$albumId?>" id="albumId">
                         <div class="form-group">
                             <textarea name="comment" class="form-control" id="inputComment"></textarea>
                         </div>
