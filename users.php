@@ -25,8 +25,8 @@ include_once( 'views/partials/header.php' );
                         </a>
                     </td>
                     <td><?= htmlspecialchars( $user->getEmail() ) ?></td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td><?= htmlspecialchars( $user->getNumberOfAlbums() ) ?></td>
+                    <td><?= htmlspecialchars( $user->getNumberOfPictures() ) ?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>

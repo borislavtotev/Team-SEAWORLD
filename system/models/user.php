@@ -110,7 +110,25 @@ class User
     {
         return $this->email;
     }
+	
+	public function getNumberOfAlbums()
+    {
+        $albums = Album::getAlbumsByOwnerId( $this->userId );
+        return count($albums);
+    }
 
+	public function getNumberOfPictures()
+    {
+		$albums = Album::getAlbumsByOwnerId( $this->userId );	
+        $count = 0;
+		
+		foreach ($albums as $key => $value) {
+			$count += $value->getPicturesCount();
+		}
+        
+        return $count;
+    }    
+    
     /*
      * Setters
      */
