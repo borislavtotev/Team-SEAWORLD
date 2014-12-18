@@ -38,6 +38,7 @@ if (isset( $_GET[ 'id' ] )) {
     <div class="row">
         <div class="col-md-12">
             <section id="albums-container">
+                <div class="jumbotron">
                 <div class="row">
                     <?php foreach(Album::getAlbumsByOwnerId( $user->getId() ) as $album) :?>
                         <div class="col-md-4 figure-holder animated zoomIn">
@@ -64,6 +65,7 @@ if (isset( $_GET[ 'id' ] )) {
                         </div>
                     <?php endforeach; ?>
                 </div>
+                    </div>
             </section>
         </div>
     </div>
