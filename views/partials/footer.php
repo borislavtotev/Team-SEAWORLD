@@ -23,6 +23,8 @@
     </div>
 </footer>
 
+<button id="scrollTopBtn"></button>
+
 <!--Google+ plug-in-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -46,6 +48,23 @@
                 window.location.replace(this.dataset.href);
             });
         }
+    });
+</script>
+
+<script>
+    $(function() {
+        var scrollBtn = $( '#scrollTopBtn' );
+        scrollBtn.on( 'click', function() {
+            $( "html, body" ).animate({scrollTop:0}, '500', 'swing' );
+        });
+
+        $( window ).scroll( function() {
+            if ($( window ).scrollTop() > 1000) {
+                scrollBtn.show();
+            } else {
+                scrollBtn.hide();
+            }
+        });
     });
 </script>
 

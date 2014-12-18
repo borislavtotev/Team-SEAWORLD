@@ -17,6 +17,22 @@ figure {
     margin-bottom: 10px;
 }
 
+#scrollTopBtn {
+    position: fixed;
+    right: 80px;
+    width: 90px;
+    height: 90px;
+    bottom: 80px;
+    background: url('../img/up.png') center center no-repeat;
+    background-size: contain;
+    border: 0;
+    display: none;
+}
+
+.jumbotron aside p {
+    font-size: 19px;
+}
+
 #img {
     display: block;
     margin: auto;

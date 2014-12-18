@@ -25,15 +25,15 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
         </div>
     </div>
 </div>
-<main class="container-fluid">
+<main class="container">
     <div class="jumbotron">
     <div class="row">
-            <section class="col-md-8">
+            <section class="col-md-8 animated fadeInLeft">
                 <a id="openImg" href="#">
                     <img id="big-img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
                 </a>
             </section>
-            <aside class="col-md-4">
+            <aside class="col-md-4 animated fadeInRight">
                 <p class="text-center text-success">Name: <?= htmlentities($picture->getName()) ?></p>
                 <p class="text-center text-danger">Date created: <?= $picture->getDateUploaded() ?></p>
                 <p class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></p>
