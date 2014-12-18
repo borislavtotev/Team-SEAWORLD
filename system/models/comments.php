@@ -9,7 +9,7 @@ class Comments
 		$query = 'INSERT INTO `comments` (`userid`, `picid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $picid . ', ' . $albumid . ', "' . $comment . '")';
 		
 		if (is_null($picid)) {
-			$query = 'INSERT INTO `comments` (`userid`, albumid`, content`) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
+			$query = 'INSERT INTO `comments` (`userid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
 		}
 		
 		if (empty($comment)) {
