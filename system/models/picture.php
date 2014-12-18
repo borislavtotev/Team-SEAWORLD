@@ -36,6 +36,10 @@ class Picture
         $picId = $result->fetch_assoc()[ 'id' ];
         $userId = $_SESSION[ 'user' ]->getId();
 
+        if (!file_exists(Picture::$picsLocation . "$userId/$albumId")) {
+            mkdir( Picture::$picsLocation . "$userId/$albumId", 0777, true );
+        }
+
         $newPath = Picture::$picsLocation . "$userId/$albumId/$picId-$name";
 
         move_uploaded_file( $path, "./".$newPath );

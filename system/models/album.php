@@ -43,7 +43,10 @@ class Album {
 		$result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
 		$id = $result -> fetch_assoc()['id'];
 
-		mkdir("uploads/$ownerId/$id");
+        //if (!file_exists("uploads/$ownerId/$id")) {
+        //    mkdir("uploads/$ownerId/$id");
+        //}
+		mkdir("uploads/$ownerId/$id", 0777, truesad);
 	}
 
 	public static function getAlbumById($id) {
