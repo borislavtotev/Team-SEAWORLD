@@ -9,7 +9,7 @@ if (isset( $_FILES[ 'files' ] )) {
         $fileName = $_POST['upl-img-name'][$i] . '.' . $ext;
 
         if (empty( $_POST[ 'upl-img-name' ][ $i ] )) {
-            $fileName = $_FILES[ 'files' ][ 'name' ][0];
+            $fileName = $_FILES[ 'files' ][ 'name' ][$i];
         }
 
         $fileType = $_FILES[ 'files' ][ 'type' ][ $i ];

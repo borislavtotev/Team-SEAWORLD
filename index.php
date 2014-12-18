@@ -11,7 +11,7 @@ function sortById( $left, $right )
     $rightRating = $right->GetRating();
     $rightTotalRating = $rightRating[ 'ups' ] - $rightRating[ 'downs' ];
 
-    return $leftTotalRating - $rightTotalRating;
+    return $rightTotalRating-$leftTotalRating;
 }
 
 $albums = Album::getAllAlbums();
