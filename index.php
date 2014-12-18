@@ -1,18 +1,26 @@
 <?php
+const TOP_RATED_ELEMENTS_COUNT = 5;
+
 include_once( 'views/partials/header.php' );
 
-/*
- * Simulate extraction from db
- */
+function sortById( $left, $right )
+{
+    $leftRating = $left->getRating();
+    $leftTotalRating = $leftRating[ 'ups' ] - $leftRating[ 'downs' ];
+    $rightRating = $right->GetRating();
+    $rightTotalRating = $rightRating[ 'ups' ] - $rightRating[ 'downs' ];
 
-$albums = [
-    (object)[ 'name' => 'Nai-qkiq', 'owner' => 'Unknown' ],
-    (object)[ 'name' => 'Second album', 'owner' => 'Known' ]
-];
-$pictures = [
-    (object)[ 'title' => 'Porn pic', 'owner' => 'Unknown' ],
-    (object)[ 'title' => 'Second pic', 'owner' => 'Known' ]
-];
+    return $leftTotalRating - $rightTotalRating;
+}
+
+$albums = Album::getAllAlbums();
+usort( $albums, 'sortById' );
+
+$pictures = [];
+foreach ($albums as $album) {
+    $pictures = array_merge( $album->getPictures(), $pictures );
+}
+usort( $pictures, 'sortById' );
 ?>
 <div class="container">
     <header class="row">
@@ -40,16 +48,23 @@ $pictures = [
                 </header>
                 <div class="panel-body">
                     <div class="list-group">
-                    <?php foreach($albums as $album): ?>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">
-                                <?= htmlspecialchars( $album->name ) ?>
-                            </h4>
-                            <p class="list-group-item-text text-warning">
-                                Made by <?= htmlspecialchars( $album->owner ) ?>
-                            </p>
-                        </a>
-                    <?php endforeach; ?>
+                    <?php foreach(array_slice( $albums, 0, TOP_RATED_ELEMENTS_COUNT ) as $album):
+                        if ($album->getRating()[ 'ups' ] != 0 && $album->getRating()[ 'downs' ] != 0):
+                            if ($album->getPicturesCount() > 0 ): ?>
+                            <a href="./albums.php?id=<?=$album->getId()?>" class="list-group-item">
+                            <?php endif; ?>
+                                <h4 class="list-group-item-heading">
+                                    <?= htmlspecialchars( $album->getName() ) ?>
+                                </h4>
+                                <p class="list-group-item-text text-warning">
+                                    <?php $owner = new User( $album->getOwnerId() ); ?>
+                                    Made by <?= htmlspecialchars( $owner->getUserName() ) ?>
+                                </p>
+                            <?php if ($album->getPicturesCount() > 0): ?>
+                            </a>
+                            <?php endif;
+                        endif;
+                    endforeach; ?>
                     </div>
                 </div>
             </section>
@@ -61,16 +76,19 @@ $pictures = [
                 </header>
                 <div class="panel-body">
                     <div class="list-group">
-                    <?php foreach($pictures as $picture): ?>
-                        <a href="#" class="list-group-item">
+                    <?php foreach(array_slice( $pictures, 0, TOP_RATED_ELEMENTS_COUNT ) as $picture):
+                        if ($picture->getId() != null) : ?>
+                        <a href="./pictures.php?id=<?=$picture->getId()?>" class="list-group-item">
                             <h4 class="list-group-item-heading">
-                                <?= htmlspecialchars( $picture->title ) ?>
+                                <?= htmlspecialchars( $picture->getName() ) ?>
                             </h4>
                             <p class="list-group-item-text text-warning">
-                                Uploaded by <?= htmlspecialchars( $picture->owner ) ?>
+                                <?php $owner = new User( $picture->getOwnerId() ); ?>
+                                Uploaded by <?= htmlspecialchars( $owner->getUserName() ) ?>
                             </p>
                         </a>
-                    <?php endforeach; ?>
+                        <?php endif;
+                    endforeach; ?>
                     </div>
                 </div>
             </section>
