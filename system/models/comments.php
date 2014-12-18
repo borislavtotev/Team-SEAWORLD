@@ -35,7 +35,7 @@ class Comments
     }
 	
 	public static function getAllCommentsByAlbumId($albumid) {
-        $query = "Select * FROM `comments` WHERE `albumid`='$albumid' AND `picid` IS NULL";
+        $query = "Select * FROM `comments` WHERE `albumid`='$albumid'";
         $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
 		
         $comments = [];

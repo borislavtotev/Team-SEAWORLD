@@ -46,7 +46,7 @@ class Album {
         //if (!file_exists("uploads/$ownerId/$id")) {
         //    mkdir("uploads/$ownerId/$id");
         //}
-		mkdir("uploads/$ownerId/$id", 0777, truesad);
+		mkdir("uploads/$ownerId/$id", 0777, true);
 	}
 
 	public static function getAlbumById($id) {
