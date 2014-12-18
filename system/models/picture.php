@@ -26,8 +26,9 @@ class Picture
     public static function addPicture( $name, $path, $albumId )
     {
         $name = preg_replace( '/[^a-zA-Z0-9._]/', '', $name );
-
+        
         $query = "INSERT INTO images(name, albumid) VALUES('$name', '$albumId')";
+
         $GLOBALS[ 'mysqli' ]->query( $query ) or die( mysqli_error( $GLOBALS[ 'mysqli' ] ) );
 
         $query = "SELECT `id` FROM `images` WHERE `name`='$name' AND `albumid`='$albumId'";

@@ -7,10 +7,10 @@ class Comments
 		$comment = trim($content);
 		
 		$query = 'INSERT INTO `comments` (`userid`, `picid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $picid . ', ' . $albumid . ', "' . $comment . '")';
-		
-		if (is_null($picid)) {
+
+		if (is_null($picid)) {    
 			$query = 'INSERT INTO `comments` (`userid`, `albumid`, `content`) VALUES (' . $userid . ', ' . $albumid . ', "' . $comment . '")';
-		}
+        }
 		
 		if (empty($comment)) {
 			$_SESSION['error'] = "You can not add empty comment!";
@@ -35,7 +35,7 @@ class Comments
     }
 	
 	public static function getAllCommentsByAlbumId($albumid) {
-        $query = "Select * FROM `comments` WHERE `albumid`='$albumid'";
+        $query = "Select * FROM `comments` WHERE `albumid`='$albumid' AND `picid` IS NULL";
         $result = $GLOBALS['mysqli'] -> query($query) or die(mysqli_error($GLOBALS['mysqli']));
 		
         $comments = [];
@@ -44,7 +44,7 @@ class Comments
                 $comments[] = $row;
             }
         } else {
-        	return false;
+        	return [];
         }
 
         return $comments;
