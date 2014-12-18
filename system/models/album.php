@@ -143,6 +143,12 @@ class Album {
 	public function getRating() {
 		return $this -> rating;
 	}
+    
+    public function getRatingNumber() {
+        $ratingObject = $this->rating;
+        $rating = $ratingObject['ups']-$ratingObject['downs'];
+        return $rating;
+    }
 
     public function getFirstPic() {
         $images = $this -> getPictures();

@@ -120,6 +120,12 @@ class Picture
     {
         return $this->rating;
     }
+    
+    public function getRatingNumber() {
+        $ratingObject = $this->rating;
+        $rating = $ratingObject['ups']-$ratingObject['downs'];
+        return $rating;
+    }
 
     public function voteUp()
     {

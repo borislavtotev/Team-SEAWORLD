@@ -16,7 +16,7 @@ if ($elements == null) {
 if (isset( $_GET[ 'orderBy' ], $_GET[ 'order' ] ) && !empty( $_GET[ 'orderBy' ] ) && !empty( $_GET[ 'order' ] )) {
     function getProps( $element )
     {
-        $props = [ 'id' => $element->getId(), 'name' => $element->getName(), 'rating' => $element->getRating() ];
+        $props = [ 'id' => $element->getId(), 'name' => $element->getName(), 'rating' => $element->getRatingNumber() ];
         $props[ 'date-posted' ] = $element instanceof Album ? $element->getDateCreated() : $element->getDateUploaded();
         return $props;
     }
@@ -26,7 +26,7 @@ if (isset( $_GET[ 'orderBy' ], $_GET[ 'order' ] ) && !empty( $_GET[ 'orderBy' ] 
         $rightProps = $_GET[ 'order' ] == 'ascending' ? getProps( $right ) : getProps( $left );
         if (is_numeric( $leftProps[ $_GET[ 'orderBy' ] ] )) {
             return $leftProps[ $_GET[ 'orderBy' ] ] - $rightProps[ $_GET[ 'orderBy' ] ];
-        } else {
+        } else {  
             return strcmp( $leftProps[ $_GET[ 'orderBy' ] ], $rightProps[ $_GET[ 'orderBy' ] ] );
         }
     });
