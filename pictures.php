@@ -16,12 +16,11 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
 <div class="modal fade" id="picModal" tabindex="-1" role="dialog" aria-labelledby="PicModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body full-screen">
-                <img id="img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
-            </div>
+            <a data-dismiss="modal" class="close">
+                <div class="modal-body full-screen">
+                    <img id="img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
+                </div>
+            </a>
         </div>
     </div>
 </div>
@@ -72,12 +71,11 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
                     <form id="comment-form" role="form" method="post" action="#">
                         <input type="hidden" value="<?=$_GET[ 'id' ]?>" id="picId">
                         <?php 
-                                $picture = Picture::getPicById( $_GET[ 'id' ] );
-                                $albumId = '';
-                                if ($picture != null) {
-                                    $albumId = $picture->getAlbumId($albumId);
-                                }                                  
-                         ?>
+                        $picture = Picture::getPicById( $_GET[ 'id' ] );
+                        $albumId = '';
+                        if ($picture != null) {
+                            $albumId = $picture->getAlbumId($albumId);
+                        } ?>
                         <input type="hidden" value="<?=$albumId?>" id="albumId">
                         <div class="form-group">
                             <textarea name="comment" class="form-control" id="inputComment"></textarea>

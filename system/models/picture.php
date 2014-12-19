@@ -60,9 +60,8 @@ class Picture
                     new Picture( $row[ 'id' ], $row[ 'name' ],
                         $row[ 'albumid' ], $row[ 'date-uploaded' ], $ownerId, $fullPath, $rating );
             }
-        } else {
-            $images[] = new Picture( null, null, null, null, null, "http://oleaass.com/wp-content/uploads/2014/09/PHP.png", null );
         }
+
         return $images;
     }
 

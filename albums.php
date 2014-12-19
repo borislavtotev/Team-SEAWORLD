@@ -1,15 +1,14 @@
 <?php
 include_once( 'views/partials/header.php' );
 
-$elements = null;
-
+$elements = [];
 if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
     $album = Album::getAlbumById( $_GET[ 'id' ] );
     if ($album != null)
         $elements = $album -> getPictures();
-}
-
-if ($elements == null) {
+    else
+        $elements = Album::getAllAlbums();
+} else {
     $elements = Album::getAllAlbums();
 }
 
@@ -35,67 +34,59 @@ if (isset( $_GET[ 'orderBy' ], $_GET[ 'order' ] ) && !empty( $_GET[ 'orderBy' ] 
 $ownerId = -1;
 if (isset( $_SESSION[ 'user' ] )) {
     $ownerId = $_SESSION[ 'user' ] -> getId();
-}
-
-
-?>
-    <main class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="navbar navbar-default">
-                    <div class="navbar-collapse collapse navbar-responsive-collapse">
-                        <!--Top form about sorting-->
-                        <form class="navbar-form navbar-left" action="#" method="get">
-                            <?php if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )): ?>
-                            <input type="hidden" name="id" value="<?=$_GET[ 'id' ]?>">
-                            <?php endif; ?>
-                            <div class="form-group">
-                                <label for="orderBy" class="control-label">Order By: </label>
-                                <select name="orderBy" class="form-control" id="orderBy">
-                                    <option value="name">Name</option>
-                                    <option value="rating">Rating</option>
-                                    <option value="date-posted">Date</option>
-                                </select>
-                            </div>
-                            <div class="form-group order-holder">
-                                <label for="order" class="control-label">Order: </label>
-                                <select name="order" class="form-control" id="order">
-                                    <option value="ascending">Ascending</option>
-                                    <option value="desc">Descending</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="sort-btn btn btn-default btn-success">Sort</button>
-                        </form>
-                        <!--End of top form about sorting-->
-                    </div>
+} ?>
+<main class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="navbar navbar-default">
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <!--Top form about sorting-->
+                    <form class="navbar-form navbar-left" action="#" method="get">
+                        <?php if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )): ?>
+                        <input type="hidden" name="id" value="<?=$_GET[ 'id' ]?>">
+                        <?php endif; ?>
+                        <div class="form-group">
+                            <label for="orderBy" class="control-label">Order By: </label>
+                            <select name="orderBy" class="form-control" id="orderBy">
+                                <option value="name">Name</option>
+                                <option value="rating">Rating</option>
+                                <option value="date-posted">Date</option>
+                            </select>
+                        </div>
+                        <div class="form-group order-holder">
+                            <label for="order" class="control-label">Order: </label>
+                            <select name="order" class="form-control" id="order">
+                                <option value="ascending">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="sort-btn btn btn-default btn-success">Sort</button>
+                    </form>
+                    <!--End of top form about sorting-->
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <!--ALBUM CONTAINER-->
-                <div class="jumbotron">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--ALBUM CONTAINER-->
+            <div class="jumbotron">
                 <section id="albums-container">
                     <div class="row">
                         <?php foreach ($elements as $element) :
                             $creator = new User( $element->getOwnerId() );
                             $picId = '';
                             $albumId = '';
-                            $hasLink = true;
                             $path = '';
                             if ($element instanceof Album) {
-                                $src = $element->getFirstPic()->getFullPath();
+                                $src = $element->getFirstPic();
                                 $dateCreated = $element->getDateCreated();
                                 $albumId = $element->getId();
-								$numberOfComments = Comments::countAlbumComments($albumId);
-                                $hasLink = $element->getPicturesCount() == 0 ? false : true;
                                 $path = "./albums.php?id=".$element->getId();
-                            } else {
+                            } else if ($element instanceof Picture) {
                                 $src = $element->getFullPath();
                                 $picId = $element->getId();
                                 $dateCreated = $element->getDateUploaded();
-								$numberOfComments = Comments::countPicComments($picId);
-                                $hasLink = $element->getId() == null ? false : true;
                                 $path = "./pictures.php?id=".$element->getId();
                             } ?>
                             <div class="col-md-4 figure-holder animated zoomIn">
@@ -103,13 +94,9 @@ if (isset( $_SESSION[ 'user' ] )) {
                                     <button data-picid="<?=$picId?>" data-albumid="<?=$albumId?>" class="delete-btn"></button>
                                 <?php endif; ?>
                                 <figure>
-                                    <?php if( $hasLink ): ?>
                                     <a href="<?= $path ?>">
-                                    <?php endif; ?>
                                         <img class="img-responsive" src="<?= $src ?>">
-                                    <?php if( $hasLink ): ?>
                                     </a>
-                                    <?php endif; ?>
                                     <figcaption class="text-center text-success">Name: <?= htmlentities($element->getName()) ?></figcaption>
                                     <figcaption class="text-center text-danger">Date created: <?= $dateCreated ?></figcaption>
                                     <figcaption class="text-center text-warning">Created by: <?= htmlentities($creator->getUserName()) ?></figcaption>
@@ -119,18 +106,27 @@ if (isset( $_SESSION[ 'user' ] )) {
                                         Down votes: <span class="down"><?=$element->getRating()['downs']?></span>
                                         <button class="vote vote-down" data-target-type="<?=$element instanceof Album?>" data-target="<?= $element -> getId()?>"></button>
                                     </figcaption>
-                                    <figcaption class="text-center text-success">Comments: <?= $numberOfComments ?></figcaption>
+                                    <figcaption class="text-center text-success">Comments: <?= Comments::countPicComments($picId) ?></figcaption>
                                 </figure>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        if (!count( $elements )): ?>
+                        <div class="col-md-12">
+                            <h3>No pictures here!</h3>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </section>
-                            </div>
-                <!--END OF ALBUM CONTAINER-->
             </div>
+            <!--END OF ALBUM CONTAINER-->
         </div>
-     <section class="row animated">
+    </div>
+    <?php if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) : ?>
+    <section class="row animated">
         <div class="comments-holder">
+            <header class="col-md-12">
+                <div class="comments-header text-info">Album Comments</div>
+            </header>
             <article id="comment-template" style="display: none;" class="col-md-12 comment-container animated fadeInDown">
                 <div class="jumbotron">
                     <p></p>
@@ -138,7 +134,7 @@ if (isset( $_SESSION[ 'user' ] )) {
                     <span class="pull-right text-danger"></span>
                 </div>
             </article>
-            <?php 
+            <?php
             if (isset($_GET[ 'id' ])) :
                 foreach(Comments::getAllCommentsByAlbumId( $_GET[ 'id' ] ) as $comment): ?>
             <article class="col-md-12 comment-container animated fadeInDown">
@@ -169,6 +165,6 @@ if (isset( $_SESSION[ 'user' ] )) {
             endif; ?>
         </div>
     </section>
- 
-    </main>
+    <?php endif; ?>
+</main>
 <?php include_once( 'views/partials/footer.php' );

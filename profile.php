@@ -46,13 +46,13 @@ if (isset( $_GET[ 'id' ] )) {
                             <button data-albumid="<?=$album->getId()?>" class="delete-btn"></button>
                             <?php endif; ?>
                             <figure>
-                                <?php if ($album->getPicturesCount() > 0): ?>
+                                <?php //if ($album->getPicturesCount() > 0): ?>
                                 <a href="./albums.php?id=<?=$album->getId()?>">
-                                <?php endif; ?>
-                                    <img class="img-responsive" src=<?= $album->getFirstPic()->getFullPath() ?>>
-                                <?php if ($album->getPicturesCount() > 0): ?>
+                                <?php //endif; ?>
+                                    <img class="img-responsive" src=<?= $album->getFirstPic() ?>>
+                                <?php //if ($album->getPicturesCount() > 0): ?>
                                 </a>
-                                <?php endif; ?>
+                                <?php //endif; ?>
                                 <figcaption class="text-center text-success">Name: <?= htmlentities($album->getName()) ?></figcaption>
                                 <figcaption class="text-center text-danger">Date created: <?= $album->getDateCreated() ?></figcaption>
                                 <?php $creator = new User( $album->getOwnerId() ); ?>

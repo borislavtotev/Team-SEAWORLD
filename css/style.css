@@ -18,10 +18,6 @@ figure {
     transition: all 1s ease;
 }
 
-figure, .jumbotron {
-    word-break: break-all;
-}
-
 figure:hover {
     box-shadow: 0 0 20px red;
 }
@@ -36,6 +32,11 @@ figure:hover {
     background-size: contain;
     border: 0;
     display: none;
+}
+
+.comments-header {
+    font-size: 20px;
+    text-align: center;
 }
 
 .full-screen {
@@ -67,8 +68,14 @@ figure:hover {
     border-radius: 0;
 }
 
+.jumbotron:after {
+    content: '';
+    display:block;
+    clear:both;
+}
+
 #inputComment {
-    width: 80%;
+    max-width: 100%;
     display: block;
     margin: auto;
 }
@@ -79,7 +86,6 @@ figure:hover {
 }
 
 .comments-holder {
-    width: 80%;
     margin: auto;
 }
 
@@ -113,6 +119,7 @@ h1, h2{
     color: #fff;
     background-color: rgba(0, 0, 0, .9);
     border-radius: 30px !important;
+    word-wrap: break-word;
 }
 
 .navbar {

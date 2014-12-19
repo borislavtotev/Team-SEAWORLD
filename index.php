@@ -49,11 +49,8 @@ usort( $pictures, 'sortById' );
                 </header>
                 <div class="panel-body">
                     <div class="list-group">
-                    <?php foreach(array_slice( $albums, 0, TOP_RATED_ELEMENTS_COUNT ) as $album):
-                        //if ($album->getRating()[ 'ups' ] > 0):
-                            if ($album->getPicturesCount() > 0 ): ?>
+                    <?php foreach(array_slice( $albums, 0, TOP_RATED_ELEMENTS_COUNT ) as $album): ?>
                             <a href="./albums.php?id=<?=$album->getId()?>" class="list-group-item">
-                            <?php endif; ?>
                                 <h4 class="list-group-item-heading">
                                     <?= htmlspecialchars( $album->getName() ) ?>
                                 </h4>
@@ -61,11 +58,8 @@ usort( $pictures, 'sortById' );
                                     <?php $owner = new User( $album->getOwnerId() ); ?>
                                     Made by <?= htmlspecialchars( $owner->getUserName() ) ?>
                                 </p>
-                            <?php if ($album->getPicturesCount() > 0): ?>
                             </a>
-                            <?php endif;
-                        //endif;
-                    endforeach; ?>
+                    <?php endforeach; ?>
                     </div>
                 </div>
             </section>

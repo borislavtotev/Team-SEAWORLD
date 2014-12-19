@@ -152,7 +152,7 @@ class Album {
 
     public function getFirstPic() {
         $images = $this -> getPictures();
-        return $images[0];
+        return count( $images ) ? $images[ 0 ]->getFullPath() : 'http://oleaass.com/wp-content/uploads/2014/09/PHP.png';
     }
 
 	/*
