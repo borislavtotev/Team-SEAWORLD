@@ -13,8 +13,14 @@ body {
 figure {
     padding: 10px;
     border-radius: 30px;
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 0 20px black;
+    overflow-wrap: break-word;
     margin-bottom: 10px;
+    transition: all 1s ease;
+}
+
+figure:hover {
+    box-shadow: 0 0 20px red;
 }
 
 #scrollTopBtn {
