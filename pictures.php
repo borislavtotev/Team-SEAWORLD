@@ -16,7 +16,7 @@ if (isset( $_GET[ 'id' ] ) && is_numeric( $_GET[ 'id' ] )) {
 <div class="modal fade" id="picModal" tabindex="-1" role="dialog" aria-labelledby="PicModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <a data-dismiss="modal" class="close">
+            <a data-dismiss="modal">
                 <div class="modal-body full-screen">
                     <img id="img" class="img-responsive" src="<?= $picture->getFullPath() ?>">
                 </div>

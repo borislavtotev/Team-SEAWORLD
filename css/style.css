@@ -18,6 +18,10 @@ figure {
     transition: all 1s ease;
 }
 
+.list-group {
+    word-break: break-all;
+}
+
 figure:hover {
     box-shadow: 0 0 20px red;
 }
